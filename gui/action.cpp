@@ -397,6 +397,13 @@ void GUIAction::simulate_progress_bar(void)
 
 int GUIAction::flash_zip(std::string filename, int* wipe_cache)
 {
+	// Standalone boot images do not deploy the optional PBRP tools to storage.
+	if (filename == "/sdcard/PBRP/tools/magisk.zip" &&
+	    !TWFunc::Path_Exists(filename) &&
+	    TWFunc::Path_Exists("/twres/tools/magisk.zip")) {
+		filename = "/twres/tools/magisk.zip";
+	}
+
 	int ret_val = 0;
 
 	DataManager::SetValue("ui_progress", 0);
