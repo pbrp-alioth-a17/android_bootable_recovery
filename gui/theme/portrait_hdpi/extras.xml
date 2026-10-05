@@ -2,40 +2,7 @@
 <?xml version="1.0"?>
 <recovery>
     <pages>
-        <page name="pbrp_special">
-            <template name="page_without_logo"/>
-            <text style="text_l">
-                <placement x="%col1_x_header%" y="%row3_header_y%"/>
-                <text>{@pbrpspecial_btn=PBRP Special}</text>
-            </text>
-            <listbox style="advanced_listbox">
-                <placement x="%listbox_x%" y="%row1a_y%" w="%screen_width%" h="%advanced_listbox_h%"/>
-                <listitem name="Tools">
-                    <action function="page">tools</action>
-                </listitem>
-                <listitem name="Customizations">
-                    <action function="page">customizations</action>
-                </listitem>
-                <listitem name="Settings">
-                    <action function="page">settings</action>
-                </listitem>
-                <listitem name="About">
-                    <action function="page">about</action>
-                </listitem>
-                <listitem name="Special Settings">
-                    <condition var1="pb_alioth_safe_ui" var2="0"/>
-                    <action function="page">special_setting</action>
-                </listitem>
-            </listbox>
-            <action>
-                <touch key="back"/>
-                <action function="page">advanced</action>
-            </action>
-            <action>
-                <touch key="home"/>
-                <action function="page">main</action>
-            </action>
-        </page>
+
 
 	<page name="rename_c">
 		<template name="page"/>

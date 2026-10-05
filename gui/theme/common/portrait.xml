@@ -461,6 +461,7 @@
 			</text>
 
 			<button style="main_button_back">
+                <condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="%col1_x_right%" y="%row18a_y%"/>
 				<text>{@settings_btn=Settings}</text>
 				<actions>
@@ -4588,12 +4589,6 @@
 				<placement x="%advanced_text_1_x%" y="%advanced_text_1_y%"/>
 				<text>{@advanced_hdr=Advanced}</text>
 			</text>
-
-			<button>
-                <image resource="main_button_special"/>
-                <placement x="%advanced_main_button_special_x%" y="%advanced_main_button_special_y%"/>
-                <action function="page">pbrp_special</action>
-            </button>
 
 			<listbox style="advanced_listbox">
 				<placement x="%listbox_x%" y="%row1a_y%" w="%screen_width%" h="%advanced_listbox_h%"/>
