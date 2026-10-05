@@ -441,6 +441,8 @@ endif
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := relink_libraries
+# Recopy runtime libraries when minuitwrp changes during incremental builds.
+LOCAL_ADDITIONAL_DEPENDENCIES += $(TARGET_OUT_SHARED_LIBRARIES)/libminuitwrp.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/

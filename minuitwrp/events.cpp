@@ -182,6 +182,16 @@ int vibrate(int timeout_ms)
         write_to_file(VIBRATOR_TIMEOUT_FILE, tout);
     }
 #else
+    // Alioth stock AW8697 exports controls on the I2C device, not an LED.
+    // Continuous mode uses the driver's duration timer and needs no RAM firmware.
+    const std::string aw8697 = "/sys/bus/i2c/devices/2-005a/";
+    if (std::ifstream(aw8697 + "activate").good()) {
+        if (write_to_file(aw8697 + "activate", "0") != 0) return -1;
+        if (timeout_ms <= 0) return 0;
+        if (write_to_file(aw8697 + "activate_mode", "1") != 0 ||
+            write_to_file(aw8697 + "duration", tout) != 0) return -1;
+        return write_to_file(aw8697 + "activate", "1");
+    }
     if (std::ifstream(LEDS_HAPTICS_ACTIVATE_FILE).good()) {
         write_to_file(LEDS_HAPTICS_DURATION_FILE, tout);
         write_to_file(LEDS_HAPTICS_ACTIVATE_FILE, "1");
