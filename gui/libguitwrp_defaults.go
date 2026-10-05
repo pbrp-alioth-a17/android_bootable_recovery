@@ -193,6 +193,10 @@ func copyTheme(ctx android.BaseContext) bool {
 func globalFlags(ctx android.BaseContext) []string {
 	var cflags []string
 
+	if framerate := ctx.Config().VendorConfig("pbrpGlobalVars").String("tw_framerate"); framerate != "" {
+		cflags = append(cflags, "-DTW_FRAMERATE="+framerate)
+	}
+
         if getMakeVars(ctx, "AB_OTA_UPDATER") == "true" {
                 cflags = append(cflags, "-DAB_OTA_UPDATER=1")
         }
