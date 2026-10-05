@@ -40,6 +40,7 @@
  * IN THE SOFTWARE.
  */
 
+#include <android-base/properties.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <poll.h>
@@ -634,6 +635,19 @@ static drmModeConnector *find_main_monitor(int fd, drmModeRes *resources,
         if (main_monitor_connector->modes[modes].type &
                 DRM_MODE_TYPE_PREFERRED) {
             *mode_index = modes;
+            break;
+        }
+    }
+
+    // Keep the preferred resolution and fall back if the requested rate is absent.
+    const int refresh = android::base::GetIntProperty("ro.pbrp.display_refresh_rate", 0);
+    const drmModeModeInfo preferred = main_monitor_connector->modes[*mode_index];
+    for (int mode = 0; refresh > 0 && mode < main_monitor_connector->count_modes; ++mode) {
+        const auto& candidate = main_monitor_connector->modes[mode];
+        if (candidate.hdisplay == preferred.hdisplay && candidate.vdisplay == preferred.vdisplay &&
+            candidate.vrefresh == static_cast<unsigned>(refresh)) {
+            *mode_index = mode;
+            printf("Recovery DRM refresh rate: %u Hz\n", candidate.vrefresh);
             break;
         }
     }
