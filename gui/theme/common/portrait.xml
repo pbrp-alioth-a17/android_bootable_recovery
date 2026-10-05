@@ -1646,6 +1646,7 @@
 			</text>
 
 			<button style="main_button_half_height_full_width_pb">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="%advancedwipe_main_button_half_height_x%" y="%row17a_y%" textplacementmain="3"/>
 				<icon resource="main_button_specials_icon"/>
 				<text>{@repair_change_btn=Repair or Change File System}</text>
@@ -3312,7 +3313,7 @@
 			</button>
 
 			<button style="checkbox">
-				<condition var1="tw_mount_system_ro" op="!=" var2="0"/>
+				<conditions><condition var1="tw_mount_system_ro" op="!=" var2="0"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
 				<placement x="%checkbox_x%" y="%row16_y%" textplacement="6"/>
 				<text>{@mount_sys_ro_chk=Mount system partition read-only}</text>
 				<image resource="checkbox_true"/>
@@ -4589,10 +4590,10 @@
 			</text>
 
 			<button>
-				<image resource="main_button_special"/>
-				<placement x="%advanced_main_button_special_x%" y="%advanced_main_button_special_y%"/>
-				<action function="page">pbrp_special</action>
-			</button>
+                <image resource="main_button_special"/>
+                <placement x="%advanced_main_button_special_x%" y="%advanced_main_button_special_y%"/>
+                <action function="page">pbrp_special</action>
+            </button>
 
 			<listbox style="advanced_listbox">
 				<placement x="%listbox_x%" y="%row1a_y%" w="%screen_width%" h="%advanced_listbox_h%"/>
@@ -4613,7 +4614,7 @@
 				</listitem>
 				<listitem name="{@part_sd_btn=Partition SD Card}">
 						<text>{@part_sd_btn1=Partition your SD card / Internal Storage}</text>
-						<condition var1="tw_allow_partition_sdcard" var2="1"/>
+						<conditions><condition var1="tw_allow_partition_sdcard" var2="1"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
 						<icon icon="main_button_partitionsd"/>
 						<actions>
 							<action function="set">partitionlisterror=0</action>
@@ -4621,7 +4622,7 @@
 						</actions>
 				</listitem>
 				<listitem name="{@fix_context_btn=Fix Contexts}">
-					<condition var1="tw_has_data_media" var2="1"/>
+					<conditions><condition var1="tw_has_data_media" var2="1"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
 					<text>{@fix_context_btn1=soon}</text>
 					<icon icon="main_button_fixcontexts"/>
 					<action function="page">fixcontexts</action>
@@ -4643,7 +4644,7 @@
 					<action function="reload"/>
 				</listitem>
 				<listitem name="{@install_twrp_ramdisk=Install Recovery Ramdisk}">
-					<condition var1="tw_has_boot_slots" var2="1"/>
+					<conditions><condition var1="tw_has_boot_slots" var2="1"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
 					<condition var1="tw_include_install_recovery_ramdisk" var2="1"/>
 					<text>{@install_twrp_ramdisk1=Install Recovery Ramdisk}</text>
 					<icon icon="main_button_fixcontexts"/>
@@ -4654,6 +4655,7 @@
 				</listitem>
 				<listitem name="{@reflash_current=Flash Current}">
 					<conditions>
+					<condition var1="pb_alioth_safe_ui" var2="0"/>
 						<condition var1="tw_has_boot_slots" var2="1"/>
 						<condition var1="tw_has_repack_tools" var2="1"/>
 						<condition var1="tw_is_vendor_boot_header_v3" var2="0"/>
@@ -4672,7 +4674,7 @@
 						</actions>
 				</listitem>
 				<listitem name="{@install_kernel=Install Kernel}">
-					<condition var1="tw_has_boot_slots" var2="1"/>
+					<conditions><condition var1="tw_has_boot_slots" var2="1"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
 					<text>{@repack_kernel_confirm_hdr1=Install Kernel}</text>
 					<icon icon="main_button_fixcontexts"/>
 					<actions>
@@ -4682,6 +4684,7 @@
 				</listitem>
 				<listitem name="{@fix_recovery_loop=Fix Recovery Bootloop}">
 					<conditions>
+					<condition var1="pb_alioth_safe_ui" var2="0"/>
 						<condition var1="tw_has_boot_slots" var2="1"/>
 						<condition var1="tw_uses_initramfs" var2="1"/>
 					</conditions>
@@ -4698,7 +4701,7 @@
 					</actions>
 				</listitem>
 				<listitem name="{@unmap_super_devices=Unmap Super Devices}">
-					<condition var1="tw_is_super" op="=" var2="1"/>
+					<conditions><condition var1="tw_is_super" op="=" var2="1"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
 					<text>{@unmap_super_devices_dynamic=Unmap Super Devices(Dynamic only)}</text>
 					<icon icon="main_button_unmap"/>
 					<actions>
@@ -4712,7 +4715,7 @@
 					</actions>
 				</listitem>
 				<listitem name="{@merges_snapshots=Merge Snapshots}">
-					<condition var1="tw_virtual_ab.enabled" op="=" var2="1"/>
+					<conditions><condition var1="tw_virtual_ab.enabled" op="=" var2="1"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
 					<text>{@merges_snapshots_vab=Merge Snapshots(VAB only)}</text>
 					<icon icon="main_button_snapshot"/>
 					<actions>
@@ -5059,6 +5062,7 @@
 			</checkbox>
 
 			<button style="main_button_half_height_new">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="%repackconfirm_main_button_half_height_new_x%" y="%row16_y%"/>
 				<text>{@install_cancel=Do not Install}</text>
 				<action function="page">repackselect</action>
@@ -5273,7 +5277,7 @@
 			</text>
 
 			<button style="main_button_half_height_full">
-				<contitions>
+				<conditions>
 					<condition var1="tw_fm_isfolder" var2="0"/>
 					<condition var1="pb_file_extn" var2="zip"/>
 				</conditions>

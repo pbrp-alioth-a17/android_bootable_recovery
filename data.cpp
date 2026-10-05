@@ -263,6 +263,10 @@ int DataManager::LoadValues(const string& filename)
 #endif
 
 	pthread_mutex_unlock(&m_valuesLock);
+	if (GetIntValue("pb_alioth_safe_ui") == 1) {
+		SetValue(TW_ZIP_LOCATION_VAR, "/data/media/0");
+		SetValue("tw_backup_list", "/boot;");
+	}
 	string current = GetCurrentStoragePath();
 	TWPartition* Part = PartitionManager.Find_Partition_By_Path(current);
 	if (!Part)
@@ -602,7 +606,11 @@ void DataManager::SetBackupFolder()
 			storage_path = partition->Symlink_Mount_Point;
 		else
 			storage_path = partition->Storage_Path;
-		if (zip_path.size() < storage_path.size()) {
+		if (GetIntValue("pb_alioth_safe_ui") == 1 && partition->Has_Data_Media) {
+			const string media = "/data/media/0";
+			if (zip_path != media && zip_path.find(media + "/") != 0)
+				SetValue(TW_ZIP_LOCATION_VAR, media);
+		} else if (zip_path.size() < storage_path.size()) {
 			SetValue(TW_ZIP_LOCATION_VAR, storage_path);
 		} else {
 			zip_root = TWFunc::Get_Root_Path(zip_path);
@@ -633,6 +641,9 @@ void DataManager::SetDefaultValues()
 
 	mConst.SetValue("true", "1");
 	mConst.SetValue("false", "0");
+	char alioth_ui[PROPERTY_VALUE_MAX];
+	property_get("ro.pbrp.alioth_safe_ui", alioth_ui, "0");
+	mConst.SetValue("pb_alioth_safe_ui", alioth_ui);
 
 	mConst.SetValue(TW_VERSION_VAR, PB_BUILD);
 
@@ -660,11 +671,11 @@ void DataManager::SetDefaultValues()
 	printf("BOARD_HAS_NO_REAL_SDCARD := true\n");
 	mConst.SetValue(TW_ALLOW_PARTITION_SDCARD, "0");
 #else
-	mConst.SetValue(TW_ALLOW_PARTITION_SDCARD, "1");
+	mConst.SetValue(TW_ALLOW_PARTITION_SDCARD, string(alioth_ui) == "1" ? "0" : "1");
 #endif
 
 	str = GetCurrentStoragePath();
-	mPersist.SetValue(TW_ZIP_LOCATION_VAR, str);
+	mPersist.SetValue(TW_ZIP_LOCATION_VAR, string(alioth_ui) == "1" ? "/data/media/0" : str);
 	str += "/PBRP/BACKUPS/";
 
 	string dev_id;
@@ -872,6 +883,7 @@ void DataManager::SetDefaultValues()
 	mData.SetValue(TW_ZIP_INDEX, "0");
 	mData.SetValue(TW_ZIP_QUEUE_COUNT, "0");
 	mData.SetValue(TW_FILENAME, "/sdcard");
+	if (string(alioth_ui) == "1") mPersist.SetValue("tw_backup_list", "/boot;");
 	mData.SetValue(TW_SIMULATE_ACTIONS, "0");
 	mData.SetValue(TW_SIMULATE_FAIL, "0");
 	mData.SetValue(TW_IS_ENCRYPTED, "0");
@@ -1026,6 +1038,7 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("tw_mtp_enabled", "0");
 #endif
 	mPersist.SetValue("tw_mount_system_ro", "2");
+	if (string(alioth_ui) == "1") mConst.SetValue("tw_mount_system_ro", "1");
 	mPersist.SetValue("tw_never_show_system_ro_page", "0");
 	mPersist.SetValue("tw_language", EXPAND(TW_DEFAULT_LANGUAGE));
 	LOGINFO("LANG: %s\n", EXPAND(TW_DEFAULT_LANGUAGE));

@@ -397,6 +397,12 @@ void GUIAction::simulate_progress_bar(void)
 
 int GUIAction::flash_zip(std::string filename, int* wipe_cache)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1 &&
+	    filename.find("/sdcard/PBRP/tools/") == 0 &&
+	    filename != "/sdcard/PBRP/tools/magisk.zip") {
+		gui_print("Legacy bundled tools are disabled for Alioth.\n");
+		return 1;
+	}
 	// Standalone boot images do not deploy the optional PBRP tools to storage.
 	if (filename == "/sdcard/PBRP/tools/magisk.zip" &&
 	    !TWFunc::Path_Exists(filename) &&
@@ -1559,6 +1565,12 @@ int GUIAction::cancelbackup(std::string arg __unused) {
 
 int GUIAction::fixcontexts(std::string arg __unused)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		operation_start("Unsupported action");
+		gui_print("This legacy operation is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	int op_status = 0;
 
 	operation_start("Fix Contexts");
@@ -1595,6 +1607,12 @@ int GUIAction::dd(std::string arg)
 
 int GUIAction::partitionsd(std::string arg __unused)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		operation_start("Unsupported action");
+		gui_print("This legacy operation is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	operation_start("Partition SD Card");
 	int ret_val = 0;
 
@@ -1915,6 +1933,12 @@ int GUIAction::decrypt_backup(std::string arg __unused)
 
 int GUIAction::repair(std::string arg __unused)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		operation_start("Unsupported action");
+		gui_print("This legacy operation is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	int op_status = 0;
 
 	operation_start("Repair Partition");
@@ -1936,6 +1960,12 @@ int GUIAction::repair(std::string arg __unused)
 
 int GUIAction::resize(std::string arg __unused)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		operation_start("Unsupported action");
+		gui_print("This legacy operation is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	int op_status = 0;
 
 	operation_start("Resize Partition");
@@ -1957,6 +1987,12 @@ int GUIAction::resize(std::string arg __unused)
 
 int GUIAction::changefilesystem(std::string arg __unused)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		operation_start("Unsupported action");
+		gui_print("This legacy operation is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	int op_status = 0;
 
 	operation_start("Change File System");
@@ -2109,6 +2145,7 @@ int GUIAction::checkpartitionlifetimewrites(std::string arg)
 
 int GUIAction::mountsystemtoggle(std::string arg)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1 && arg == "0") return 1;
 	int op_status = 0;
 	bool remount_system = PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path());
 	bool remount_vendor = PartitionManager.Is_Mounted_By_Path("/vendor");
@@ -2394,6 +2431,12 @@ int GUIAction::unpack(std::string arg __unused)
 
 int GUIAction::repack(std::string arg __unused)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		operation_start("Unsupported action");
+		gui_print("This legacy operation is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	operation_start("Repacking done");
 	if (simulate) {
 		simulate_progress_bar();
@@ -2488,6 +2531,12 @@ int GUIAction::flashlight(std::string arg __unused)
 
 int GUIAction::repackimage(std::string arg __unused)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		operation_start("Unsupported action");
+		gui_print("This legacy operation is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	int op_status = 1;
 	twrpRepacker repacker;
 
@@ -2515,6 +2564,12 @@ exit:
 
 int GUIAction::reflashtwrp(std::string arg __unused)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		operation_start("Unsupported action");
+		gui_print("This legacy operation is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	int op_status = 1;
 	twrpRepacker repacker;
 
@@ -2532,6 +2587,12 @@ exit:
 }
 int GUIAction::fixabrecoverybootloop(std::string arg __unused)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		operation_start("Unsupported action");
+		gui_print("This legacy operation is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	int op_status = 1;
 	twrpRepacker repacker;
 
@@ -2595,6 +2656,12 @@ exit:
 
 int GUIAction::change_codename(std::string arg __unused)
 {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		operation_start("Unsupported action");
+		gui_print("This legacy operation is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	operation_start("Codename Changing");
 	string new_codename = arg;
 	DataManager::SetProgress(0);
@@ -2651,6 +2718,11 @@ int GUIAction::enablefastboot(std::string arg __unused) {
 }
 
 int GUIAction::unmapsuperdevices(std::string arg __unused) {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		gui_print("Manual Virtual A/B maintenance is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	int op_status = 1;
 
 	operation_start("Remove Super Devices");
@@ -2667,6 +2739,11 @@ int GUIAction::unmapsuperdevices(std::string arg __unused) {
 }
 
 int GUIAction::mergesnapshots(string arg __unused) {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		gui_print("Manual Virtual A/B maintenance is disabled for Alioth.\n");
+		operation_end(1);
+		return 1;
+	}
 	int op_status = 1;
 	if (PartitionManager.Check_Pending_Merges()) {
 		op_status = 0;

@@ -1034,6 +1034,12 @@ int TWPartitionManager::Cancel_Backup() {
 	return 0;
 }
 
+// Device-scoped normal backup/restore profile; service partitions are not user restore targets.
+static bool AliothBackupPathAllowed(const string& path) {
+	return DataManager::GetIntValue("pb_alioth_safe_ui") != 1 ||
+	       path == "/boot" || path == "/vendor_boot" || path == "/dtbo" || path == "/data";
+}
+
 int TWPartitionManager::Run_Backup(bool adbbackup) {
 	PartitionSettings part_settings;
 	int partition_count = 0, disable_free_space_check = 0, skip_digest = 0;
@@ -1085,6 +1091,13 @@ int TWPartitionManager::Run_Backup(bool adbbackup) {
 
 	LOGINFO("Calculating backup details...\n");
 	DataManager::GetValue("tw_backup_list", Backup_List);
+	for (const string& path : android::base::Split(Backup_List, ";")) {
+		if (!path.empty() && !AliothBackupPathAllowed(path)) {
+			gui_print("Service partition backup/restore is disabled for Alioth.\n");
+			return false;
+		}
+	}
+
 	LOGINFO("Backup_List: %s\n", Backup_List.c_str());
 	if (!Backup_List.empty()) {
 		end_pos = Backup_List.find(";", start_pos);
@@ -1339,6 +1352,13 @@ int TWPartitionManager::Run_Restore(const string& Restore_Name) {
 	}
 	gui_msg("calc_restore=Calculating restore details...");
 	DataManager::GetValue("tw_restore_selected", Restore_List);
+	for (const string& path : android::base::Split(Restore_List, ";")) {
+		if (!path.empty() && !AliothBackupPathAllowed(path)) {
+			gui_print("Service partition backup/restore is disabled for Alioth.\n");
+			return false;
+		}
+	}
+
 
 	if (!Restore_List.empty()) {
 		end_pos = Restore_List.find(";", start_pos);
@@ -1548,6 +1568,12 @@ void TWPartitionManager::Set_Restore_Files(string Restore_Name) {
 	}
 
 	// Set the final value
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+		string allowed;
+		for (const string& path : android::base::Split(Restore_List, ";"))
+			if (!path.empty() && AliothBackupPathAllowed(path)) allowed += path + ";";
+		Restore_List = allowed;
+	}
 	DataManager::SetValue("tw_restore_list", Restore_List);
 	DataManager::SetValue("tw_restore_selected", Restore_List);
 	return;
@@ -2662,6 +2688,14 @@ void TWPartitionManager::Get_Partition_List(string ListType,
 	std::vector<TWPartition*>::iterator iter;
 	if (ListType == "mount") {
 		for (iter = Partitions.begin(); iter != Partitions.end(); iter++) {
+			if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+				const string& point = (*iter)->Mount_Point;
+				if (!(*iter)->Is_Present ||
+				    (point != "/system" && point != "/system_root" &&
+				     point != "/system_ext" && point != "/product" &&
+				     point != "/vendor" && point != "/odm" &&
+				     point != "/data" && point != "/usb_otg")) continue;
+			}
 			if ((*iter)->Can_Be_Mounted) {
 				struct PartitionList part;
 				part.Display_Name = (*iter)->Display_Name;
@@ -2692,7 +2726,8 @@ void TWPartitionManager::Get_Partition_List(string ListType,
 		char backup_size[255];
 		unsigned long long Backup_Size;
 		for (iter = Partitions.begin(); iter != Partitions.end(); iter++) {
-			if ((*iter)->Can_Be_Backed_Up && !(*iter)->Is_SubPartition && (*iter)->Is_Present) {
+			if ((*iter)->Can_Be_Backed_Up && !(*iter)->Is_SubPartition && (*iter)->Is_Present &&
+			    AliothBackupPathAllowed((*iter)->Mount_Point)) {
 				struct PartitionList part;
 				Backup_Size = (*iter)->Backup_Size;
 				if ((*iter)->Has_SubPartition) {
@@ -2731,6 +2766,12 @@ void TWPartitionManager::Get_Partition_List(string ListType,
 					break;
 				}
 				if ((restore_part = Find_Partition_By_Path(restore_path)) != NULL) {
+					if (!AliothBackupPathAllowed(restore_part->Mount_Point)) {
+						start_pos = end_pos + 1;
+						end_pos = Restore_List.find(";", start_pos);
+						continue;
+					}
+
 					if ((restore_part->Backup_Name == "recovery" && !restore_part->Can_Be_Backed_Up) ||
 							restore_part->Is_SubPartition) {
 						// Don't allow restore of recovery (causes problems on some devices)

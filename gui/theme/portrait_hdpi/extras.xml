@@ -2,6 +2,41 @@
 <?xml version="1.0"?>
 <recovery>
     <pages>
+        <page name="pbrp_special">
+            <template name="page_without_logo"/>
+            <text style="text_l">
+                <placement x="%col1_x_header%" y="%row3_header_y%"/>
+                <text>{@pbrpspecial_btn=PBRP Special}</text>
+            </text>
+            <listbox style="advanced_listbox">
+                <placement x="%listbox_x%" y="%row1a_y%" w="%screen_width%" h="%advanced_listbox_h%"/>
+                <listitem name="Tools">
+                    <action function="page">tools</action>
+                </listitem>
+                <listitem name="Customizations">
+                    <action function="page">customizations</action>
+                </listitem>
+                <listitem name="Settings">
+                    <action function="page">settings</action>
+                </listitem>
+                <listitem name="About">
+                    <action function="page">about</action>
+                </listitem>
+                <listitem name="Special Settings">
+                    <condition var1="pb_alioth_safe_ui" var2="0"/>
+                    <action function="page">special_setting</action>
+                </listitem>
+            </listbox>
+            <action>
+                <touch key="back"/>
+                <action function="page">advanced</action>
+            </action>
+            <action>
+                <touch key="home"/>
+                <action function="page">main</action>
+            </action>
+        </page>
+
 	<page name="rename_c">
 		<template name="page"/>
 		<text style="text_l">
@@ -89,6 +124,7 @@
 				</actions>
 			</button>
 			<button style="main_button_tools">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="56" y="489" textplacementmain="3"/>
 				<icon resource="magisk"/>
 				<text>{@Unroot_Magisk_btn=Unroot Magisk}</text>
@@ -106,6 +142,7 @@
 				</actions>
 			</button>
 			<button style="main_button_tools">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="56" y="654" textplacementmain="3"/>
 				<icon resource="magisk"/>
 				<text>{@MMR_btn=Magisk Manager}</text>
@@ -123,6 +160,7 @@
 				</actions>
 			</button>
 			<button style="main_button_tools">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="56" y="819" textplacementmain="3"/>
 				<icon resource="mtp"/>
 				<text>{@MTP_Fix_btn=MTP Fix}</text>
@@ -140,6 +178,7 @@
 				</actions>
 			</button>
 			<button style="main_button_tools">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="56" y="984" textplacementmain="3"/>
 				<icon resource="overlays"/>
 				<text>{@RM_All_Subs_Overlays_btn=RM All Overlays}</text>
@@ -157,6 +196,7 @@
 				</actions>
 			</button>
 			<button style="main_button_tools">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="56" y="1149" textplacementmain="3"/>
 				<icon resource="overlays"/>
 				<text>{@RM_Subs_Overlays_btn=RM Overlays}</text>
@@ -174,6 +214,7 @@
 				</actions>
 			</button>
 			<button style="main_button_tools">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="557" y="489" textplacementmain="3"/>
 				<icon resource="fingerprint"/>
 				<text>{@FP_Scanner_btn=FP Scanner}</text>
@@ -191,6 +232,7 @@
 				</actions>
 			</button>
 			<button style="main_button_tools">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="557" y="654" textplacementmain="3"/>
 				<icon resource="pin_pass_remover"/>
 				<text>{@Pin/Pass_Remover_btn=Pin/Pass Remover}</text>
@@ -208,6 +250,7 @@
 				</actions>
 			</button>
 			<button style="main_button_tools">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="557" y="819" textplacementmain="3"/>
 				<icon resource="camera2"/>
 				<text>{@Camera2API_Enabler_btn=Camera2API Enabler}</text>
@@ -225,6 +268,7 @@
 				</actions>
 			</button>
 			<button style="main_button_tools">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="557" y="984" textplacementmain="3"/>
 				<icon resource="trash"/>
 				<text>{@App_Delete_btn=App Delete}</text>
@@ -242,6 +286,7 @@
 				</actions>
 			</button>
 			<button style="main_button_tools">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="557" y="1149" textplacementmain="3"/>
 				<icon resource="dm_verity"/>
 				<text>{@Dm_Verity_btn=Dm Verity}</text>
@@ -259,6 +304,7 @@
 				</actions>
 			</button>
 			<button style="main_button_tools">
+				<condition var1="pb_alioth_safe_ui" var2="0"/>
 				<placement x="557" y="324" textplacementmain="3"/>
 				<icon resource="codename_changer"/>
 				<text>{@codename_changer=Codename Changer}</text>
@@ -312,23 +358,23 @@
 			<listbox style="scrolllist">
 				<placement x="90" y="%row4a_y%" w="964" h="534"/>
 				<icon selected="checkbox_true" unselected="checkbox_false"/>
-               			<listitem name="{@pb_verify_incremental_ota_signature_chk=Incremental OTA signature verification}">
+				<listitem name="{@pb_verify_incremental_ota_signature_chk=Incremental OTA signature verification}"><condition var1="pb_alioth_safe_ui" var2="0"/>
 					<data variable="pb_verify_incremental_ota_signature"/>
 				</listitem>
-				<listitem name="{@pb_include_system_survival_chk=Include system in OTA survival}">
+				<listitem name="{@pb_include_system_survival_chk=Include system in OTA survival}"><condition var1="pb_alioth_safe_ui" var2="0"/>
 					<data variable="pb_include_system_survival"/>
 					</listitem>
-				<listitem name="{@pb_support_miui_ota_chk=Support MIUI Incremental OTA}">
+				<listitem name="{@pb_support_miui_ota_chk=Support MIUI Incremental OTA}"><condition var1="pb_alioth_safe_ui" var2="0"/>
 					<data variable="pb_support_miui_ota"/>
 				</listitem>
-				<listitem name="{@pb_advanced_stock_recovery=Simulate failure for actions}">
+				<listitem name="{@pb_advanced_stock_recovery=Simulate failure for actions}"><condition var1="pb_alioth_safe_ui" var2="0"/>
 					<data variable="pb_reboot_advanced_stock_recovery_check"/>
 				</listitem>
 				<listitem name="{@pb_reboot_dont_disable_stock_recovery_chk=}">
-					<condition var1="tw_mount_system_ro" op="!=" var2="0"/>
+					<conditions><condition var1="tw_mount_system_ro" op="!=" var2="0"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
 					<data variable="pb_reboot_dont_disable_stock_recovery"/>
 				</listitem>
-				<listitem name="{@pb_disable_reboot_ota_check=Disable Rebooting After OTA}">
+				<listitem name="{@pb_disable_reboot_ota_check=Disable Rebooting After OTA}"><condition var1="pb_alioth_safe_ui" var2="0"/>
 					<data variable="pb_disable_reboot_ota"/>
 				</listitem>
 			</listbox>
@@ -351,21 +397,21 @@
 				<text>{@pb_device_ab=Settings for A/B Devices}</text>
 			</text>
 			<button style="main_button_install_done">
-				<condition var1="tw_has_boot_slots" var2="1"/>
+				<conditions><condition var1="tw_has_boot_slots" var2="1"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
 				<placement x="90" y="%row14a_y%"/>
 				<text>{@install_twrp_ramdisk=Install Recovery Ramdisk}</text>
 				<action function="set">tw_repack_kernel=0</action>
 				<action function="page">repackselect</action>
 			</button>
 			<button style="main_button_half_height_new">
-				<condition var1="tw_has_boot_slots" var2="1"/>
+				<conditions><condition var1="tw_has_boot_slots" var2="1"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
 				<placement x="35" y="%row16_y%"/>
 				<text>{@install_kernel=Install Kernel}</text>
 				<action function="set">tw_repack_kernel=1</action>
 				<action function="page">repackselect</action>
 			</button>
 			<button style="main_button_install_done">
-				<condition var1="tw_has_boot_slots" var2="1"/>
+				<conditions><condition var1="tw_has_boot_slots" var2="1"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
 				<placement x="90" y="%row19a_y%"/>
 				<text>{@fix_recovery_loop=Fix Recovery Bootloop}</text>
 				<actions>
