@@ -260,7 +260,11 @@ static void process_recovery_mode(twrpAdbBuFifo* adb_bu_fifo, bool skip_decrypti
 	property_get("ro.product.device", encrypt_status, "");
 	DataManager::SetValue("pb_device", std::string(encrypt_status));
 	property_get("ro.product.model", encrypt_status, "");
-	DataManager::SetValue("pb_device_name", std::string(encrypt_status));
+	std::string display_model(encrypt_status);
+    const std::string brand_prefix = DataManager::GetStrValue("pb_device_manufacturer") + " ";
+    if (display_model.compare(0, brand_prefix.size(), brand_prefix) == 0)
+        display_model.erase(0, brand_prefix.size());
+    DataManager::SetValue("pb_device_name", display_model);
 	DataManager::SetValue("pb_build", string(BUILD));
 
 #ifdef TW_HAS_MTP

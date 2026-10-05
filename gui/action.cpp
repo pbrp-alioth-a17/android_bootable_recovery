@@ -2538,7 +2538,8 @@ int GUIAction::flashlight(std::string arg __unused)
 
 int GUIAction::repackimage(std::string arg __unused)
 {
-	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
+	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1 &&
+        DataManager::GetIntValue("tw_repack_kernel") != 0) {
 		operation_start("Unsupported action");
 		gui_print("This legacy operation is disabled for Alioth.\n");
 		operation_end(1);
@@ -2571,12 +2572,6 @@ exit:
 
 int GUIAction::reflashtwrp(std::string arg __unused)
 {
-	if (DataManager::GetIntValue("pb_alioth_safe_ui") == 1) {
-		operation_start("Unsupported action");
-		gui_print("This legacy operation is disabled for Alioth.\n");
-		operation_end(1);
-		return 1;
-	}
 	int op_status = 1;
 	twrpRepacker repacker;
 

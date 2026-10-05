@@ -4638,10 +4638,25 @@
 					<icon icon="main_button_reloadtheme"/>
 					<action function="reload"/>
 				</listitem>
-				<listitem name="{@install_twrp_ramdisk=Install Recovery Ramdisk}">
-					<conditions><condition var1="tw_has_boot_slots" var2="1"/><condition var1="pb_alioth_safe_ui" var2="0"/></conditions>
-					<condition var1="tw_include_install_recovery_ramdisk" var2="1"/>
-					<text>{@install_twrp_ramdisk1=Install Recovery Ramdisk}</text>
+				<listitem name="{@install_current_recovery=Install Current Recovery}">
+					<conditions><condition var1="pb_alioth_safe_ui" var2="1"/><condition var1="tw_has_boot_slots" var2="1"/><condition var1="tw_include_install_recovery_ramdisk" var2="1"/></conditions>
+										<text>Install the running recovery</text>
+					<icon icon="main_button_fixcontexts"/>
+					<actions>
+						<action function="set">tw_repack_kernel=0</action>
+						<action function="set">tw_repack_backup_first=0</action>
+                        <action function="set">tw_back=advanced</action>
+                        <action function="set">tw_action=reflashtwrp</action>
+                        <action function="set">tw_text1={@reflash_pbrp_confirm=Flash Current PBRP?}</action>
+                        <action function="set">tw_action_text1={@reflashing_pbrp=Flashing PBRP...}</action>
+                        <action function="set">tw_complete_text1={@reflash_pbrp_complete=Done Flashing PBRP}</action>
+                        <action function="set">tw_slider_text={@swipe_to_confirm=Swipe to Confirm}</action>
+                        <action function="page">confirm_action</action>
+					</actions>
+				</listitem>
+				<listitem name="{@install_recovery_image=Install Recovery from Image}">
+					<conditions><condition var1="tw_has_boot_slots" var2="1"/><condition var1="tw_include_install_recovery_ramdisk" var2="1"/></conditions>
+										<text>Choose a recovery image</text>
 					<icon icon="main_button_fixcontexts"/>
 					<actions>
 						<action function="set">tw_repack_kernel=0</action>

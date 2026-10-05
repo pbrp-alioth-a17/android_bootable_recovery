@@ -499,6 +499,8 @@
 		<string name="install_cancel">Do Not Install</string>
 		<string name="sel_storage_list">Select Storage</string>
 		<string name="ok_btn">OK</string>
+        <string name="install_current_recovery">Install Current Recovery</string>
+        <string name="install_recovery_image">Install Recovery from Image</string>
 		<string name="install_twrp_ramdisk">Install Recovery Ramdisk</string>
 		<string name="install_twrp_ramdisk1">Flash recovery ramdisk (A/B only)</string>
 		<string name="install_kernel">Install Kernel</string>
@@ -946,8 +948,8 @@
 		<string name="pb_donate">Consider donating, if you like it</string>
 		<string name="pb_coming_soon">Coming Soon....!</string>
 		<string name="restore_system_context">Unable to get default context for {1} -- Android may not boot.</string>
-		<string name="unmap_super_devices">Unmap Super Devices</strings>
-		<string name="unmap_super_devices_dynamic">Unmap Super Devices (Dynamic only)</strings>
+		<string name="unmap_super_devices">Unmap Super Devices</string>
+		<string name="unmap_super_devices_dynamic">Unmap Super Devices (Dynamic only)</string>
 		<string name="unmap_super_devices_confirm">Unmap all Super Devices?</string>
 		<string name="unmapping_super_devices">Unmapping Super Devices...</string>
 		<string name="unmap_super_devices_complete">Unmapped all Super Devices</string>
