@@ -38,6 +38,8 @@
 #include <android-base/properties.h>
 #include <android-base/strings.h>
 #include <libsnapshot/snapshot.h>
+#include <libdm/dm.h>
+#include <chrono>
 
 #include "cutils/properties.h"
 #include "libblkid/include/blkid.h"
@@ -1726,6 +1728,14 @@ bool TWPartition::UnMount(bool Display_Error, int flags) {
 		if (Is_Storage && MTP_Storage_ID > 0)
 			PartitionManager.Remove_MTP_Storage(MTP_Storage_ID);
 
+		/* FBE preparation binds /data/data onto /data/user/0. */
+		if (Mount_Point == "/data" &&
+		    umount("/data/user/0") != 0 && errno != EINVAL && errno != ENOENT) {
+			if (Display_Error)
+				gui_msg(Msg(msg::kError, "fail_unmount=Failed to unmount '{1}' ({2})")("/data/user/0")(strerror(errno)));
+			return false;
+		}
+
 		if (!Symlink_Mount_Point.empty())
 			umount2(Symlink_Mount_Point.c_str(), flags);
 
@@ -2148,14 +2158,24 @@ bool TWPartition::Wipe_Encryption() {
 	if (!Is_Present) {
 		LOGINFO("Block device not present, cannot format %s.\n", Display_Name.c_str());
 		gui_msg(Msg(msg::kError, "unable_to_wipe=Unable to wipe {1}.")(Display_Name));
-		return false;
+		goto exit;
 	}
 
 #ifdef TW_INCLUDE_CRYPTO
 	if (!UnMount(true))
-		return false;
+		goto exit;
 	umount("/sdcard"); // Hack
 #endif
+	/* Release metadata encryption before formatting the underlying device. */
+	if (!Key_Directory.empty() && !Decrypted_Block_Device.empty()) {
+		auto& dm = android::dm::DeviceMapper::Instance();
+		auto name = dm.GetDmDeviceNameByPath(Decrypted_Block_Device);
+		if (!name || *name != "userdata" ||
+		    !dm.DeleteDevice(*name, std::chrono::milliseconds(5000))) {
+			LOGERR("Unable to remove userdata metadata-encryption mapping\n");
+			goto exit;
+		}
+	}
 	Has_Data_Media = false;
 	Decrypted_Block_Device = "";
 	Is_Decrypted = false;
