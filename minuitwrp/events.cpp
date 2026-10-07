@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <errno.h>
 #include <dirent.h>
 #include <sys/poll.h>
 #include <limits.h>
@@ -134,15 +135,18 @@ static inline int ABS(int x) {
 }
 
 int write_to_file(const std::string& fn, const std::string& line) {
-	FILE *file;
-	file = fopen(fn.c_str(), "w");
-	if (file != NULL) {
-		fwrite(line.c_str(), line.size(), 1, file);
-		fclose(file);
-		return 0;
-	}
-	LOGI("Cannot find file %s\n", fn.c_str());
-	return -1;
+    // Sysfs controls already exist: never request creation or truncation.
+    int fd = open(fn.c_str(), O_WRONLY | O_CLOEXEC);
+    if (fd < 0) {
+        LOGI("Cannot open control %s\n", fn.c_str());
+        return -1;
+    }
+    ssize_t written;
+    do {
+        written = write(fd, line.data(), line.size());
+    } while (written < 0 && errno == EINTR);
+    int close_result = close(fd);
+    return written == static_cast<ssize_t>(line.size()) && close_result == 0 ? 0 : -1;
 }
 
 #ifndef TW_NO_HAPTICS
