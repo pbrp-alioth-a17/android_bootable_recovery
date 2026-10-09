@@ -31,6 +31,8 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
+#include <sched.h>
+#include <sys/mount.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -383,6 +385,17 @@ static int Run_Update_Binary(const char *path, int* wipe_cache, zip_type ztype) 
 	pid_t pid = fork();
 	if (pid == 0) {
 		close(pipe_fd[0]);
+		// Magisk mounts Android at /system. Confine those mounts to the
+		// updater so recovery's linker and decryption services remain usable.
+		if (ztype == UPDATE_BINARY_ZIP_TYPE &&
+		    (strcmp(path, "/twres/tools/magisk.zip") == 0 ||
+		     strcmp(path, "/sdcard/PBRP/tools/magisk.zip") == 0)) {
+			if (unshare(CLONE_NEWNS) != 0 ||
+			    mount(nullptr, "/", nullptr, MS_REC | MS_PRIVATE, nullptr) != 0) {
+				dprintf(pipe_fd[1], "ui_print Cannot isolate Magisk mounts: %s\n", strerror(errno));
+				_exit(1);
+			}
+		}
 		execve(chr_args[0], const_cast<char**>(chr_args), environ);
 		printf("E:Can't execute '%s': %s\n", chr_args[0], strerror(errno));
 		_exit(-1);
