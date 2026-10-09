@@ -4334,6 +4334,14 @@ bool TWPartitionManager::Recreate_Logs_Dir() {
 }
 
 void TWPartitionManager::Change_System_Root(bool root) {
+#ifdef BOARD_USES_RECOVERY_AS_BOOT
+	// /system contains recovery's linker and services, not the installed OS.
+	if (!root) {
+		DataManager::SetValue(PB_MOUNT_SYSTEM_AS_ROOT, "1");
+		LOGINFO("Keeping Android System at /system_root to preserve recovery runtime\n");
+		return;
+	}
+#endif
 	TWPartition* part =
 			Find_Partition_By_Path(property_get_bool("ro.twrp.sar", false) ? "/system_root" : "/system");
 	if (part == nullptr) {

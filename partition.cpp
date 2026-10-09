@@ -1703,7 +1703,9 @@ bool TWPartition::Bind_Mount(bool Display_Error) {
 		}
 	}
 
- #ifndef TW_NO_BIND_SYSTEM
+// Recovery-as-boot owns /system; binding Android over it hides the recovery
+// linker, shell and services. Keep the installed OS at /system_root instead.
+#if !defined(TW_NO_BIND_SYSTEM) && !defined(BOARD_USES_RECOVERY_AS_BOOT)
 	if (Mount_Point == "/system_root") {
 		unlink("/system");
 		mkdir("/system", 0755);
@@ -1714,10 +1716,12 @@ bool TWPartition::Bind_Mount(bool Display_Error) {
 }
 
 bool TWPartition::UnMount(bool Display_Error, int flags) {
+#if !defined(TW_NO_BIND_SYSTEM) && !defined(BOARD_USES_RECOVERY_AS_BOOT)
 	if (Mount_Point == "/system_root") {
 		if (umount("/system") == -1)
 			umount2("/system", MNT_DETACH);
 	}
+#endif
 	if (Is_Mounted()) {
 		int never_unmount_system;
 
