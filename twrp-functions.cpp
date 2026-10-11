@@ -840,29 +840,30 @@ int TWFunc::read_file(string fn, uint64_t& results) {
 }
 
 bool TWFunc::write_to_file(const string& fn, const string& line) {
-	FILE *file;
-	file = fopen(fn.c_str(), "w");
-	if (file != NULL) {
-		fwrite(line.c_str(), line.size(), 1, file);
-		fclose(file);
-		return true;
+	FILE* file = fopen(fn.c_str(), "w");
+	if (!file) {
+		LOGINFO("Cannot open file %s\n", fn.c_str());
+		return false;
 	}
-	LOGINFO("Cannot find file %s\n", fn.c_str());
-	return false;
+	bool written = fwrite(line.data(), 1, line.size(), file) == line.size();
+	// Buffered sysfs and filesystem writes can fail only when flushed/closed.
+	int closed = fclose(file);
+	return written && closed == 0;
 }
 
 bool TWFunc::write_to_file(const string& fn, const std::vector<string> lines) {
-	FILE *file;
-	file = fopen(fn.c_str(), "a+");
-	if (file != NULL) {
-		for (auto&& line: lines) {
-			fwrite(line.c_str(), line.size(), 1, file);
-			fwrite("\n", sizeof(char), 1, file);
+	FILE* file = fopen(fn.c_str(), "a+");
+	if (!file) return false;
+	bool written = true;
+	for (const auto& line : lines) {
+		if (fwrite(line.data(), 1, line.size(), file) != line.size() ||
+		    fputc('\n', file) == EOF) {
+			written = false;
+			break;
 		}
-		fclose(file);
-		return true;
 	}
-	return false;
+	int closed = fclose(file);
+	return written && closed == 0;
 }
 
 

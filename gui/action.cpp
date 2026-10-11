@@ -2064,7 +2064,7 @@ int GUIAction::flashimage(std::string arg __unused)
 	}
 #ifdef AB_OTA_UPDATER
 	string target = DataManager::GetStrValue("tw_flash_partition");
-	unsigned int pos = target.find_last_of(';');
+	const auto pos = target.find_last_of(';');
 	string mount_point = pos != string::npos ? target.substr(0, pos) : "";
 	TWPartition* t_part = PartitionManager.Find_Partition_By_Path(mount_point);
 	bool flash_in_both_slots = DataManager::GetIntValue("tw_flash_both_slots") ? true : false;
@@ -2465,7 +2465,7 @@ int GUIAction::repack(std::string arg __unused)
 int GUIAction::flashlight(std::string arg __unused)
 {
 	int br_value = DataManager::GetIntValue("pb_bright_value");
-	string str_val, file, flashp1 = "/sys/class/leds", flashp2 = "/flashlight", flashpath;
+	string file, flashp1 = "/sys/class/leds", flashp2 = "/flashlight", flashpath;
 	string bright = "/brightness";
 	string switch_path = TWFunc::Path_Exists(flashp1 + "/led:switch" + bright) ? (flashp1 + "/led:switch") : (flashp1 + "/led:switch_0");
 	DIR* d;
@@ -2475,16 +2475,8 @@ int GUIAction::flashlight(std::string arg __unused)
 	DataManager::SetValue("pb_torch_brightness_slider", "0");
 #endif
 #ifdef PB_TORCH_PATH
-	flashpath = PB_TORCH_PATH;
+	flashpath = string(PB_TORCH_PATH) + bright;
 	LOGINFO("flashlight: Custom Node located at '%s'\n", flashpath.c_str());
-	if (TWFunc::Path_Exists(flashpath))
-	{
-		d = opendir(flashpath.c_str());
-		if (d != NULL) {
-			flashpath += bright;
-			DataManager::SetValue("pb_flashlight_theme_support", "1");
-		}
-	}
 #else
 	flashpath = flashp1 + flashp2 + bright;
 	if (!TWFunc::Path_Exists(flashpath))
@@ -2493,12 +2485,15 @@ int GUIAction::flashlight(std::string arg __unused)
 		if (d == NULL)
 		{
 			LOGINFO("Unable to open '%s'\n", flashp1.c_str());
-			return 0;
+			DataManager::SetValue("pb_flashlight_theme_support", "0");
+			DataManager::SetValue("pb_torch_brightness_slider", "0");
+			return 1;
 		}
 		while ((de = readdir(d)) != NULL)
 		{
 			file = de->d_name;
-			if(file.find("torch") != string::npos || file.find("torch_"))
+			if (file.find("torch") != string::npos &&
+			    TWFunc::Path_Exists(flashp1 + "/" + file + bright))
 			{
 				flashpath = flashp1 + "/" + file + bright;
 				break;
@@ -2506,33 +2501,31 @@ int GUIAction::flashlight(std::string arg __unused)
 		}
 		closedir (d);
 		LOGINFO("Detected Node located at  '%s'\n", flashpath.c_str());
-		DataManager::SetValue("pb_flashlight_theme_support", "1");
 	}
 #endif
-	str_val="";
 	if (TWFunc::Path_Exists(flashpath)) {
-		LOGINFO("Flashlight Node Located at '%s'\n", flashpath.c_str());
-		if (DataManager::GetIntValue("pb_torch_on") == 1)
-		{
-			LOGINFO("Flashlight Turning Off\n");
-			if (TWFunc::Path_Exists(switch_path))
-				TWFunc::write_to_file(switch_path + bright, "0");
+		DataManager::SetValue("pb_flashlight_theme_support", "1");
+		bool turn_on = DataManager::GetIntValue("pb_torch_on") != 1;
+		bool written = TWFunc::write_to_file(flashpath, turn_on ? std::to_string(br_value) : "0");
+		if (TWFunc::Path_Exists(switch_path + bright))
+			written = TWFunc::write_to_file(switch_path + bright, turn_on ? "1" : "0") && written;
+		if (!written) {
+			// A partially enabled torch must not be left on after a failed action.
 			TWFunc::write_to_file(flashpath, "0");
+			if (TWFunc::Path_Exists(switch_path + bright))
+				TWFunc::write_to_file(switch_path + bright, "0");
 			DataManager::SetValue("pb_torch_on", "0");
+			LOGERR("Unable to update flashlight node %s\n", flashpath.c_str());
+			return 1;
 		}
-		else
-		{
-			LOGINFO("Flashlight Turning On\n");
-			LOGINFO("Flashlight: Brightning value '%d'\n", br_value);
-			TWFunc::write_to_file(flashpath, std::to_string(br_value));
-			if (TWFunc::Path_Exists(switch_path))
-				TWFunc::write_to_file(switch_path + bright, "1");
-			DataManager::SetValue("pb_torch_on", "1");
-		}
+		DataManager::SetValue("pb_torch_on", turn_on ? "1" : "0");
 	} else {
 		LOGINFO("Incorrect Flashlight Path\n");
 		DataManager::SetValue("pb_torch_brightness_slider", "0");
+		DataManager::SetValue("pb_flashlight_theme_support", "0");
+		return 1;
 	}
+
 	return 0;
 }
 
