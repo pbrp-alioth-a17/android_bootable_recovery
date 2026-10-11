@@ -1,16 +1,6 @@
-// Copyright (C) 2018 The Android Open Source Project
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+subdirs = [
+    "bootloader_message",
+]
 
 // *** THIS PACKAGE HAS SPECIAL LICENSING CONDITIONS.  PLEASE
 //     CONSULT THE OWNERS AND opensource-licensing@google.com BEFORE
@@ -35,10 +25,7 @@ package {
 // See: http://go/android-license-faq
 license {
     name: "bootable_recovery_license",
-    visibility: [
-        ":__subpackages__",
-        "//bootable/deprecated-ota:__subpackages__",
-    ],
+    visibility: [":__subpackages__"],
     license_kinds: [
         "SPDX-license-identifier-Apache-2.0",
         "SPDX-license-identifier-MIT",
@@ -49,108 +36,100 @@ license {
     ],
 }
 
-soong_config_module_type {
-    name: "recovery_cc_defaults",
-    module_type: "cc_defaults",
-    config_namespace: "recovery",
-    value_variables: ["recovery_api_version"],
-    properties: [
-        "cflags",
-    ],
-}
-
-recovery_cc_defaults {
-    name: "recovery_defaults",
-
-    soong_config_variables: {
-        recovery_api_version: {
-            cflags: [
-                "-D_FILE_OFFSET_BITS=64",
-                // Must be the same as RECOVERY_API_VERSION.
-                "-DRECOVERY_API_VERSION=%s",
-                "-Wall",
-                "-Werror",
-            ],
-        },
-    },
-}
-
-cc_library_static {
-    name: "librecovery_fastboot",
-    recovery_available: true,
-    defaults: [
-        "recovery_defaults",
-    ],
-
-    srcs: [
-        "fastboot/fastboot.cpp",
-    ],
-
-    shared_libs: [
-        "libbase",
-        "libbootloader_message",
-        "libcutils",
-        "liblog",
-        "librecovery_ui",
-    ],
-
-    static_libs: [
-        "librecovery_ui_default",
-    ],
-}
-
 cc_defaults {
-    name: "librecovery_defaults",
-
-    defaults: [
-        "recovery_defaults",
+    name: "recovery_defaults",
+    cflags: [
+        "-D_FILE_OFFSET_BITS=64",
+        // Must be the same as RECOVERY_API_VERSION.
+        "-DRECOVERY_API_VERSION=3",
+        "-Wall",
+        "-Werror",
     ],
+    cpp_std: "c++17",
+}
 
+bootstrap_go_package {
+    name: "soong-libaosprecovery_defaults",
+    pkgPath: "bootable/recovery/libaosprecovery",
+    deps: [
+        "soong",
+        "soong-android",
+        "soong-cc"
+    ],
+    srcs: [
+        "libaosprecovery_defaults.go",
+        "soong/makevars.go"
+    ],
+    pluginFor: ["soong_build"]
+}
+
+libaosprecovery_defaults {
+    name: "libaosprecovery_defaults"
+}
+
+cc_library_shared {
+    name: "libaosprecovery",
+    defaults: ["libaosprecovery_defaults"],
+    cflags: [
+        "-std=gnu++2a",
+        "-DRECOVERY_API_VERSION=3"
+    ],
+    include_dirs: [
+        "bootable/recovery/install/include",
+        "bootable/recovery/recovery_ui/include",
+        "bootable/recovery/recovery_utils/include",
+        "bootable/recovery/otautil/include",
+        "bootable/recovery/minadbd",
+        "bootable/recovery/minadbd/include",
+        "bootable/recovery/minzip",
+        "bootable/recovery/twrpinstall/include",
+        "system/libvintf/include"
+    ],
+    srcs: [
+        "install/adb_install.cpp",
+        "install/asn1_decoder.cpp",
+        "install/get_args.cpp", 
+        "install/install.cpp",
+        "install/package.cpp",
+        "install/spl_check.cpp",
+        "install/verifier.cpp",
+        "install/wipe_data.cpp",
+        "install/set_metadata.cpp",
+        "install/ZipUtil.cpp"
+    ],
     shared_libs: [
-        "android.hardware.boot@1.0",
-        "android.hardware.boot@1.1",
-        "android.hardware.boot-V1-ndk",
-        "libboot_control_client",
         "libbase",
         "libbootloader_message",
         "libcrypto",
-        "libcutils",
-        "libfs_mgr",
-        "liblp",
+        "libext4_utils",
+        "libfs_mgr", 
+        "libfusesideload", 
+        "libhidl-gen-utils",
+        "libhidlbase",
         "liblog",
-        "libprotobuf-cpp-lite",
+        "libselinux",
+        "libtinyxml2",
+        "libutils",
+        "libz",
         "libziparchive",
+        "libcutils",
+        "libc++"
     ],
-
     static_libs: [
-        "libinstall",
-        "librecovery_fastboot",
-        "libminui",
-        "librecovery_utils",
         "libotautil",
-        "libsnapshot_nobinder",
-        "libsnapshot_cow",
-        "liblz4",
-        "libzstd",
-        "update_metadata-protos",
+        "libvintf", 
+        "libhidl-gen-utils",
+        "librecovery_utils",
+        "libc++fs",
+        "libprotobuf-cpp-lite",
+        "ota_metadata_proto_cc",
+        "update_metadata-protos"
     ],
-}
-
-cc_library_static {
-    name: "librecovery",
-    recovery_available: true,
-
-    defaults: [
-        "librecovery_defaults",
-    ],
-
-    srcs: [
-        "recovery.cpp",
-    ],
-
-    shared_libs: [
-        "librecovery_ui",
-    ],
+    required: [
+        "init_recovery.rc",
+        "ueventd.rc.recovery",
+        "libdl_android.bootstrap",
+    ]
 }
 
 prebuilt_etc {
@@ -159,209 +138,4 @@ prebuilt_etc {
     src: "etc/init.rc",
     sub_dir: "init/hw",
     recovery: true,
-}
-
-cc_binary {
-    name: "recovery",
-    recovery: true,
-
-    defaults: [
-        "libinstall_defaults",
-        "librecovery_defaults",
-        "librecovery_utils_defaults",
-    ],
-
-    srcs: [
-        "recovery_main.cpp",
-    ],
-
-    shared_libs: [
-        "android.hardware.health-V5-ndk", // from librecovery_utils
-        "android.hardware.boot-V1-ndk",
-        "librecovery_ui",
-    ],
-
-    static_libs: [
-        "librecovery",
-        "librecovery_ui_default",
-    ],
-
-    required: [
-        "e2fsdroid.recovery",
-        "init_recovery.rc",
-        "librecovery_ui_ext",
-        "minadbd",
-        "mke2fs.conf.recovery",
-        "mke2fs.recovery",
-        "recovery_deps",
-        "ueventd.rc.recovery",
-    ],
-}
-
-// The dynamic executable that runs after /data mounts.
-cc_binary {
-    name: "recovery-persist",
-
-    defaults: [
-        "recovery_defaults",
-    ],
-
-    srcs: [
-        "recovery-persist.cpp",
-    ],
-
-    shared_libs: [
-        "libbase",
-        "liblog",
-    ],
-
-    static_libs: [
-        "librecovery_utils",
-    ],
-
-    init_rc: [
-        "recovery-persist.rc",
-    ],
-}
-
-// The dynamic executable that runs at init.
-cc_binary {
-    name: "recovery-refresh",
-
-    defaults: [
-        "recovery_defaults",
-    ],
-
-    srcs: [
-        "recovery-refresh.cpp",
-    ],
-
-    shared_libs: [
-        "libbase",
-        "liblog",
-    ],
-
-    static_libs: [
-        "librecovery_utils",
-    ],
-
-    init_rc: [
-        "recovery-refresh.rc",
-    ],
-}
-
-filegroup {
-    name: "res-testdata",
-
-    srcs: [
-        "res-*/images/*_text.png",
-    ],
-}
-
-// recovery_deps: A phony target that's depended on by `recovery`, which
-// builds additional modules conditionally based on Makefile variables.
-phony {
-    name: "recovery_deps",
-    recovery: true,
-    required: [
-        "mkfs.erofs.recovery",
-        "dump.erofs.recovery",
-        "fsck.erofs.recovery",
-        // On A/B devices recovery-persist reads the recovery related file from the persist storage and
-        // copies them into /data/misc/recovery. Then, for both A/B and non-A/B devices, recovery-persist
-        // parses the last_install file and reports the embedded update metrics. Also, the last_install file
-        // will be deteleted after the report.
-        "recovery-persist",
-    ] + select(soong_config_variable("recovery", "target_userimages_use_f2fs"), {
-        true: [
-            "make_f2fs.recovery",
-            "fsck.f2fs.recovery",
-            "sload_f2fs.recovery",
-        ],
-        default: [],
-    }) + select(soong_config_variable("recovery", "has_board_cacheimage_partition_size"), {
-        false: ["recovery-refresh"],
-        default: [],
-    }),
-}
-
-cc_library_shared {
-    name: "librecovery_ui_ext",
-    recovery: true,
-    install_in_root: true,
-    multilib: {
-        lib32: {
-            relative_install_path: "system/lib",
-        },
-        lib64: {
-            relative_install_path: "system/lib64",
-        },
-    },
-    shared_libs: [
-        "libbase",
-        "liblog",
-        "librecovery_ui",
-    ],
-    // TARGET_RECOVERY_UI_LIB should be one of librecovery_ui_{default,wear,vr,ethernet} or a
-    // device-specific module that defines make_device() and the exact RecoveryUI class for the
-    // target. It defaults to librecovery_ui_default, which uses ScreenRecoveryUI.
-    whole_static_libs: select(soong_config_variable("recovery", "target_recovery_ui_lib"), {
-        any @ libs: libs,
-        default: ["librecovery_ui_default"],
-    }),
-}
-
-prebuilt_res {
-    name: "recovery-resources-common-mdpi",
-    recovery: true,
-    install_in_root: true,
-    relative_install_path: "images",
-    srcs: [
-        "res-mdpi/images/*.png",
-    ],
-    no_full_install: true,
-}
-
-prebuilt_res {
-    name: "recovery-resources-common-hdpi",
-    recovery: true,
-    install_in_root: true,
-    relative_install_path: "images",
-    srcs: [
-        "res-hdpi/images/*.png",
-    ],
-    no_full_install: true,
-}
-
-prebuilt_res {
-    name: "recovery-resources-common-xhdpi",
-    recovery: true,
-    install_in_root: true,
-    relative_install_path: "images",
-    srcs: [
-        "res-xhdpi/images/*.png",
-    ],
-    no_full_install: true,
-}
-
-prebuilt_res {
-    name: "recovery-resources-common-xxhdpi",
-    recovery: true,
-    install_in_root: true,
-    relative_install_path: "images",
-    srcs: [
-        "res-xxhdpi/images/*.png",
-    ],
-    no_full_install: true,
-}
-
-prebuilt_res {
-    name: "recovery-resources-common-xxxhdpi",
-    recovery: true,
-    install_in_root: true,
-    relative_install_path: "images",
-    srcs: [
-        "res-xxxhdpi/images/*.png",
-    ],
-    no_full_install: true,
 }
