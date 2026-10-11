@@ -204,6 +204,17 @@ COLOR LoadAttrColor(xml_node<>* element, const char* attrname, bool* found_color
 	*found_color = !value.empty();
 	// resolve variables
 	DataManager::GetValue(value, value);
+	// Shared PBRP styles contain literal neutral colors as well as palette roles.
+	// Keep their contrast consistent with the active bundled Material palette.
+	if (DataManager::GetIntValue("pb_material_resources") == 1) {
+		static const std::map<std::string, std::string> neutral_colors = {
+			{"#434243", "#CAC4D0"}, {"#353434", "#381E72"},
+			{"#FFFFFF", "#E6E0E9"}, {"#8C8C8C", "#49454F"},
+			{"#1A1A1A80", "#D0BCFF30"},
+		};
+		auto color = neutral_colors.find(value);
+		if (color != neutral_colors.end()) value = color->second;
+	}
 	COLOR ret = defaultvalue;
 	if (ConvertStrToColor(value, &ret) == 0)
 		return ret;
@@ -758,6 +769,15 @@ int PageSet::Load(LoadingContext& ctx, const std::string& filename)
 			return rc;
 	}
 
+	// Resource variants must be chosen before fonts and bitmap surfaces load.
+	if (isMain) {
+		xml_node<>* palette = root->first_node("variables");
+		xml_node<>* palette_marker = palette ? palette->first_node("variable") : nullptr;
+		const bool bundled = !ctx.zip && palette_marker && palette_marker->first_attribute("name") &&
+		    strcmp(palette_marker->first_attribute("name")->value(), "pb_bundled_palette") == 0;
+		DataManager::SetValue("pb_material_resources", bundled && DataManager::GetIntValue("pb_ui_style") == 1);
+	}
+
 	LOGINFO("Loading resources...\n");
 	xml_node<>* child = root->first_node("resources");
 	if (child)
@@ -1055,7 +1075,7 @@ int PageSet::LoadVariables(xml_node<>* vars)
 			    strcmp(marker->first_attribute("name")->value(), "pb_bundled_palette") == 0 &&
 			    DataManager::GetIntValue("pb_ui_style") == 1) {
 				static const std::map<std::string, std::string> material_colors = {
-					{"background_color", "#141318"},
+					{"background_color", "#141218"},
 					{"background_color2", "#211F26"},
 					{"theme_color", "#211F26"},
 					{"front_color", "#211F26"},
@@ -1065,6 +1085,7 @@ int PageSet::LoadVariables(xml_node<>* vars)
 					{"text_color", "#E6E0E9"},
 					{"sub_header_color", "#CAC4D0"},
 					{"text_main_button_color", "#E6E0E9"},
+					{"text_button_color", "#E6E0E9"},
 					{"highlight_color", "#D0BCFF30"},
 					{"highlight_color_subbutton", "#D0BCFF30"},
 					{"caps_highlight_color", "#D0BCFF30"},

@@ -119,8 +119,8 @@ GUIListBox::GUIListBox(xml_node<>* node) : GUIScrollList(node)
 		if (!attr) continue;
 		// We will parse display names when we get page focus to ensure that translating takes place
 		item.displayName = attr->value();
-		item.variableValue = gui_parse_text(child->value());
-		item.selected = (child->value() == currentValue);
+		item.variableValue = LoadAttrString(child, "value", gui_parse_text(child->value()).c_str());
+		item.selected = (item.variableValue == currentValue);
 		item.mIconSelected = NULL;
 		xml_node<>* icon = child->first_node("icon");
 		if (icon) {
@@ -297,6 +297,11 @@ void GUIListBox::RenderItem(size_t itemindex, int yPos, bool selected)
 
 void GUIListBox::NotifySelect(size_t item_selected)
 {
+	// Theme selection is idempotent; avoid reloading the active theme.
+	if (mVariable == "pb_ui_style" &&
+	    mListItems[mVisibleItems[item_selected]].variableValue == currentValue)
+		return;
+
 	if (!isCheckList) {
 		// deselect all items, even invisible ones
 		for (size_t i = 0; i < mListItems.size(); i++) {

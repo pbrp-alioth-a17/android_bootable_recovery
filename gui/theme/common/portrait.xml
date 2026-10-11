@@ -2,6 +2,13 @@
 <?xml version="1.0"?>
 <recovery>
 	<styles>
+<style name="settings_preferences">
+<background color="#00000000"/>
+<font resource="settings_title" spacing="52" color="%text_color%"/>
+<highlight color="%fileselector_highlight_color%"/>
+<separator color="%background_color%" height="4"/>
+<fastscroll linecolor="%fileselector_linecolor2%" rectcolor="%accent_color2%" w="12" linew="2" rectw="8" recth="80"/>
+</style>
 		<style name="text_exl">
 			<font resource="font_exl" color="%text_color%"/>
 		</style>
@@ -371,6 +378,10 @@
 		</page>
 
 		<page name="main2">
+<action><condition var1="pb_material_resources" var2="0"/><action function="page">main2_original</action></action>
+<action><condition var1="pb_material_resources" var2="1"/><action function="page">main2_settings</action></action>
+</page>
+<page name="main2_original">
 			<template name="page_without_navbar"/>
 
 			<text style="text_l">
@@ -553,6 +564,61 @@
 				<text>{@advanced2_txt=Advanced Stuff}</text>
 			</text>
 		</page>
+<page name="main2_settings">
+<template name="settings_home_chrome"/>
+<text><font resource="settings_headline" color="%text_color%"/><placement x="60" y="170"/><text>{@twrp_header=PitchBlack Recovery Project}</text></text>
+<image><image resource="settings_row_top"/><placement x="48" y="300"/></image>
+<image><image resource="settings_icon_0"/><placement x="88" y="334"/></image>
+<text><font resource="settings_title" color="%text_color%"/><placement x="192" y="342"/><text>{@install_btn=Install}</text></text>
+<button><highlight color="%highlight_color%"/><fill color="#00000000"/><placement x="48" y="300" w="984" h="128"/><actions>
+					<action function="queueclear"/>
+					<action function="set">tw_selectimage=0</action>
+					<action function="page">install</action>
+				</actions></button>
+<image><image resource="settings_row_middle"/><placement x="48" y="432"/></image>
+<image><image resource="settings_icon_1"/><placement x="88" y="466"/></image>
+<text><font resource="settings_title" color="%text_color%"/><placement x="192" y="474"/><text>{@wipe_btn=Wipe}</text></text>
+<button><highlight color="%highlight_color%"/><fill color="#00000000"/><placement x="48" y="432" w="984" h="128"/><action function="page">wipe</action></button>
+<image><image resource="settings_row_middle"/><placement x="48" y="564"/></image>
+<image><image resource="settings_icon_2"/><placement x="88" y="598"/></image>
+<text><font resource="settings_title" color="%text_color%"/><placement x="192" y="606"/><text>{@backup_btn=Backup}</text></text>
+<button><highlight color="%highlight_color%"/><fill color="#00000000"/><placement x="48" y="564" w="984" h="128"/><action function="page">backup</action></button>
+<image><image resource="settings_row_middle"/><placement x="48" y="696"/></image>
+<image><image resource="settings_icon_3"/><placement x="88" y="730"/></image>
+<text><font resource="settings_title" color="%text_color%"/><placement x="192" y="738"/><text>{@restore_btn=Restore}</text></text>
+<button><highlight color="%highlight_color%"/><fill color="#00000000"/><placement x="48" y="696" w="984" h="128"/><action function="page">restore</action></button>
+<image><image resource="settings_row_middle"/><placement x="48" y="828"/></image>
+<image><image resource="settings_icon_4"/><placement x="88" y="862"/></image>
+<text><font resource="settings_title" color="%text_color%"/><placement x="192" y="870"/><text>{@mount_btn=Mount}</text></text>
+<button><highlight color="%highlight_color%"/><fill color="#00000000"/><placement x="48" y="828" w="984" h="128"/><action function="page">mount</action></button>
+<image><image resource="settings_row_bottom"/><placement x="48" y="960"/></image>
+<image><image resource="settings_icon_5"/><placement x="88" y="994"/></image>
+<text><font resource="settings_title" color="%text_color%"/><placement x="192" y="1002"/><text>{@advanced_btn=Advanced}</text></text>
+<button><highlight color="%highlight_color%"/><fill color="#00000000"/><placement x="48" y="960" w="984" h="128"/><action function="page">advanced</action></button>
+<image><image resource="settings_row_top"/><placement x="48" y="1116"/></image>
+<image><image resource="settings_icon_6"/><placement x="88" y="1150"/></image>
+<text><font resource="settings_title" color="%text_color%"/><placement x="192" y="1158"/><text>{@settings_btn=Settings}</text></text>
+<button><highlight color="%highlight_color%"/><fill color="#00000000"/><placement x="48" y="1116" w="984" h="128"/><action function="page">settings</action></button>
+<image><image resource="settings_row_middle"/><placement x="48" y="1248"/></image>
+<image><image resource="settings_icon_7"/><placement x="88" y="1282"/></image>
+<text><font resource="settings_title" color="%text_color%"/><placement x="192" y="1290"/><text>{@reboot_btn=Reboot}</text></text>
+<button><highlight color="%highlight_color%"/><fill color="#00000000"/><placement x="48" y="1248" w="984" h="128"/><action function="page">reboot</action></button>
+<image><image resource="settings_row_bottom"/><placement x="48" y="1380"/></image>
+<image><image resource="settings_icon_8"/><placement x="88" y="1414"/></image>
+<text><font resource="settings_title" color="%text_color%"/><placement x="192" y="1422"/><text>{@custom=Customize}</text></text>
+<button><highlight color="%highlight_color%"/><fill color="#00000000"/><placement x="48" y="1380" w="984" h="128"/><action function="page">customizations</action></button>
+<image><image resource="settings_row_top"/><placement x="48" y="1536"/></image>
+<image><image resource="settings_icon_9"/><placement x="88" y="1570"/></image>
+<text><font resource="settings_title" color="%text_color%"/><placement x="192" y="1578"/><text>{@tools1=Tools}</text></text>
+<button><highlight color="%highlight_color%"/><fill color="#00000000"/><placement x="48" y="1536" w="984" h="128"/><actions><action function="set">tw_back=main2</action><action function="page">tools</action></actions></button>
+<image><image resource="settings_row_bottom"/><placement x="48" y="1668"/></image>
+<image><image resource="settings_icon_10"/><placement x="88" y="1702"/></image>
+<text><font resource="settings_title" color="%text_color%"/><placement x="192" y="1710"/><text>{@about_pbrp=About PBRP}</text></text>
+<button><highlight color="%highlight_color%"/><fill color="#00000000"/><placement x="48" y="1668" w="984" h="128"/><action function="page">about</action></button>
+<button><image resource="settings_footer"/><highlight color="%highlight_color%"/><font resource="font_s" color="%text_color%"/><placement x="48" y="1810" w="312" h="90"/><text>{@console_btn=Console}</text><action function="overlay">slideout</action></button>
+<button><image resource="settings_footer"/><highlight color="%highlight_color%"/><font resource="font_s" color="%text_color%"/><placement x="384" y="1810" w="312" h="90"/><text>{@flashlight=Flashlight}</text><action function="flashlight"/></button>
+<button><image resource="settings_footer"/><highlight color="%highlight_color%"/><font resource="font_s" color="%text_color%"/><placement x="720" y="1810" w="312" h="90"/><text>{@terminal_btn=Terminal}</text><action function="page">terminalcommand</action></button>
+</page>
 
 		<page name="filter_">
 			<template name="sort_options"/>
@@ -4130,8 +4196,68 @@
 				<placement x="%settings_selected_bar_x%" y="%row3_y%"/>
 			</image>
 
-			<listbox style="scrolllist">
+			<listbox style="scrolllist"><condition var1="pb_material_resources" var2="0"/>
 				<placement x="%settings_scrolllist_x%" y="%row4a_y%" w="%content_width%" h="1140"/>
+				<icon selected="checkbox_true" unselected="checkbox_false"/>
+				<listitem name="{@zip_sig_chk=Zip signature verification}">
+					<data variable="tw_signed_zip_verify"/>
+				</listitem>
+				<listitem name="{@zip_err_compatibility=Bypass Treble Compatibility}">
+					<data variable="pb_error_treble"/>
+				</listitem>
+				<listitem name="{@install_reboot_chk=Reboot after installation is complete}">
+					<data variable="tw_install_reboot"/>
+				</listitem>
+				<listitem name="{@mount_system_as_root=Mount System As Root}">
+					<data variable="pb_mount_system_as_root"/>
+					<action function="change_root"/>
+				</listitem>
+				<listitem name="{@use_rmrf_chk=Use rm -rf instead of formatting}">
+					<data variable="tw_rm_rf"/>
+				</listitem>
+				<listitem name="{@disable_backup_space_chk=Disable free space check before backup}">
+					<data variable="tw_disable_free_space"/>
+				</listitem>
+				<listitem name="{@skip_digest_backup_chk=Skip Digest generation during backup}">
+					<data variable="tw_skip_digest_generate"/>
+				</listitem>
+				<listitem name="{@restore_enable_digest_chk=Enable Digest verification of backup files}">
+					<data variable="tw_skip_digest_check"/>
+				</listitem>
+				<listitem name="{@use24clock_chk=Use 24-hour clock}">
+					<data variable="tw_military_time"/>
+				</listitem>
+				<listitem name="{@rev_navbar_chk=Reversed navbar layout}">
+					<data variable="tw_samsung_navbar"/>
+				</listitem>
+				<listitem name="{@simact_chk=Simulate actions for theme testing}">
+					<data variable="tw_simulate_actions"/>
+				</listitem>
+				<listitem name="{@simfail_chk=Simulate failure for actions}">
+					<condition var1="tw_simulate_actions" var2="1"/>
+					<data variable="tw_simulate_fail"/>
+				</listitem>
+				<listitem name="{@sha2_chk=Use SHA2 for hashing}">
+					<condition var1="tw_no_sha2" var2="0"/>
+					<data variable="tw_use_sha2"/>
+				</listitem>
+				<listitem name="{@show_free_sdmb=Show Free SD Mb}">
+					<data variable="tw_sd_free"/>
+				</listitem>
+				<listitem name="{@use_aromafm=Use Aroma File Manager}">
+					<data variable="aromafm"/>
+				</listitem>
+				<listitem name="{@auto_reflashtwrp_chk=Automatically Reflash TWRP after flashing a ROM}">
+					<conditions>
+						<condition var1="tw_has_boot_slots" var2="1"/>
+						<condition var1="tw_is_vendor_boot_header_v3" var2="0"/>
+					</conditions>
+					<data variable="tw_auto_reflashtwrp"/>
+				</listitem>
+			</listbox>
+<image><condition var1="pb_material_resources" var2="1"/><image resource="settings_preferences_card"/><placement x="48" y="480"/></image>
+<listbox style="settings_preferences"><condition var1="pb_material_resources" var2="1"/>
+				<placement x="88" y="500" w="904" h="960"/>
 				<icon selected="checkbox_true" unselected="checkbox_false"/>
 				<listitem name="{@zip_sig_chk=Zip signature verification}">
 					<data variable="tw_signed_zip_verify"/>
@@ -4581,6 +4707,7 @@
 			</image>
 
 			<image>
+				<condition var1="pb_material_resources" var2="0"/>
 				<image resource="scrolling_notice"/>
 				<placement x="%indent%" y="%row4_y%"/>
 			</image>

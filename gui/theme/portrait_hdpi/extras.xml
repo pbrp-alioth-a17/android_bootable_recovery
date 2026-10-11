@@ -526,9 +526,15 @@
 				<text>{@pbrpspecial_btn=PBRP Special}</text>
 			</text>
 			<listbox style="advanced_listbox">
+				<data name="pb_ui_style"/>
+				<icon selected="radio_true" unselected="main_button_themes"/>
+				<font resource="font_pb" spacing="100" color="%text_color%" highlightcolor="%text_color%"/>
+				<description font="font_sub_header" color="%sub_header_color%" spacing="50"/>
+				<separator color="%background_color%" height="0"/>
+				<highlight color="%fileselector_highlight_color%"/>
 				<placement x="%listbox_x%" y="%row1a_y%" w="%screen_width%" h="%advanced_listbox_h%"/>
-				<listitem name="{@pb_theme_original=PBRP Original}">
-					<text>{@pb_theme_original_summary=Original PitchBlack colors and layout}</text>
+				<listitem name="{@pb_theme_original=PBRP Original}" value="0">
+					<text>{@pb_theme_original_summary=Original PitchBlack styling}</text>
 					<icon icon="main_button_themes"/>
 					<actions>
 						<action function="set">pb_ui_style=0</action>
@@ -536,8 +542,8 @@
 						<action function="reload"/>
 					</actions>
 				</listitem>
-				<listitem name="{@pb_theme_material=Android 17 · Material colors}">
-					<text>{@pb_theme_material_summary=Soft dark surfaces and lavender accents}</text>
+				<listitem name="{@pb_theme_material=Material 3 Expressive}" value="1">
+					<text>{@pb_theme_material_summary=Grouped rows and Android Settings styling}</text>
 					<icon icon="main_button_themes"/>
 					<actions>
 						<action function="set">pb_ui_style=1</action>

@@ -122,7 +122,7 @@ GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
 
 	// Retrieve the line height
 	mFontHeight = mFont->GetHeight();
-	actualItemHeight = mFontHeight + mItemSpacing + mSeparatorH;
+	actualItemHeight = std::max(mFontHeight, mDescFontHeight ? mDescSpacing + mDescFontHeight : 0) + mItemSpacing + mSeparatorH;
 
 	// Load the header if it exists
 	child = FindNode(node, "header");
@@ -165,7 +165,7 @@ void GUIScrollList::SetMaxIconSize(int w, int h)
 	if (h > maxIconHeight)
 		maxIconHeight = h;
 	if (maxIconHeight > mFontHeight) {
-		actualItemHeight = maxIconHeight + mItemSpacing + mSeparatorH;
+		actualItemHeight = std::max(maxIconHeight, mDescFontHeight ? mDescSpacing + mDescFontHeight : 0) + mItemSpacing + mSeparatorH;
 		if (mHeaderH > 0 && actualItemHeight > mHeaderH)
 			mHeaderH = actualItemHeight;
 	}
@@ -253,8 +253,6 @@ int GUIScrollList::Render(void)
 		// Add the separator
 		gr_color(mSeparatorColor.red, mSeparatorColor.green, mSeparatorColor.blue, mSeparatorColor.alpha);
 		int sepY = yPos + actualItemHeight - mSeparatorH;
-		if (mDescFontHeight)
-			sepY = sepY - mItemSpacing + maxIconHeight / 2 ;
 		gr_fill(mRenderX + maxIconWidth + 10, sepY , listW, mSeparatorH);
 
 		// Move the yPos

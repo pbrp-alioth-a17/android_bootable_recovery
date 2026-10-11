@@ -14,79 +14,97 @@
 		<xmlfile name="extras.xml"/>
 	</include>
 	<resources>
-	    <font name="font_exl" filename="pb.ttf" size="59"/>
-		<font name="font_l" filename="pb.ttf" size="45"/>
+<image name="settings_preferences_card" filename="material_settings_preferences_card"/>
+<image name="settings_footer" filename="material_settings_footer"/>
+<font name="settings_title" filename="Roboto_Regular.ttf" size="40"/>
+<font name="settings_headline" filename="Roboto_Regular.ttf" size="58"/>
+<image name="settings_row_top" filename="material_settings_row_top"/>
+<image name="settings_row_middle" filename="material_settings_row_middle"/>
+<image name="settings_row_bottom" filename="material_settings_row_bottom"/>
+<image name="settings_icon_0" filename="material_settings_icon_0"/>
+<image name="settings_icon_1" filename="material_settings_icon_1"/>
+<image name="settings_icon_2" filename="material_settings_icon_2"/>
+<image name="settings_icon_3" filename="material_settings_icon_3"/>
+<image name="settings_icon_4" filename="material_settings_icon_4"/>
+<image name="settings_icon_5" filename="material_settings_icon_5"/>
+<image name="settings_icon_6" filename="material_settings_icon_6"/>
+<image name="settings_icon_7" filename="material_settings_icon_7"/>
+<image name="settings_icon_8" filename="material_settings_icon_8"/>
+<image name="settings_icon_9" filename="material_settings_icon_9"/>
+<image name="settings_icon_10" filename="material_settings_icon_10"/>
+	    <font name="font_exl" filename="pb.ttf" size="59" materialfilename="Roboto_Medium.ttf" materialsize="44"/>
+		<font name="font_l" filename="pb.ttf" size="45" materialfilename="Roboto_Medium.ttf" materialsize="44"/>
 		<font name="cons" filename="DroidSansMono.ttf" size="30"/>
-		<font name="font_about" filename="pb.ttf" size="37"/>
-		<font name="font_install_subheader" filename="pb.ttf" size="36"/>
-		<font name="font_install_option" filename="pb.ttf" size="40"/>
+		<font name="font_about" filename="pb.ttf" size="37" materialfilename="Roboto_Medium.ttf" materialsize="37"/>
+		<font name="font_install_subheader" filename="pb.ttf" size="36" materialfilename="Roboto_Medium.ttf" materialsize="36"/>
+		<font name="font_install_option" filename="pb.ttf" size="40" materialfilename="Roboto_Medium.ttf" materialsize="40"/>
 		<font name="font_m" filename="Roboto_Medium.ttf" size="34"/>
 		<font name="font_card" filename="Roboto_Regular.ttf" size="38"/>
 		<font name="font_sub_header" filename="Roboto_Regular.ttf" size="35"/>
-		<font name="font_slider" filename="pb.ttf" size="40"/>
+		<font name="font_slider" filename="pb.ttf" size="40" materialfilename="Roboto_Medium.ttf" materialsize="40"/>
 		<font name="font_roboto_m" filename="Roboto_Medium.ttf" size="39"/>
 		<font name="font_roboto" filename="Roboto_Medium.ttf" size="45"/>
-		<font name="font_n" filename="pb.ttf" size="20"/>
-		<font name="font_o" filename="pb.ttf" size="30"/>
+		<font name="font_n" filename="pb.ttf" size="20" materialfilename="Roboto_Regular.ttf" materialsize="20"/>
+		<font name="font_o" filename="pb.ttf" size="30" materialfilename="Roboto_Regular.ttf" materialsize="30"/>
 		<font name="chin" filename="DroidSansFallback.ttf" size="30"/>
 		<font name="ja" filename="NotoSansCJKjp-Regular.ttf" size="30"/>
 		<font name="ko" filename="RoboNoto-Medium.ttf" size="30"/>
-		<font name="eng" filename="pb.ttf" size="30"/>
-		<font name="font_s" filename="pb.ttf" size="32"/>
-		<font name="font_xl" filename="pb.ttf" size="75"/>
-		<font name="font_xxl" filename="pb.ttf" size="100"/>
-		<font name="fixed" filename="pb.ttf" size="35"/>
-		<font name="font_pb" filename="pb.ttf" size="48"/>
-		<font name="font_pb_small" filename="pb.ttf" size="50"/>
-		<font name="font_pb_tools" filename="pb.ttf" size="45"/>
-		<font name="keylabel" filename="pb.ttf" size="60"/>
-		<font name="keylabel-small" filename="pb.ttf" size="42"/>
-		<font name="keylabel-longpress" filename="pb.ttf" size="28"/>
+		<font name="eng" filename="pb.ttf" size="30" materialfilename="Roboto_Regular.ttf" materialsize="30"/>
+		<font name="font_s" filename="pb.ttf" size="32" materialfilename="Roboto_Regular.ttf" materialsize="32"/>
+		<font name="font_xl" filename="pb.ttf" size="75" materialfilename="Roboto_Medium.ttf" materialsize="75"/>
+		<font name="font_xxl" filename="pb.ttf" size="100" materialfilename="Roboto_Medium.ttf" materialsize="100"/>
+		<font name="fixed" filename="pb.ttf" size="35" materialfilename="DroidSansMono.ttf" materialsize="35"/>
+		<font name="font_pb" filename="pb.ttf" size="48" materialfilename="Roboto_Medium.ttf" materialsize="40"/>
+		<font name="font_pb_small" filename="pb.ttf" size="50" materialfilename="Roboto_Medium.ttf" materialsize="40"/>
+		<font name="font_pb_tools" filename="pb.ttf" size="45" materialfilename="Roboto_Medium.ttf" materialsize="40"/>
+		<font name="keylabel" filename="pb.ttf" size="60" materialfilename="Roboto_Medium.ttf" materialsize="60"/>
+		<font name="keylabel-small" filename="pb.ttf" size="42" materialfilename="Roboto_Medium.ttf" materialsize="42"/>
+		<font name="keylabel-longpress" filename="pb.ttf" size="28" materialfilename="Roboto_Medium.ttf" materialsize="28"/>
 		<image name="logo" filename="logo" retainaspect="1"/>
 		<image name="splashlogo" filename="splashlogo" retainaspect="1"/>
 		<image name="splashteamwin" filename="splashteamwin" retainaspect="1"/>
-		<image name="main_button" filename="main_button" retainaspect="1"/>
-		<image name="main_slot_highlight" filename="main_slot_highlight" retainaspect="1"/>
-		<image name="main_button_half_height" filename="main_button_half_height" retainaspect="1"/>
-		<image name="main_button_half_height_new" filename="main_button_half_height_new" retainaspect="1"/>
-		<image name="main_button_half_height_full" filename="main_button_half_height_full" retainaspect="1"/>
-		<image name="main_button_half_height_full_width_pb" filename="main_button_half_height_full_width_pb" retainaspect="1"/>
+		<image name="main_button" filename="main_button" materialfilename="material_main_button" retainaspect="1"/>
+		<image name="main_slot_highlight" filename="main_slot_highlight" materialfilename="material_main_slot_highlight" retainaspect="1"/>
+		<image name="main_button_half_height" filename="main_button_half_height" materialfilename="material_main_button_half_height" retainaspect="1"/>
+		<image name="main_button_half_height_new" filename="main_button_half_height_new" materialfilename="material_main_button_half_height_new" retainaspect="1"/>
+		<image name="main_button_half_height_full" filename="main_button_half_height_full" materialfilename="material_main_button_half_height_full" retainaspect="1"/>
+		<image name="main_button_half_height_full_width_pb" filename="main_button_half_height_full_width_pb" materialfilename="material_main_button_half_height_full_width_pb" retainaspect="1"/>
 		<image name="fab_selectfolder" filename="fab_selectfolder" retainaspect="1"/>
-		<image name="sort_card" filename="sort_card" retainaspect="1"/>
-		<image name="pattern_button_card" filename="pattern_button_card" retainaspect="1"/>
-		<image name="settings_card" filename="settings_card" retainaspect="1"/>
-		<image name="file" filename="file" retainaspect="1"/>
-		<image name="folder" filename="folder" retainaspect="1"/>
-		<image name="zip" filename="zip" retainaspect="1"/>
-		<image name="img" filename="img" retainaspect="1"/>
-		<image name="folderup" filename="folderup" retainaspect="1" />
-		<image name="home" filename="home"/>
-		<image name="back" filename="back"/>
+		<image name="sort_card" filename="sort_card" materialfilename="material_sort_card" retainaspect="1"/>
+		<image name="pattern_button_card" filename="pattern_button_card" materialfilename="material_pattern_button_card" retainaspect="1"/>
+		<image name="settings_card" filename="settings_card" materialfilename="material_settings_card" retainaspect="1"/>
+		<image name="file" filename="file" materialfilename="material_file" retainaspect="1"/>
+		<image name="folder" filename="folder" materialfilename="material_folder" retainaspect="1"/>
+		<image name="zip" filename="zip" materialfilename="material_zip" retainaspect="1"/>
+		<image name="img" filename="img" materialfilename="material_img" retainaspect="1"/>
+		<image name="folderup" filename="folderup" materialfilename="material_folderup" retainaspect="1" />
+		<image name="home" filename="home" materialfilename="material_home"/>
+		<image name="back" filename="back" materialfilename="material_back"/>
 		<image name="console" filename="console" retainaspect="1"/>
-		<image name="console_button" filename="console_button"/>
+		<image name="console_button" filename="console_button" materialfilename="material_console_button"/>
 		<image name="kb_hide" filename="kb_hide" retainaspect="1"/>
 		<image name="kb_show" filename="kb_show" retainaspect="1"/>
-		<image name="checkbox_false" filename="checkbox_false" retainaspect="1"/>
-		<image name="checkbox_true" filename="checkbox_true" retainaspect="1"/>
-		<image name="radio_false" filename="radio_false" retainaspect="1"/>
-		<image name="radio_true" filename="radio_true" retainaspect="1"/>
+		<image name="checkbox_false" filename="checkbox_false" materialfilename="material_checkbox_false" retainaspect="1"/>
+		<image name="checkbox_true" filename="checkbox_true" materialfilename="material_checkbox_true" retainaspect="1"/>
+		<image name="radio_false" filename="radio_false" materialfilename="material_radio_false" retainaspect="1"/>
+		<image name="radio_true" filename="radio_true" materialfilename="material_radio_true" retainaspect="1"/>
 		<image name="sort_asc" filename="sort_asc" retainaspect="1"/>
 		<image name="sort_desc" filename="sort_desc" retainaspect="1"/>
 		<image name="sort_empty" filename="sort_empty" retainaspect="1"/>
 		<animation name="progress" filename="indeterminate" retainaspect="1"/>
-		<image name="progress_empty" filename="progress_empty" retainaspect="1"/>
+		<image name="progress_empty" filename="progress_empty" materialfilename="material_progress_empty" retainaspect="1"/>
 		<image name="lock_screen_gfx" filename="lock_screen_gfx"/>
-		<image name="progress_full" filename="progress_fill" retainaspect="1"/>
-		<image name="slider_used" filename="slider_used" retainaspect="1"/>
-		<image name="slider_touch" filename="slider_touch" retainaspect="1"/>
-		<image name="temp" filename="temp" retainaspect="1" />
-		<image name="handle" filename="handle" retainaspect="1"/>
+		<image name="progress_full" filename="progress_fill" materialfilename="material_progress_fill" retainaspect="1"/>
+		<image name="slider_used" filename="slider_used" materialfilename="material_slider_used" retainaspect="1"/>
+		<image name="slider_touch" filename="slider_touch" materialfilename="material_slider_touch" retainaspect="1"/>
+		<image name="temp" filename="temp" materialfilename="material_temp" retainaspect="1" />
+		<image name="handle" filename="handle" materialfilename="material_handle" retainaspect="1"/>
 		<image name="cursor" filename="cursor" retainaspect="1"/>
-		<image name="tab_timezone" filename="tab_timezone" retainaspect="1"/>
-		<image name="tab_display" filename="tab_display" retainaspect="1"/>
-		<image name="tab_vibration" filename="tab_vibration" retainaspect="1"/>
+		<image name="tab_timezone" filename="tab_timezone" materialfilename="material_tab_timezone" retainaspect="1"/>
+		<image name="tab_display" filename="tab_display" materialfilename="material_tab_display" retainaspect="1"/>
+		<image name="tab_vibration" filename="tab_vibration" materialfilename="material_tab_vibration" retainaspect="1"/>
 		<image name="filter_dialog" filename="filter_dialog" retainaspect="1"/>
-		<image name="tab_language" filename="tab_language" retainaspect="1"/>
+		<image name="tab_language" filename="tab_language" materialfilename="material_tab_language" retainaspect="1"/>
 		<image name="backspace" filename="backspace" retainaspect="1"/>
 		<image name="enter" filename="enter" retainaspect="1"/>
 		<image name="shift" filename="shift" retainaspect="1"/>
@@ -94,73 +112,72 @@
 		<image name="space" filename="space" retainaspect="1"/>
 		<image name="kb_arrow_left" filename="kb_arrow_left" retainaspect="1"/>
 		<image name="kb_arrow_right" filename="kb_arrow_right" retainaspect="1"/>
-		<image name="filter" filename="install_filter_FAB" retainaspect="1"/>
+		<image name="filter" filename="install_filter_FAB" materialfilename="material_install_filter_FAB" retainaspect="1"/>
 		<image name="kb_arrow_up" filename="kb_arrow_up" retainaspect="1"/>
 		<image name="kb_arrow_down" filename="kb_arrow_down" retainaspect="1"/>
-		<image name="main_button_black" filename="main_button_black"/>
-		<image name="main_button_black2" filename="main_button_black2"/>
-		<image name="main_button_black3" filename="main_button_black3"/>
-		<image name="main_button_black3_new" filename="main_button_black3_new" retainaspect="1"/>
+		<image name="main_button_black" filename="main_button_black" materialfilename="material_main_button_black"/>
+		<image name="main_button_black2" filename="main_button_black2" materialfilename="material_main_button_black2"/>
+		<image name="main_button_black3" filename="main_button_black3" materialfilename="material_main_button_black3"/>
+		<image name="main_button_black3_new" filename="main_button_black3_new" materialfilename="material_main_button_black3_new" retainaspect="1"/>
 		<image name="main_button_themes_features" filename="main_button_themes_features" retainaspect="1"/>
-		<image name="main_button_specials_info" filename="main_button_specials_info" retainaspect="1"/>
+		<image name="main_button_specials_info" filename="main_button_specials_info" materialfilename="material_main_button_specials_info" retainaspect="1"/>
 		<image name="scrolling_notice" filename="scrolling_notice" retainaspect="1"/>
-		<image name="main_button_specials_icon" filename="main_button_specials_icon" retainaspect="1"/>
+		<image name="main_button_specials_icon" filename="main_button_specials_icon" materialfilename="material_main_button_specials_icon" retainaspect="1"/>
 		<image name="main_button_specials_icon_clear" filename="main_button_specials_icon_clear" retainaspect="1"/>
-		<image name="main_button_install" filename="main_button_install" retainaspect="1"/>
-		<image name="main_button_install_alt" filename="main_button_install_alt" retainaspect="1"/>
-		<image name="main_button_install_page" filename="main_button_install_page" retainaspect="1"/>
-		<image name="main_button_install_done" filename="main_button_install_done" retainaspect="1"/>
-		<image name="main_button_wipe" filename="main_button_wipe" retainaspect="1"/>
-		<image name="main_button_backup" filename="main_button_backup" retainaspect="1"/>
-		<image name="main_button_restore" filename="main_button_restore" retainaspect="1"/>
-		<image name="main_button_mount" filename="main_button_mount" retainaspect="1"/>
-		<image name="main_button_settings" filename="main_button_settings" retainaspect="1"/>
-		<image name="main_button_advanced" filename="main_button_advanced" retainaspect="1"/>
+		<image name="main_button_install" filename="main_button_install" materialfilename="material_main_button_install" retainaspect="1"/>
+		<image name="main_button_install_alt" filename="main_button_install_alt" materialfilename="material_main_button_install_alt" retainaspect="1"/>
+		<image name="main_button_install_page" filename="main_button_install_page" materialfilename="material_main_button_install_page" retainaspect="1"/>
+		<image name="main_button_install_done" filename="main_button_install_done" materialfilename="material_main_button_install_done" retainaspect="1"/>
+		<image name="main_button_wipe" filename="main_button_wipe" materialfilename="material_main_button_wipe" retainaspect="1"/>
+		<image name="main_button_backup" filename="main_button_backup" materialfilename="material_main_button_backup" retainaspect="1"/>
+		<image name="main_button_restore" filename="main_button_restore" materialfilename="material_main_button_restore" retainaspect="1"/>
+		<image name="main_button_mount" filename="main_button_mount" materialfilename="material_main_button_mount" retainaspect="1"/>
+		<image name="main_button_settings" filename="main_button_settings" materialfilename="material_main_button_settings" retainaspect="1"/>
+		<image name="main_button_advanced" filename="main_button_advanced" materialfilename="material_main_button_advanced" retainaspect="1"/>
 		<image name="main_button_additional" filename="main_button_additional" retainaspect="1"/>
-		<image name="main_button_reboot" filename="main_button_reboot" retainaspect="1"/>
-		<image name="main_button_log" filename="main_button_log" retainaspect="1"/>
-		<image name="main_button_fixcontexts" filename="main_button_fixcontexts" retainaspect="1"/>
+		<image name="main_button_reboot" filename="main_button_reboot" materialfilename="material_main_button_reboot" retainaspect="1"/>
+		<image name="main_button_log" filename="main_button_log" materialfilename="material_main_button_log" retainaspect="1"/>
+		<image name="main_button_fixcontexts" filename="main_button_fixcontexts" materialfilename="material_main_button_fixcontexts" retainaspect="1"/>
 		<image name="main_button_partitionsd" filename="main_button_partitionsd" retainaspect="1"/>
-		<image name="main_button_adb" filename="main_button_adb" retainaspect="1"/>
-		<image name="main_button_unmap" filename="main_button_unmap" retainaspect="1"/>
-		<image name="main_button_snapshot" filename="main_button_snapshot" retainaspect="1"/>
-		<image name="main_button_explorer" filename="main_button_explorer" retainaspect="1"/>
-		<image name="main_button_special" filename="main_button_special" retainaspect="1"/>
-		<image name="main_button_back" filename="main_button_back" retainaspect="1"/>
-		<image name="main_button_back2" filename="main_button_back2" retainaspect="1"/>
-		<image name="main_button_themes" filename="main_button_themes" retainaspect="1"/>
+		<image name="main_button_adb" filename="main_button_adb" materialfilename="material_main_button_adb" retainaspect="1"/>
+		<image name="main_button_unmap" filename="main_button_unmap" materialfilename="material_main_button_unmap" retainaspect="1"/>
+		<image name="main_button_snapshot" filename="main_button_snapshot" materialfilename="material_main_button_snapshot" retainaspect="1"/>
+		<image name="main_button_explorer" filename="main_button_explorer" materialfilename="material_main_button_explorer" retainaspect="1"/>
+		<image name="main_button_special" filename="main_button_special" materialfilename="material_main_button_special" retainaspect="1"/>
+		<image name="main_button_back" filename="main_button_back" materialfilename="material_main_button_back" retainaspect="1"/>
+		<image name="main_button_back2" filename="main_button_back2" materialfilename="material_main_button_back2" retainaspect="1"/>
+		<image name="main_button_themes" filename="main_button_themes" materialfilename="material_main_button_themes" retainaspect="1"/>
 		<image name="button_torch_on" filename="button_torch_on" retainaspect="1"/>
 		<image name="button_torch_off" filename="button_torch_off" retainaspect="1"/>
-		<image name="main_button_pbrp_about" filename="main_button_pbrp_about" retainaspect="1"/>
-		<image name="main_button_pbrp_custom" filename="main_button_pbrp_custom" retainaspect="1"/>
-		<image name="main_button_pbrp_tools" filename="main_button_pbrp_tools" retainaspect="1"/>
-		<image name="main_button_reloadtheme" filename="main_button_reloadtheme" retainaspect="1"/>
-		<image name="sec_reboot_dialog" filename="sec_reboot_dialog" />
-		<image name="sec_reboot_adv" filename="sec_reboot_adv" />
-		<image name="flash" filename="flash" retainaspect="1" />
-		<image name="brush" filename="brush" retainaspect="1" />
-		<image name="reboot_icon" filename="reboot_icon" retainaspect="1" />
+		<image name="main_button_pbrp_about" filename="main_button_pbrp_about" materialfilename="material_main_button_pbrp_about" retainaspect="1"/>
+		<image name="main_button_pbrp_custom" filename="main_button_pbrp_custom" materialfilename="material_main_button_pbrp_custom" retainaspect="1"/>
+		<image name="main_button_pbrp_tools" filename="main_button_pbrp_tools" materialfilename="material_main_button_pbrp_tools" retainaspect="1"/>
+		<image name="main_button_reloadtheme" filename="main_button_reloadtheme" materialfilename="material_main_button_reloadtheme" retainaspect="1"/>
+		<image name="sec_reboot_dialog" filename="sec_reboot_dialog" materialfilename="material_sec_reboot_dialog" />
+		<image name="sec_reboot_adv" filename="sec_reboot_adv" materialfilename="material_sec_reboot_adv" />
+		<image name="flash" filename="flash" materialfilename="material_flash" retainaspect="1" />
+		<image name="brush" filename="brush" materialfilename="material_brush" retainaspect="1" />
+		<image name="reboot_icon" filename="reboot_icon" materialfilename="material_reboot_icon" retainaspect="1" />
 		<image name="screenshot_icon" filename="screenshot_icon" retainaspect="1" />
-		<image name="selected_tab" filename="selected_tab" retainaspect="1" />
-		<image name="alert-circle" filename="alert-circle" retainaspect="1"/>
+		<image name="selected_tab" filename="selected_tab" materialfilename="material_selected_tab" retainaspect="1" />
+		<image name="alert-circle" filename="alert-circle" materialfilename="material_alert-circle" retainaspect="1"/>
 		<image name="backup_options" filename="backup_options"/>
 		<image name="selected_bar" filename="selection_bar" retainaspect="1" />
-		<image name="usb_mounted" filename="usb_mounted" retainaspect="1" />
+		<image name="usb_mounted" filename="usb_mounted" materialfilename="material_usb_mounted" retainaspect="1" />
 		<image name="ellipse" filename="ellipse" retainaspect="1" />
-		<image name="i_icon" filename="i_icon" retainaspect="1" />
-		<image name="power_logo" filename="power_logo" retainaspect="1" />
-		<image name="customizations_icon" filename="customizations_icon" retainaspect="1" />
-		<image name="customizations_icon" filename="customizations_icon" retainaspect="1" />
-		<image name="reboot_system_icon" filename="reboot_system_icon" retainaspect="1" />
-		<image name="more_icon" filename="more_icon" retainaspect="1" />
-		<image name="main_button_tools" filename="main_button_tools" retainaspect="1" />
-		<image name="trash" filename="trash" retainaspect="1" />
+		<image name="i_icon" filename="i_icon" materialfilename="material_i_icon" retainaspect="1" />
+		<image name="power_logo" filename="power_logo" materialfilename="material_power_logo" retainaspect="1" />
+		<image name="customizations_icon" filename="customizations_icon" materialfilename="material_customizations_icon" retainaspect="1" />
+		<image name="reboot_system_icon" filename="reboot_system_icon" materialfilename="material_reboot_system_icon" retainaspect="1" />
+		<image name="more_icon" filename="more_icon" materialfilename="material_more_icon" retainaspect="1" />
+		<image name="main_button_tools" filename="main_button_tools" materialfilename="material_main_button_tools" retainaspect="1" />
+		<image name="trash" filename="trash" materialfilename="material_trash" retainaspect="1" />
 		<image name="camera2" filename="camera2" retainaspect="1" />
 		<image name="codename_changer" filename="codename_changer" retainaspect="1" />
 		<image name="dm_verity" filename="dm_verity" retainaspect="1" />
 		<image name="fingerprint" filename="fingerprint" retainaspect="1" />
 		<image name="magisk" filename="magisk" retainaspect="1" />
-		<image name="mtp" filename="mtp" retainaspect="1" />
+		<image name="mtp" filename="mtp" materialfilename="material_mtp" retainaspect="1" />
 		<image name="overlays" filename="overlays" retainaspect="1" />
 		<image name="pin_pass_remover" filename="pin_pass_remover" retainaspect="1" />
 		<image name="unroot" filename="unroot" retainaspect="1" />
@@ -493,6 +510,84 @@
 		<variable name="tw_selectzip" value="0" persist="1"/>
 	</variables>
 	<templates>
+<template name="settings_home_chrome">
+			<background color="%background_color%"/>
+
+
+			<fill color="#00000000">
+				<condition var1="tw_simulate_actions" var2="0"/>
+				<placement x="0" y="0" w="%screen_width%" h="%status_height%"/>
+			</fill>
+			<fill color="%text_fail_color%">
+				<condition var1="tw_simulate_actions" var2="1"/>
+				<placement x="0" y="0" w="%screen_width%" h="%status_height%"/>
+			</fill>
+			<text color="%text_color%">
+				<condition var1="tw_no_cpu_temp" var2="1"/>
+				<font resource="font_o"/>
+				<placement x="%indent%" y="%row1_header_y%"/>
+				<text>%tw_version%</text>
+			</text>
+			<image>
+				<image resource="temp"/>
+				<placement x="%col1_x_header%" y="%row1_header_y%"/>
+			</image>
+			<text color="%text_color%">
+				<condition var1="tw_no_cpu_temp" var2="0"/>
+				<condition var1="tw_sd_free" var2="0"/>
+				<font resource="font_m"/>
+				<placement x="%back_button_x%" y="%row1_header_y%"/>
+				<text>{@cpu_temp= %tw_cpu_temp% °C}</text>
+			</text>
+			<text color="%text_color%">
+				<condition var1="tw_sd_free" var2="1"/>
+				<font resource="font_m"/>
+				<placement x="260" y="%row1_header_y%"/>
+				<text>%tw_storage_free_size% Mb</text>
+			</text>
+			<text color="%text_color%">
+				<font resource="font_m"/>
+				<placement x="%status_bar_time%" y="%row1_header_y%"/>
+				<text>%tw_time%</text>
+			</text>
+			<text color="%text_color%">
+				<conditions>
+					<condition var1="tw_no_battery_percent" var2="0"/>
+					<condition var1="tw_battery" op="&gt;" var2="0"/>
+					<condition var1="tw_battery" op="&lt;" var2="101"/>
+				</conditions>
+				<font resource="font_m"/>
+				<placement x="%indent_right%" y="%row1_header_y%" placement="1"/>
+				<text>%tw_battery%</text>
+			</text>
+
+
+
+
+
+
+
+			<fill color="%background_color%">
+				<condition var1="tw_busy" var2="1"/>
+				<placement x="0" y="%navbar_y%" w="%screen_width%" h="%navbar_height%"/>
+			</fill>
+			<action>
+				<touch hkey="power"/>
+				<action function="overlay">reboot_secondary</action>
+			</action>
+			<action>
+				<touch key="power"/>
+				<action function="togglebacklight"/>
+			</action>
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+			<action>
+			    <touch hkey="volup" />
+			    <action function="flashlight" />
+			</action>
+		</template>
 		<template name="page">
 			<background color="%background_color%"/>
 			<image>

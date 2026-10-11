@@ -4,6 +4,7 @@
 	<display>English</display>
 
 	<resources>
+		<string name="flashlight">Flashlight</string>
 		<!-- Font overrides - only change these if your language requires special characters -->
 		<resource name="font_l" type="fontoverride" filename="pb.ttf" scale="100" />
 		<resource name="font_m" type="fontoverride" filename="pb.ttf" scale="100" />
@@ -983,5 +984,10 @@
 		<string name="restore_with_pattern2">Pattern should be disabled before restore</string>
 		<string name="reboot_after_restore">It is recommended to reboot Android once after first boot.</string>
 		<string name="install_took_seconds_msg">Install took {1} second(s).</string>
+
+		<resource name="pb_theme_original" type="string">PBRP Original</resource>
+		<resource name="pb_theme_original_summary" type="string">Original PitchBlack styling</resource>
+		<resource name="pb_theme_material" type="string">Material 3 Expressive</resource>
+		<resource name="pb_theme_material_summary" type="string">Grouped rows and Android Settings styling</resource>
 	</resources>
 </language>

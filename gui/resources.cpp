@@ -159,6 +159,25 @@ void FontResource::LoadFont(xml_node<>* node, ZipArchiveHandle pZip)
 			origFontSize = font_size;
 		}
 
+		if (!pZip && DataManager::GetIntValue("pb_material_resources") == 1 &&
+		    node->first_attribute("materialfilename")) {
+			file = node->first_attribute("materialfilename")->value();
+			if (node->first_attribute("materialsize")) {
+				font_size = scale_theme_min(atoi(node->first_attribute("materialsize")->value()));
+				origFontSize = font_size;
+			}
+		}
+
+		// Languages using the bundled Latin font should retain Material typography.
+		// Dedicated language fonts remain untouched for their glyph coverage.
+		if (!pZip && DataManager::GetIntValue("pb_material_resources") == 1 &&
+		    node->first_attribute("type") &&
+		    strcmp(node->first_attribute("type")->value(), "fontoverride") == 0 &&
+		    file == "pb.ttf") {
+			file = GetName() == "fixed" ? "DroidSansMono.ttf" :
+			       GetName() == "font_s" ? "Roboto_Regular.ttf" : "Roboto_Medium.ttf";
+		}
+
 		int dpi = 300;
 
 		attr = node->first_attribute("dpi");
@@ -227,6 +246,10 @@ ImageResource::ImageResource(xml_node<>* node, ZipArchiveHandle pZip)
 		LOGERR("No filename specified for image resource.\n");
 		return;
 	}
+
+	if (!pZip && DataManager::GetIntValue("pb_material_resources") == 1 &&
+	    node->first_attribute("materialfilename"))
+		file = node->first_attribute("materialfilename")->value();
 
 	bool retain_aspect = (node->first_attribute("retainaspect") != NULL);
 	// the value does not matter, if retainaspect is present, we assume that we want to retain it
