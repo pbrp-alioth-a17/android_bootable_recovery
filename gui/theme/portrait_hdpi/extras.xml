@@ -525,30 +525,27 @@
 				<placement x="%col1_x_header%" y="%row4_header_y%"/>
 				<text>{@pbrpspecial_btn=PBRP Special}</text>
 			</text>
-			<image>
-				<image resource="power_logo"/>
-				<placement x="90" y="%row1a_y%"/>
-			</image>
-			<text>
-				<font resource="font_roboto" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="%row11_y%" placement="5"/>
-				<text>{@pb_coming_soon2=We are sorry but it's coming soon!}</text>
-			</text>
-			<text>
-				<font resource="font_roboto" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="%row12a_y%" placement="5"/>
-				<text>{@pb_theme_1=Feel free to send your custom made themes to}</text>
-			</text>
-			<text>
-				<font resource="font_roboto" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="%row14_y%" placement="5"/>
-				<text>{@pb_theme_2=us on}</text>
-			</text>
-			<text>
-				<font resource="font_roboto" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="%row15a_y%" placement="5"/>
-				<text>pitchblackrecovery.com</text>
-			</text>
+			<listbox style="advanced_listbox">
+				<placement x="%listbox_x%" y="%row1a_y%" w="%screen_width%" h="%advanced_listbox_h%"/>
+				<listitem name="{@pb_theme_original=PBRP Original}">
+					<text>{@pb_theme_original_summary=Original PitchBlack colors and layout}</text>
+					<icon icon="main_button_themes"/>
+					<actions>
+						<action function="set">pb_ui_style=0</action>
+						<action function="savesettings"/>
+						<action function="reload"/>
+					</actions>
+				</listitem>
+				<listitem name="{@pb_theme_material=Android 17 · Material colors}">
+					<text>{@pb_theme_material_summary=Soft dark surfaces and lavender accents}</text>
+					<icon icon="main_button_themes"/>
+					<actions>
+						<action function="set">pb_ui_style=1</action>
+						<action function="savesettings"/>
+						<action function="reload"/>
+					</actions>
+				</listitem>
+			</listbox>
 			<action>
 				<touch key="home"/>
 				<action function="page">main</action>

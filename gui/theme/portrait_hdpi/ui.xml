@@ -168,6 +168,7 @@
 	</resources>
 
 	<variables>
+		<variable name="pb_bundled_palette" value="1"/>
 		<!-- Coordinates -->
 		<variable name="x" value="0"/>
 		<variable name="y" value="0"/>

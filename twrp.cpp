@@ -222,6 +222,8 @@ static void process_recovery_mode(twrpAdbBuFifo* adb_bu_fifo, bool skip_decrypti
 		TWFunc::Fixup_Time_On_Boot();
 
 	DataManager::ReadSettingsFile();
+	if (DataManager::GetIntValue("pb_ui_style") == 1)
+		PageManager::RequestReload();
 
 	// Run any outstanding OpenRecoveryScript
 	std::string cacheDir = TWFunc::get_log_dir();

@@ -644,6 +644,7 @@ void DataManager::SetDefaultValues()
 	char alioth_ui[PROPERTY_VALUE_MAX];
 	property_get("ro.pbrp.alioth_safe_ui", alioth_ui, "0");
 	mConst.SetValue("pb_alioth_safe_ui", alioth_ui);
+	mPersist.SetValue("pb_ui_style", "0");
 
 	mConst.SetValue(TW_VERSION_VAR, PB_BUILD);
 

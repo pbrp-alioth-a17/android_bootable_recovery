@@ -1048,6 +1048,32 @@ int PageSet::LoadVariables(xml_node<>* vars)
 			}
 			p = persist ? atoi(persist->value()) : 0;
 			string temp = value->value();
+			// Apply only to the bundled portrait palette; external themes retain
+			// their own variables. Keep XML defaults as the original PBRP style.
+			xml_node<>* marker = vars->first_node("variable");
+			if (marker && marker->first_attribute("name") &&
+			    strcmp(marker->first_attribute("name")->value(), "pb_bundled_palette") == 0 &&
+			    DataManager::GetIntValue("pb_ui_style") == 1) {
+				static const std::map<std::string, std::string> material_colors = {
+					{"background_color", "#141318"},
+					{"background_color2", "#211F26"},
+					{"theme_color", "#211F26"},
+					{"front_color", "#211F26"},
+					{"accent_color", "#49454F"},
+					{"accent_color2", "#D0BCFF"},
+					{"accent_color_semitransparent", "#D0BCFF30"},
+					{"text_color", "#E6E0E9"},
+					{"sub_header_color", "#CAC4D0"},
+					{"text_main_button_color", "#E6E0E9"},
+					{"highlight_color", "#D0BCFF30"},
+					{"highlight_color_subbutton", "#D0BCFF30"},
+					{"caps_highlight_color", "#D0BCFF30"},
+					{"highlight", "#D0BCFF"},
+					{"fileselector_highlight_color", "#49454F"},
+				};
+				auto color = material_colors.find(name->value());
+				if (color != material_colors.end()) temp = color->second;
+			}
 			string valstr = gui_parse_text(temp);
 
 			if (valstr.find("+") != string::npos) {
