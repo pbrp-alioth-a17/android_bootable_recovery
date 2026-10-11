@@ -362,7 +362,18 @@ th_read(TAR *t)
 				start += FSCRYPT_TAG_LEN;
 				if (*start == '0') {
 					start++;
-					memcpy(get_policy(t->th_buf.fep), start, fscrypt_policy_size(t->th_buf.fep));
+					memset(t->th_buf.fep, 0, sizeof(*t->th_buf.fep));
+					if (start >= buf + len) {
+						errno = EBADMSG;
+						return -1;
+					}
+					t->th_buf.fep->version = (uint8_t)*start;
+					int policy_size = fscrypt_policy_size(t->th_buf.fep);
+					if (!policy_size || buf + len - start < policy_size) {
+						errno = EBADMSG;
+						return -1;
+					}
+					memcpy(get_policy(t->th_buf.fep), start, policy_size);
 #ifdef DEBUG
 					uint8_t version;
 					char content[50];
@@ -580,11 +591,13 @@ th_write(TAR *t)
 	{
 		/* setup size - EXT header has format "*size of this whole tag as ascii numbers* *space* *version code* *content* *newline* */
 		//                                                       size   newline
-		uint8_t size, *descriptor;
-		size = fscrypt_policy_size(t->th_buf.fep);
-		descriptor = get_policy_descriptor(t->th_buf.fep);
+		uint8_t size = fscrypt_policy_size(t->th_buf.fep);
+		if (!size) {
+			errno = EINVAL;
+			return -1;
+		}
 #ifdef DEBUG
-		LOG("th_write(): using fscrypt_policy %s\n", descriptor);
+		LOG("th_write(): using fscrypt_policy version %u\n", (unsigned int)t->th_buf.fep->version);
 #endif
 		sz = FSCRYPT_TAG_LEN + size + 1 + 3  +    1;
 		if(sz >= 100) // another ascci digit for size

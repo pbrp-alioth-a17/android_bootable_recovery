@@ -15,6 +15,7 @@
 ** limitations under the License.
 */
 
+#include <algorithm>
 #include <cutils/memory.h>
 
 #include "clear.h"
@@ -70,7 +71,7 @@ static void memset2d(context_t* c, const surface_t& s, uint32_t packed,
         break;
     case 2:
         do {
-            android_memset16((uint16_t*)dst, packed, w);
+            std::fill_n((uint16_t*)dst, w / sizeof(uint16_t), static_cast<uint16_t>(packed));
             dst += stride;
         } while(--h);
         break;
@@ -78,7 +79,7 @@ static void memset2d(context_t* c, const surface_t& s, uint32_t packed,
         break;
     case 4:
         do {
-            android_memset32((uint32_t*)dst, packed, w);
+            std::fill_n((uint32_t*)dst, w / sizeof(uint32_t), packed);
             dst += stride;
         } while(--h);
         break;

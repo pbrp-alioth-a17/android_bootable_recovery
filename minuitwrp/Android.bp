@@ -28,7 +28,6 @@ cc_library_shared {
         "external/zlib",
         "system/core/include",
         "external/freetype/include",
-        "external/libcxx/include",
         "bootable/recovery",
         "bootable/recovery/twrpinstall/include",
         "bootable/recovery/libpixelflinger/include",

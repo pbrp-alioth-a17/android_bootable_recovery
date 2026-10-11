@@ -510,7 +510,7 @@ bool twrpback::restore(void) {
 	uint64_t md5fnsize = 0, fileBytes = 0;
 	bool read_from_adb;
 	bool md5sumdata;
-	bool compressed, tweofrcvd, extraData;
+	bool tweofrcvd;
 
 	read_from_adb = true;
 
@@ -682,7 +682,6 @@ bool twrpback::restore(void) {
 					fileBytes = 0;
 					read_from_adb = true;
 					dataChunkBytes = 0;
-					extraData = false;
 
 					digest.init();
 					adblogwrite("Restoring TWIMG\n");
@@ -728,7 +727,6 @@ bool twrpback::restore(void) {
 					md5sumdata = false;
 					read_from_adb = true;
 					dataChunkBytes = 0;
-					extraData = false;
 
 					digest.init();
 					adblogwrite("Restoring TWFN\n");
@@ -764,7 +762,6 @@ bool twrpback::restore(void) {
 					adblogwrite("Opened restore tar\n");
 					#endif
 
-					compressed = twfilehdr.compressed == 1 ? true: false;
 					adblogwrite("opening TW_ADB_RESTORE\n");
 					adb_write_fd = open(TW_ADB_RESTORE, O_WRONLY);
 				}

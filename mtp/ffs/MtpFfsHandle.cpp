@@ -215,7 +215,6 @@ int MtpFfsHandle::handleControlRequest(const struct usb_ctrlrequest *setup) {
 	uint16_t value = setup->wValue;
 	std::vector<char> buf;
 	buf.resize(length);
-	int ret = 0;
 
 	if (!(type & USB_DIR_IN)) {
 		if (::read(mControl, buf.data(), length) != length) {
@@ -228,8 +227,7 @@ int MtpFfsHandle::handleControlRequest(const struct usb_ctrlrequest *setup) {
 		case MTP_REQ_RESET:
 		case MTP_REQ_CANCEL:
 			errno = ECANCELED;
-			ret = -1;
-			break;
+			return -1;
 		case MTP_REQ_GET_DEVICE_STATUS:
 		{
 			if (length < sizeof(struct mtp_device_status) + 4) {
@@ -237,7 +235,7 @@ int MtpFfsHandle::handleControlRequest(const struct usb_ctrlrequest *setup) {
 				return -1;
 			}
 			struct mtp_device_status *st = reinterpret_cast<struct mtp_device_status*>(buf.data());
-			st->wLength = htole16(sizeof(st));
+			st->wLength = htole16(sizeof(*st));
 			if (mCanceled) {
 				st->wLength += 4;
 				st->wCode = MTP_RESPONSE_TRANSACTION_CANCELLED;

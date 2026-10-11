@@ -1230,6 +1230,7 @@ local void finish_jobs(void)
     Trace(("-- freed %d output buffers", caught));
     caught = free_pool(&in_pool);
     Trace(("-- freed %d input buffers", caught));
+    (void)caught;  /* Trace and assert consume the counts only in debug builds. */
     free_lock(write_first);
     free_lock(compress_have);
     compress_have = NULL;

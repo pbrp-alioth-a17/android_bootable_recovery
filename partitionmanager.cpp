@@ -597,7 +597,7 @@ void TWPartitionManager::Decrypt_Data() {
 			Set_Crypto_Type("file");
 #ifdef TW_INCLUDE_FBE_METADATA_DECRYPT
 #ifdef USE_FSCRYPT
-			if (android::vold::fscrypt_mount_metadata_encrypted(Decrypt_Data->Actual_Block_Device, Decrypt_Data->Mount_Point, false, false, Decrypt_Data->Current_File_System, "", TWFunc::Path_Exists(additional_fstab) ? additional_fstab : "")) {
+			if (android::vold::fscrypt_mount_metadata_encrypted(Decrypt_Data->Actual_Block_Device, Decrypt_Data->Mount_Point, false, false, Decrypt_Data->Current_File_System, false, {}, {}, 0, TWFunc::Path_Exists(additional_fstab) ? additional_fstab : "")) {
 				std::string crypto_blkdev = android::base::GetProperty("ro.crypto.fs_crypto_blkdev", "error");
 				Decrypt_Data->Decrypted_Block_Device = crypto_blkdev;
 				LOGINFO(
@@ -1045,12 +1045,9 @@ int TWPartitionManager::Run_Backup(bool adbbackup) {
 	string Backup_Name, Backup_List, backup_path;
 	unsigned long long total_bytes = 0, free_space = 0;
 	TWPartition* storage = NULL;
-	struct tm* t;
-	time_t seconds, total_start, total_stop;
+	time_t total_start, total_stop;
 	size_t start_pos = 0, end_pos = 0;
 	stop_backup.set_value(0);
-	seconds = time(0);
-	t = localtime(&seconds);
 
 	part_settings.img_bytes_remaining = 0;
 	part_settings.file_bytes_remaining = 0;
@@ -3717,12 +3714,9 @@ int TWPartitionManager::Run_OTA_Survival_Backup(bool adbbackup) {
 	string Backup_Name, backup_path, Backup_List;
 	unsigned long long total_bytes = 0, free_space = 0;
 	TWPartition* storage = NULL;
-	struct tm* t;
-	time_t seconds, total_start, total_stop;
+	time_t total_start, total_stop;
 	size_t start_pos = 0, end_pos = 0;
 	stop_backup.set_value(0);
-	seconds = time(0);
-	t = localtime(&seconds);
 
 	part_settings.img_bytes_remaining = 0;
 	part_settings.file_bytes_remaining = 0;
@@ -3880,13 +3874,6 @@ int TWPartitionManager::Run_OTA_Survival_Backup(bool adbbackup) {
 
 	time(&total_stop);
 
-	uint64_t actual_backup_size;
-	if (!adbbackup) {
-		TWExclude twe;
-		actual_backup_size = twe.Get_Folder_Size(part_settings.Backup_Folder);
-	} else
-		actual_backup_size = part_settings.file_bytes + part_settings.img_bytes;
-	actual_backup_size /= (1024LLU * 1024LLU);
 
 	int prev_img_bps = 0, use_compression = 0;
 	unsigned long long prev_file_bps = 0;

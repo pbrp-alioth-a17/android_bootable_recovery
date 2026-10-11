@@ -101,7 +101,7 @@ LOCAL_SHARED_LIBRARIES += android.hardware.boot@1.0 \
                           android.hardware.boot@1.2 \
                           android.hardware.health@2.0 \
                           android.hardware.health@2.1 \
-                          android.hardware.health-V2-ndk \
+                          android.hardware.health-V5-ndk \
                           android.hardware.health-translate-ndk \
                           libbinder \
                           libbinder_ndk \
@@ -111,10 +111,12 @@ LOCAL_SHARED_LIBRARIES += android.hardware.boot@1.0 \
                           libhidlbase \
                           liblog \
                           liblp \
-                          liblz4 \
+                      liblz4 \
                           libprotobuf-cpp-lite \
                           libutils
 LOCAL_C_INCLUDES += \
+    system/update_engine \
+    system/fs/fs_mgr/libfstab \
     system/core/fs_mgr/libfs_avb/include/ \
     system/core/fs_mgr/include_fstab/ \
     system/core/fs_mgr/include/ \
@@ -131,6 +133,7 @@ ifneq ($(TARGET_RECOVERY_REBOOT_SRC),)
 endif
 
 LOCAL_MODULE := recovery
+LOCAL_MODULE_SYMLINKS := teamwin
 
 RECOVERY_API_VERSION := 3
 RECOVERY_FSTAB_VERSION := 2
@@ -148,7 +151,6 @@ LOCAL_C_INCLUDES += \
     system/libziparchive/include \
     external/freetype/include \
     external/boringssl/include \
-    external/libcxx/include \
     external/libselinux/include \
     external/libpng \
     $(LOCAL_PATH)/gui/include \
@@ -163,7 +165,8 @@ LOCAL_C_INCLUDES += \
     $(LOCAL_PATH)/minuitwrp/include \
     $(LOCAL_PATH)/twinstall/include
 
-LOCAL_STATIC_LIBRARIES += libguitwrp libvold
+LOCAL_SHARED_LIBRARIES += libsysutils
+LOCAL_STATIC_LIBRARIES += libguitwrp libvold libcasefoldingremover libzstd
 LOCAL_SHARED_LIBRARIES += libz libc libcutils libstdc++ libtar libblkid libminuitwrp libmtdutils libtwadbbu
 LOCAL_SHARED_LIBRARIES += libbootloader_message libcrecovery libtwrpdigest libc++ libaosprecovery libcrypto libbase 
 LOCAL_SHARED_LIBRARIES += libziparchive libselinux libdl_android.bootstrap
@@ -185,15 +188,15 @@ endif
 ifeq ($(AB_OTA_UPDATER),true)
     LOCAL_CFLAGS += -DTW_INCLUDE_INJECTTWRP
     LOCAL_CFLAGS += -DAB_OTA_UPDATER=1
-    TWRP_REQUIRED_MODULES += libhardware android.hardware.boot@1.0-service android.hardware.boot@1.0-service.rc \
-    android.hardware.boot@1.1-service android.hardware.boot@1.1-service.rc android.hardware.boot@1.1.xml \
-    android.hardware.boot@1.2-service android.hardware.boot@1.2-service.rc android.hardware.boot@1.2.xml
+    TWRP_REQUIRED_MODULES += libhardware android.hardware.boot@1.0-service android.hardware.boot@1.0-service.rc_twrp \
+    android.hardware.boot@1.1-service android.hardware.boot@1.1-service.rc_twrp android.hardware.boot@1.1.xml_twrp \
+    android.hardware.boot@1.2-service android.hardware.boot@1.2-service.rc_twrp android.hardware.boot@1.2.xml_twrp
 endif
 
 ifeq ($(PRODUCT_USE_DYNAMIC_PARTITIONS),true)
     LOCAL_CFLAGS += -DPRODUCT_USE_DYNAMIC_PARTITIONS=1
     ifeq ($(TW_EXCLUDE_LPDUMP),)
-        TWRP_REQUIRED_MODULES += lpdump lpdumpd.rc
+        TWRP_REQUIRED_MODULES += lpdump lpdumpd.rc_twrp
     endif
     ifeq ($(TW_EXCLUDE_LPTOOLS),)
         TWRP_REQUIRED_MODULES += lptools
@@ -349,24 +352,21 @@ ifeq ($(TW_INCLUDE_CRYPTO), true)
     LOCAL_C_INCLUDES += external/boringssl/src/include bootable/recovery/crypto
     TW_INCLUDE_CRYPTO_FBE := true
     LOCAL_CFLAGS += -DTW_INCLUDE_FBE
-    LOCAL_SHARED_LIBRARIES += android.frameworks.stats@1.0 android.hardware.authsecret@1.0 \
+    LOCAL_SHARED_LIBRARIES += android.hardware.authsecret@1.0 \
 	    android.security.authorization-ndk \
         android.hardware.oemlock@1.0 libf2fs_sparseblock \
-        libandroidicu.recovery \
-        lib_android_keymaster_keymint_utils \
-        android.hardware.gatekeeper-V1-ndk \
+            android.hardware.gatekeeper-V1-ndk \
         android.hardware.gatekeeper@1.0 \
         android.hardware.weaver@1.0 \
-        android.frameworks.stats@1.0 \
+        android.hardware.weaver-V2-ndk \
         android.security.maintenance-ndk \
-        android.system.keystore2-V1-ndk \
-        libkeyutils \
+        android.system.keystore2-V6-ndk \
         liblog \
-        libsqlite.recovery \
-        libkeystoreinfo.recovery \
+        libsqlite \
+        libkeystoreinfo \
         libgatekeeper_aidl
 
-    LOCAL_STATIC_LIBRARIES += libkeymint_support
+    LOCAL_SHARED_LIBRARIES += libkeymint_support
 
     LOCAL_CFLAGS += -DTW_INCLUDE_FBE_METADATA_DECRYPT
 
@@ -478,6 +478,7 @@ endif
 LOCAL_C_INCLUDES += system/vold \
 
 TWRP_REQUIRED_MODULES += \
+    twrp_theme \
     relink_libraries \
     relink_binaries \
     relink_vendor_hw_binaries \
@@ -488,35 +489,28 @@ TWRP_REQUIRED_MODULES += \
     flash_image \
     mke2fs.conf \
     pigz \
-    teamwin \
-    twrp \
     fsck.fat \
     fatlabel \
     mkfs.fat \
-    permissive.sh \
     simg2img_twrp \
     libbootloader_message \
-    init.recovery.hlthchrg.rc \
-    init.recovery.service.rc \
-    init.recovery.ldconfig.rc \
+    init.recovery.hlthchrg.rc_twrp \
+    init.recovery.service.rc_twrp \
+    init.recovery.ldconfig.rc_twrp \
     awk \
     toybox \
     toolbox \
-    mkshrc_twrp \
+    mkshrc.recovery \
     plat_hwservice_contexts \
     vendor_hwservice_contexts \
     minadbd \
     twrpbu \
     adbd_system_api_recovery \
     libsync.recovery \
-    libandroidicu.recovery \
     android.hardware.health@2.1-service \
     android.hardware.health@2.1-impl.recovery \
-    android.hardware.health@2.1-service.rc \
-    android.hardware.health@2.1.xml \
-    android.hardware.health@2.0-service \
-    android.hardware.health@2.0-impl.recovery \
-    android.hardware.health@2.0-service.rc \
+    android.hardware.health@2.1-service.rc_twrp \
+    android.hardware.health@2.1.xml_twrp \
     libadbd.recovery \
     libadbd_services.recovery
 
@@ -542,17 +536,17 @@ endif
 
 TWRP_REQUIRED_MODULES += \
     hwservicemanager \
-    hwservicemanager.rc \
+    hwservicemanager.rc_twrp \
     vndservicemanager \
-    vndservicemanager.rc \
+    vndservicemanager.rc_twrp \
     plat_service_contexts \
     servicemanager \
-    servicemanager.rc
+    servicemanager.rc_twrp
 
 ifneq ($(TW_EXCLUDE_NANO), true)
 TWRP_REQUIRED_MODULES += \
     nano_twrp \
-    nano.rc
+    nano.rc_twrp
 endif
 
 ifneq ($(TW_EXCLUDE_BASH), true)
@@ -565,18 +559,16 @@ endif
 ifneq ($(TW_INCLUDE_CRYPTO),)
 TWRP_REQUIRED_MODULES += \
     vold_prepare_subdirs \
-    task_recovery_profiles.json \
-    fscryptpolicyget.recovery \
-    keystore_auth \
+    fscryptpolicyget \
     keystore2 \
-    android.system.keystore2-service.xml \
-    keystore2.rc \
+    android.system.keystore2-service.xml_twrp \
+    keystore2.rc_twrp \
     plat_keystore2_key_contexts
 endif
 
 ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 26; echo $$?),0)
 TWRP_REQUIRED_MODULES += \
-    init.recovery.ldconfig.rc
+    init.recovery.ldconfig.rc_twrp
 endif
 TWRP_REQUIRED_MODULES += \
     parted \
@@ -616,12 +608,12 @@ ifeq ($(BOARD_USES_BML_OVER_MTD),true)
     TWRP_REQUIRED_MODULES += bml_over_mtd
 endif
 ifneq ($(TW_EXCLUDE_DEFAULT_USB_INIT), true)
-    TWRP_REQUIRED_MODULES += init.recovery.usb.rc
+    TWRP_REQUIRED_MODULES += init.recovery.usb.rc_twrp
 endif
 ifeq ($(TWRP_INCLUDE_LOGCAT), true)
-    TWRP_REQUIRED_MODULES += logcat event-log-tags
+    TWRP_REQUIRED_MODULES += logcat
     ifeq ($(TARGET_USES_LOGD), true)
-        TWRP_REQUIRED_MODULES += logd libsysutils libnl init.recovery.logd.rc
+        TWRP_REQUIRED_MODULES += logd libsysutils libnl init.recovery.logd.rc_twrp
     endif
 endif
 # Allow devices to specify device-specific recovery dependencies
@@ -637,7 +629,6 @@ endif
 ifeq ($(TARGET_USERIMAGES_USE_F2FS), true)
     TWRP_REQUIRED_MODULES += sload_f2fs \
         libfs_mgr \
-        fs_mgr \
         liblz4 \
         libinit
 endif
@@ -663,42 +654,12 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := file_contexts_text
 LOCAL_MODULE_TAGS := optional
-LOCAL_REQUIRED_MODULES := file_contexts.bin
+LOCAL_REQUIRED_MODULES := plat_file_contexts vendor_file_contexts system_ext_file_contexts product_file_contexts odm_file_contexts
 
 LOCAL_POST_INSTALL_CMD := \
-    $(hide) cp -f $(PRODUCT_OUT)/obj/ETC/file_contexts.bin_intermediates/file_contexts.concat.tmp $(TARGET_RECOVERY_ROOT_OUT)/file_contexts
+    $(hide) cat $(TARGET_RECOVERY_ROOT_OUT)/plat_file_contexts $(TARGET_RECOVERY_ROOT_OUT)/vendor_file_contexts $(TARGET_RECOVERY_ROOT_OUT)/system_ext_file_contexts $(TARGET_RECOVERY_ROOT_OUT)/product_file_contexts $(TARGET_RECOVERY_ROOT_OUT)/odm_file_contexts > $(TARGET_RECOVERY_ROOT_OUT)/file_contexts
 
 include $(BUILD_PHONY_PACKAGE)
-
-# recovery-persist (system partition dynamic executable run after /data mounts)
-# ===============================
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := \
-    recovery-persist.cpp 
-LOCAL_MODULE := recovery-persist
-LOCAL_SHARED_LIBRARIES := liblog libbase 
-LOCAL_STATIC_LIBRARIES := libotautil librecovery_utils
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/otautil/include
-LOCAL_C_INCLUDES += system/core/libstats/include
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/recovery_utils/include
-LOCAL_CFLAGS := -Werror
-LOCAL_INIT_RC := recovery-persist.rc
-include $(BUILD_EXECUTABLE)
-
-# recovery-refresh (system partition dynamic executable run at init)
-# ===============================
-
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := \
-    recovery-refresh.cpp
-LOCAL_MODULE := recovery-refresh
-LOCAL_SHARED_LIBRARIES := liblog libbase
-LOCAL_STATIC_LIBRARIES := libotautil librecovery_utils
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/otautil/include
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/recovery_utils/include
-LOCAL_CFLAGS := -Werror
-LOCAL_INIT_RC := recovery-refresh.rc
-include $(BUILD_EXECUTABLE)
 
 # libmounts (static library)
 # ===============================
@@ -709,30 +670,6 @@ LOCAL_CFLAGS := \
     -Werror
 LOCAL_MODULE := libmounts
 LOCAL_STATIC_LIBRARIES := libbase
-include $(BUILD_STATIC_LIBRARY)
-
-# librecovery (static library)
-# ===============================
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := \
-    install.cpp
-LOCAL_CFLAGS := -Wall -Werror
-LOCAL_CFLAGS += -DRECOVERY_API_VERSION=$(RECOVERY_API_VERSION)
-
-ifeq ($(AB_OTA_UPDATER),true)
-    LOCAL_CFLAGS += -DAB_OTA_UPDATER=1
-endif
-
-LOCAL_MODULE := librecovery
-LOCAL_STATIC_LIBRARIES := \
-    libminui \
-    libotautil \
-    libvintf \
-    libcrypto_utils \
-    libcrypto_static \
-    libbase \
-    libziparchive \
-
 include $(BUILD_STATIC_LIBRARY)
 
 commands_recovery_local_path := $(LOCAL_PATH)
@@ -758,6 +695,7 @@ include $(commands_TWRP_local_path)/mmcutils/Android.mk \
     $(commands_TWRP_local_path)/minzip/Android.mk \
     $(commands_TWRP_local_path)/dosfstools/Android.mk \
     $(commands_TWRP_local_path)/etc/Android.mk \
+    $(commands_TWRP_local_path)/gui/Android.mk \
     $(commands_TWRP_local_path)/simg2img/Android.mk \
     $(commands_TWRP_local_path)/adbbu/Android.mk \
     $(commands_TWRP_local_path)/twrpDigest/Android.mk \

@@ -674,7 +674,6 @@ int cmd_mtd_backup_raw_partition(const char *partition_name, const char *filenam
     const MtdPartition *partition;
     char buf[MTD_BLOCK_SIZE + SPARE_SIZE];
     size_t partition_size;
-    size_t total;
     int fd;
     int wrote;
     int len;
@@ -718,7 +717,6 @@ int cmd_mtd_backup_raw_partition(const char *partition_name, const char *filenam
         return -1;
     }
 
-    total = 0;
     while ((len = mtd_read_data(in, buf, MTD_BLOCK_SIZE)) > 0) {
         wrote = write(fd, buf, len);
         if (wrote != len) {
@@ -727,7 +725,6 @@ int cmd_mtd_backup_raw_partition(const char *partition_name, const char *filenam
             printf("error writing %s", filename);
             return -1;
         }
-        total += MTD_BLOCK_SIZE;
     }
 
     mtd_read_close(in);

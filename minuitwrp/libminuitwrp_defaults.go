@@ -160,16 +160,6 @@ func globalSharedLibs(ctx android.BaseContext) []string {
 	return sharedLibs
 }
 
-func globalRequiredModules(ctx android.BaseContext) []string {
-	var requiredModules []string
-
-	if getMakeVars(ctx, "TARGET_PREBUILT_KERNEL") != "" {
-		var kernelDir = getMakeVars(ctx, "TARGET_OUT_INTERMEDIATES") + ")/KERNEL_OBJ/usr"
-		requiredModules = append(requiredModules, kernelDir)
-	}
-	return requiredModules
-}
-
 func libMinuiTwrpDefaults(ctx android.LoadHookContext) {
 	type props struct {
 		Target struct {
@@ -183,7 +173,6 @@ func libMinuiTwrpDefaults(ctx android.LoadHookContext) {
 		Include_dirs []string
 		Static_libs  []string
 		Shared_libs  []string
-		Required     []string
 	}
 
 	p := &props{}
@@ -196,8 +185,6 @@ func libMinuiTwrpDefaults(ctx android.LoadHookContext) {
 	p.Static_libs = staticLibs
 	sharedLibs := globalSharedLibs(ctx)
 	p.Shared_libs = sharedLibs
-	requiredModules := globalRequiredModules(ctx)
-	p.Required = requiredModules
 	ctx.AppendProperties(p)
 }
 

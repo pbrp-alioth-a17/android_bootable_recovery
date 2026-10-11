@@ -1,3 +1,6 @@
+on init
+    export ICU_DATA /system/usr/icu
+
 on boot
 
 # For starting recovery on 5.0 and newer

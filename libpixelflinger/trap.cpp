@@ -17,6 +17,7 @@
 
 #define LOG_TAG "pixelflinger-trap"
 
+#include <algorithm>
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -918,7 +919,7 @@ static int compare_edges(const AAEdge *e0, const AAEdge *e1) {
 static inline 
 void SET_COVERAGE(int16_t*& p, int32_t value, ssize_t n)
 {
-    android_memset16((uint16_t*)p, value, n*2);
+    std::fill_n((uint16_t*)p, n, static_cast<uint16_t>(value));
     p += n;
 }
 

@@ -74,6 +74,7 @@ cc_library_headers {
     // adb_install.cpp
     visibility: [
         "//bootable/recovery/install",
+        "//bootable/recovery/twrpinstall",
     ],
 }
 

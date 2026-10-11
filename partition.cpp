@@ -1791,7 +1791,7 @@ bool TWPartition::BlkDiscard() {
 }
 
 bool TWPartition::Wipe(string New_File_System) {
-	bool wiped = false, update_crypt = false, recreate_media = true;
+	bool wiped = false, update_crypt = false;
 	int check;
 
 	if (!Can_Be_Wiped) {
@@ -1815,7 +1815,6 @@ bool TWPartition::Wipe(string New_File_System) {
 			if (!created)
 				LOGERR("Unable to create log directory for TWRP\n");
 		}
-		recreate_media = false;
 	} else {
 		DataManager::GetValue(TW_RM_RF_VAR, check);
 		if (check || Use_Rm_Rf)

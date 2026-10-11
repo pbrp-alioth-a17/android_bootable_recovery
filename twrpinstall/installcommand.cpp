@@ -206,7 +206,7 @@ int
 abupdate_binary_command(const char* path, int retry_count __unused,
                       int status_fd, std::vector<std::string>* cmd)
 {
-    auto package = Package::CreateMemoryPackage(path);
+    auto package = Package::CreateMemoryPackage(path, nullptr);
 	if (!package) {
 		return INSTALL_CORRUPT;
 	}

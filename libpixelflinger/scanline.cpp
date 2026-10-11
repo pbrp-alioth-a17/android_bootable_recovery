@@ -17,6 +17,7 @@
 
 #define LOG_TAG "pixelflinger"
 
+#include <algorithm>
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -2287,7 +2288,7 @@ void scanline_memset16(context_t* c)
     surface_t* cb = &(c->state.buffers.color);
     uint16_t* dst = reinterpret_cast<uint16_t*>(cb->data) + (x+(cb->stride*y));
     uint32_t packed = c->packed;
-    android_memset16(dst, packed, ct*2);
+    std::fill_n(dst, ct, static_cast<uint16_t>(packed));
 }
 
 void scanline_memset32(context_t* c)
@@ -2298,7 +2299,7 @@ void scanline_memset32(context_t* c)
     surface_t* cb = &(c->state.buffers.color);
     uint32_t* dst = reinterpret_cast<uint32_t*>(cb->data) + (x+(cb->stride*y));
     uint32_t packed = GGL_HOST_TO_RGBA(c->packed);
-    android_memset32(dst, packed, ct*4);
+    std::fill_n(dst, ct, packed);
 }
 
 void scanline_clear(context_t* c)

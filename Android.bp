@@ -1,7 +1,3 @@
-subdirs = [
-    "bootloader_message",
-]
-
 // *** THIS PACKAGE HAS SPECIAL LICENSING CONDITIONS.  PLEASE
 //     CONSULT THE OWNERS AND opensource-licensing@google.com BEFORE
 //     DEPENDING ON IT IN YOUR PROJECT. ***
@@ -45,7 +41,6 @@ cc_defaults {
         "-Wall",
         "-Werror",
     ],
-    cpp_std: "c++17",
 }
 
 bootstrap_go_package {
@@ -69,9 +64,8 @@ libaosprecovery_defaults {
 
 cc_library_shared {
     name: "libaosprecovery",
-    defaults: ["libaosprecovery_defaults"],
+    defaults: ["libaosprecovery_defaults", "libinstall_defaults", "libsnapshot_cow_defaults"],
     cflags: [
-        "-std=gnu++2a",
         "-DRECOVERY_API_VERSION=3"
     ],
     include_dirs: [
@@ -86,18 +80,12 @@ cc_library_shared {
         "system/libvintf/include"
     ],
     srcs: [
-        "install/adb_install.cpp",
-        "install/asn1_decoder.cpp",
         "install/get_args.cpp", 
-        "install/install.cpp",
-        "install/package.cpp",
-        "install/spl_check.cpp",
-        "install/verifier.cpp",
-        "install/wipe_data.cpp",
         "install/set_metadata.cpp",
         "install/ZipUtil.cpp"
     ],
     shared_libs: [
+        "libboot_control_client",
         "libbase",
         "libbootloader_message",
         "libcrypto",
@@ -115,12 +103,15 @@ cc_library_shared {
         "libcutils",
         "libc++"
     ],
+    whole_static_libs: ["libinstall"],
     static_libs: [
+        "libsnapshot_cow",
+        "libsparse",
+        "liblp",
         "libotautil",
         "libvintf", 
         "libhidl-gen-utils",
         "librecovery_utils",
-        "libc++fs",
         "libprotobuf-cpp-lite",
         "ota_metadata_proto_cc",
         "update_metadata-protos"
@@ -138,4 +129,161 @@ prebuilt_etc {
     src: "etc/init.rc",
     sub_dir: "init/hw",
     recovery: true,
+}
+cc_binary {
+    name: "recovery-persist",
+    defaults: ["recovery_defaults"],
+    srcs: ["recovery-persist.cpp"],
+    shared_libs: ["libbase", "liblog"],
+    static_libs: ["librecovery_utils"],
+    init_rc: ["recovery-persist.rc"],
+}
+
+cc_binary {
+    name: "recovery-refresh",
+    defaults: ["recovery_defaults"],
+    srcs: ["recovery-refresh.cpp"],
+    shared_libs: ["libbase", "liblog"],
+    static_libs: ["librecovery_utils"],
+    init_rc: ["recovery-refresh.rc"],
+}
+
+prebuilt_res {
+    name: "recovery-resources-common-mdpi",
+    recovery: true,
+    install_in_root: true,
+    relative_install_path: "images",
+    srcs: [
+        "res-mdpi/images/*.png",
+    ],
+    no_full_install: true,
+}
+
+prebuilt_res {
+    name: "recovery-resources-common-hdpi",
+    recovery: true,
+    install_in_root: true,
+    relative_install_path: "images",
+    srcs: [
+        "res-hdpi/images/*.png",
+    ],
+    no_full_install: true,
+}
+
+prebuilt_res {
+    name: "recovery-resources-common-xhdpi",
+    recovery: true,
+    install_in_root: true,
+    relative_install_path: "images",
+    srcs: [
+        "res-xhdpi/images/*.png",
+    ],
+    no_full_install: true,
+}
+
+prebuilt_res {
+    name: "recovery-resources-common-xxhdpi",
+    recovery: true,
+    install_in_root: true,
+    relative_install_path: "images",
+    srcs: [
+        "res-xxhdpi/images/*.png",
+    ],
+    no_full_install: true,
+}
+
+prebuilt_res {
+    name: "recovery-resources-common-xxxhdpi",
+    recovery: true,
+    install_in_root: true,
+    relative_install_path: "images",
+    srcs: [
+        "res-xxxhdpi/images/*.png",
+    ],
+    no_full_install: true,
+}
+
+
+// Android 17 platform backend libraries.
+cc_library_static {
+    name: "librecovery_fastboot",
+    recovery_available: true,
+    defaults: [
+        "recovery_defaults",
+    ],
+
+    srcs: [
+        "fastboot/fastboot.cpp",
+    ],
+
+    shared_libs: [
+        "libbase",
+        "libbootloader_message",
+        "libcutils",
+        "liblog",
+        "librecovery_ui",
+    ],
+
+    static_libs: [
+        "librecovery_ui_default",
+    ],
+}
+
+cc_defaults {
+    name: "librecovery_defaults",
+
+    defaults: [
+        "recovery_defaults",
+    ],
+
+    shared_libs: [
+        "android.hardware.boot@1.0",
+        "android.hardware.boot@1.1",
+        "android.hardware.boot-V1-ndk",
+        "libboot_control_client",
+        "libbase",
+        "libbootloader_message",
+        "libcrypto",
+        "libcutils",
+        "libfs_mgr",
+        "liblp",
+        "liblog",
+        "libprotobuf-cpp-lite",
+        "libziparchive",
+    ],
+
+    static_libs: [
+        "libinstall",
+        "librecovery_fastboot",
+        "libminui",
+        "librecovery_utils",
+        "libotautil",
+        "libsnapshot_nobinder",
+        "libsnapshot_cow",
+        "liblz4",
+        "libzstd",
+        "update_metadata-protos",
+    ],
+}
+
+cc_library_static {
+    name: "librecovery",
+    recovery_available: true,
+
+    defaults: [
+        "librecovery_defaults",
+    ],
+
+    srcs: [
+        "recovery.cpp",
+    ],
+
+    shared_libs: [
+        "librecovery_ui",
+    ],
+}
+
+filegroup {
+    name: "res-testdata",
+    srcs: ["res-*/images/*_text.png"],
 }

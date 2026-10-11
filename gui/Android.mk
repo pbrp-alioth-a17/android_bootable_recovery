@@ -2,10 +2,9 @@ LOCAL_PATH := $(call my-dir)
 
 # Transfer in the resources for the device
 include $(CLEAR_VARS)
-LOCAL_MODULE := twrp
+LOCAL_MODULE := twrp_theme
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := DATA
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)$(TWRES_PATH)
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/twres
 
 # The extra blank line before *** is intentional to ensure it ends up on its own line
 define TW_THEME_WARNING_MSG
@@ -100,17 +99,12 @@ endif
 
 TWRP_RES += $(TW_ADDITIONAL_RES)
 
-TWRP_RES_GEN := $(intermediates)/twrp
 TWRP_THEME_INPUTS := $(shell find $(LOCAL_PATH)/theme/common $(TWRP_THEME_LOC) -type f)
-$(TWRP_RES_GEN): $(TWRP_THEME_INPUTS)
-	mkdir -p $(TARGET_RECOVERY_ROOT_OUT)$(TWRES_PATH)
-	cp -fr $(TWRP_RES) $(TARGET_RECOVERY_ROOT_OUT)$(TWRES_PATH)
-	cp -fr $(TWRP_THEME_LOC)/* $(TARGET_RECOVERY_ROOT_OUT)$(TWRES_PATH)
-
-$(call intermediates-dir-for,PACKAGING,recovery)/ramdisk_files-timestamp: $(TWRP_RES_GEN)
-
-LOCAL_GENERATED_SOURCES := $(TWRP_RES_GEN)
-#LOCAL_SRC_FILES := twrp
-LOCAL_SRC_FILES := $(TWRP_RES_GEN)
-$(warning LOCAL_SRC_FILES: $(LOCAL_SRC_FILES))
-include $(BUILD_PREBUILT)
+TWRP_THEME_VERSION := $(shell awk '/^\#define TW_THEME_VERSION / { print $$3 }' $(LOCAL_PATH)/../variables.h)
+LOCAL_ADDITIONAL_DEPENDENCIES := $(TWRP_THEME_INPUTS) $(LOCAL_PATH)/../variables.h
+LOCAL_POST_INSTALL_CMD := \
+    mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/twres; \
+    cp -fr $(TWRP_RES) $(TARGET_RECOVERY_ROOT_OUT)/twres; \
+    cp -fr $(TWRP_THEME_LOC)/* $(TARGET_RECOVERY_ROOT_OUT)/twres; \
+    sed -i 's/{themeversion}/$(TWRP_THEME_VERSION)/g' $(TARGET_RECOVERY_ROOT_OUT)/twres/ui.xml $(TARGET_RECOVERY_ROOT_OUT)/twres/splash.xml
+include $(BUILD_PHONY_PACKAGE)

@@ -24,7 +24,7 @@
 
 #include <ziparchive/zip_archive.h>
 
-#include "package.h"
+#include "otautil/package.h"
 
 enum InstallResult {
   INSTALL_SUCCESS,

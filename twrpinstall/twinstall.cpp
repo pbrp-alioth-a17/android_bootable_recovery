@@ -53,7 +53,7 @@
 #include "otautil/sysutil.h"
 #include <ziparchive/zip_archive.h>
 #include "twinstall/install.h"
-#include "twinstall/verifier.h"
+#include "otautil/verifier.h"
 #include "variables.h"
 #include "cutils/properties.h"
 #include "data.hpp"
@@ -494,7 +494,7 @@ int TWinstall_zip(const char* path, int* wipe_cache, bool check_for_digest) {
 #endif
 	DataManager::SetProgress(0);
 
-	auto package = Package::CreateMemoryPackage(path);
+	auto package = Package::CreateMemoryPackage(path, std::bind(&DataManager::SetProgress, std::placeholders::_1));
 	if (!package) {
 		return INSTALL_CORRUPT;
 	}
@@ -511,7 +511,7 @@ int TWinstall_zip(const char* path, int* wipe_cache, bool check_for_digest) {
 		}
 		LOGINFO("%zu key(s) loaded from %s\n", loaded_keys.size(), CERTIFICATE_ZIP_FILE);
 
-		ret_val = verify_file(package.get(), loaded_keys, std::bind(&DataManager::SetProgress, std::placeholders::_1));
+		ret_val = verify_file(package.get(), loaded_keys);
 		if (ret_val != VERIFY_SUCCESS) {
 			LOGINFO("Zip signature verification failed: %i\n", ret_val);
 			gui_err("verify_zip_fail=Zip signature verification failed!");

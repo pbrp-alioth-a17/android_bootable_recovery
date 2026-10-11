@@ -27,7 +27,7 @@
 static int restore_internal(const char* bml, const char* filename)
 {
     char buf[4096];
-    int dstfd, srcfd, bytes_read, total_read = 0;
+    int dstfd, srcfd, bytes_read;
     if (filename == NULL)
         srcfd = 0;
     else {
@@ -41,7 +41,7 @@ static int restore_internal(const char* bml, const char* filename)
     if (ioctl(dstfd, BML_UNLOCK_ALL, 0))
         return 4;
     do {
-        total_read += bytes_read = read(srcfd, buf, 4096);
+        bytes_read = read(srcfd, buf, 4096);
         if (!bytes_read)
             break;
         if (bytes_read < 4096)

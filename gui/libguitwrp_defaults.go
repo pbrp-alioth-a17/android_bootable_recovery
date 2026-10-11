@@ -4,9 +4,6 @@ import (
 	"android/soong/android"
 	"android/soong/cc"
 	"fmt"
-	"io/ioutil"
-	"os"
-	"path"
 	"strconv"
 	"strings"
 )
@@ -38,67 +35,6 @@ func printCustomThemeWarning(theme string, location string) {
 	customThemeWarning += "****************************************************************************\n"
 	customThemeWarning += "(theme selection failed; exiting)\n"
 	fmt.Printf(customThemeWarning)
-}
-
-func copyThemeResources(ctx android.BaseContext, dirs []string, files []string) {
-	outDir := ctx.Config().Getenv("OUT")
-	twRes := outDir + "/recovery/root/twres/"
-	os.MkdirAll(twRes, os.ModePerm)
-	recoveryDir := getRecoveryAbsDir(ctx)
-	theme := determineTheme(ctx)
-	for idx, dir := range dirs {
-		_ = idx
-		dirToCopy := ""
-		destDir := twRes + path.Base(dir)
-		baseDir := path.Base(dir)
-		if baseDir == theme {
-			destDir = twRes
-			dirToCopy = recoveryDir + dir
-		} else {
-			dirToCopy = recoveryDir + dir
-		}
-		copyDir(dirToCopy, destDir)
-	}
-	for idx, file := range files {
-		_ = idx
-		fileToCopy := recoveryDir + file
-		fileDest := twRes + path.Base(file)
-		copyFile(fileToCopy, fileDest)
-	}
-	data, err := ioutil.ReadFile(recoveryDir + "variables.h")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	version := "0"
-	for _, line := range strings.Split(string(data), "\n") {
-		if strings.Contains(line, "TW_THEME_VERSION") {
-			version = strings.Split(line, " ")[2]
-		}
-	}
-	_files := [2]string{"splash.xml", "ui.xml"}
-	for _, i := range _files {
-		data, err = ioutil.ReadFile(twRes + i)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		newFile := strings.Replace(string(data), "{themeversion}", version, -1)
-		err = ioutil.WriteFile(twRes + i, []byte(newFile), 0)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-	}
-}
-
-func copyCustomTheme(ctx android.BaseContext, customTheme string) {
-	outDir := ctx.Config().Getenv("OUT")
-	twRes := outDir + "/recovery/root/twres/"
-	os.MkdirAll(twRes, os.ModePerm)
-	fileDest := twRes + path.Base(customTheme)
-	fileToCopy := fmt.Sprintf("%s%s", getBuildAbsDir(ctx), customTheme)
-	copyFile(fileToCopy, fileDest)
 }
 
 func determineTheme(ctx android.BaseContext) string {
@@ -151,43 +87,22 @@ func determineTheme(ctx android.BaseContext) string {
 	return getMakeVars(ctx, "TW_THEME")
 }
 
-func copyTheme(ctx android.BaseContext) bool {
-	var directories []string
-	var files []string
-	var customThemeLoc string
-	localPath := ctx.ModuleDir()
-	directories = append(directories, "gui/theme/common/fonts/")
-	directories = append(directories, "gui/theme/common/languages/")
-	if getMakeVars(ctx, "TW_EXTRA_LANGUAGES") == "true" {
-		directories = append(directories, "gui/theme/extra-languages/fonts/")
-		directories = append(directories, "gui/theme/extra-languages/languages/")
-	}
-	var theme = determineTheme(ctx)
-	directories = append(directories, "gui/theme/"+theme)
-	themeXML := fmt.Sprintf("gui/theme/common/%s.xml", strings.Split(theme, "_")[0])
-	files = append(files, themeXML)
-	if getMakeVars(ctx, "TW_CUSTOM_THEME") == "" {
-		defaultTheme := fmt.Sprintf("%s/theme/%s/ui.xml", localPath, theme)
-		if android.ExistentPathForSource(ctx, defaultTheme).Valid() {
-			fullDefaultThemePath := fmt.Sprintf("gui/theme/%s/ui.xml", theme)
-			files = append(files, fullDefaultThemePath)
-		} else {
-			printThemeWarning(theme)
-			return false
+// Resource copying belongs to gui/Android.mk, not Soong graph generation.
+func validateTheme(ctx android.BaseContext) bool {
+	customTheme := getMakeVars(ctx, "TW_CUSTOM_THEME")
+	if customTheme != "" {
+		if android.ExistentPathForSource(ctx, customTheme+"/ui.xml").Valid() {
+			return true
 		}
-	} else {
-		customThemeLoc = getMakeVars(ctx, "TW_CUSTOM_THEME")
-		if android.ExistentPathForSource(ctx, customThemeLoc).Valid() {
-		} else {
-			printCustomThemeWarning(customThemeLoc, getMakeVars(ctx, "TW_CUSTOM_THEME"))
-			return false
-		}
+		printCustomThemeWarning(customTheme, customTheme+"/ui.xml")
+		return false
 	}
-	copyThemeResources(ctx, directories, files)
-	if customThemeLoc != "" {
-		copyCustomTheme(ctx, customThemeLoc)
+	theme := determineTheme(ctx)
+	if android.ExistentPathForSource(ctx, fmt.Sprintf("%s/theme/%s/ui.xml", ctx.ModuleDir(), theme)).Valid() {
+		return true
 	}
-	return true
+	printThemeWarning(theme)
+	return false
 }
 
 func globalFlags(ctx android.BaseContext) []string {
@@ -197,9 +112,9 @@ func globalFlags(ctx android.BaseContext) []string {
 		cflags = append(cflags, "-DTW_FRAMERATE="+framerate)
 	}
 
-        if getMakeVars(ctx, "AB_OTA_UPDATER") == "true" {
-                cflags = append(cflags, "-DAB_OTA_UPDATER=1")
-        }
+	if getMakeVars(ctx, "AB_OTA_UPDATER") == "true" {
+		cflags = append(cflags, "-DAB_OTA_UPDATER=1")
+	}
 
 	if getMakeVars(ctx, "PB_TORCH_PATH") != "" {
 		cflags = append(cflags, "-DPB_TORCH_PATH="+getMakeVars(ctx, "PB_TORCH_PATH"))
@@ -240,8 +155,8 @@ func libGuiDefaults(ctx android.LoadHookContext) {
 	s := globalSrcs(ctx)
 	p.Srcs = s
 	ctx.AppendProperties(p)
-	if copyTheme(ctx) == false {
-		os.Exit(-1)
+	if !validateTheme(ctx) {
+		ctx.ModuleErrorf("invalid recovery theme")
 	}
 }
 

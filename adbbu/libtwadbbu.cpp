@@ -40,7 +40,6 @@ bool twadbbu::Check_ADB_Backup_File(std::string fname) {
 	struct AdbBackupStreamHeader adbbuhdr;
 	uint32_t crc, adbbuhdrcrc;
 	unsigned char buf[MAX_ADB_READ];
-	int bytes;
 
 	int fd = open(fname.c_str(), O_RDONLY);
 	if (fd < 0) {
@@ -48,13 +47,14 @@ bool twadbbu::Check_ADB_Backup_File(std::string fname) {
 		close(fd);
 		return false;
 	}
-	bytes = read(fd, &buf, sizeof(buf));
+	const ssize_t bytes = read(fd, &buf, sizeof(buf));
 	close(fd);
 
-	if (memcpy(&adbbuhdr, buf, sizeof(adbbuhdr)) == NULL) {
-		printf("Unable to memcpy: %s (%s).\n", fname.c_str(), strerror(errno));
+	if (bytes < static_cast<ssize_t>(sizeof(adbbuhdr))) {
+		printf("Incomplete ADB backup header: %s.\n", fname.c_str());
 		return false;
 	}
+	memcpy(&adbbuhdr, buf, sizeof(adbbuhdr));
 	adbbuhdrcrc = adbbuhdr.crc;
 	memset(&adbbuhdr.crc, 0, sizeof(adbbuhdr.crc));
 	crc = crc32(0L, Z_NULL, 0);

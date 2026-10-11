@@ -211,9 +211,6 @@ static void process_recovery_mode(twrpAdbBuFifo* adb_bu_fifo, bool skip_decrypti
 	}
 
 
-#ifdef TW_INCLUDE_CRYPTO
-	android::keystore::copySqliteDb();
-#endif
 	Decrypt_Page(skip_decryption, datamedia);
 	PartitionManager.Output_Partition_Logging();
 	// Check for and load custom theme if present

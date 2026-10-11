@@ -45,8 +45,8 @@
 #include <android-base/strings.h>
 #include <android-base/unique_fd.h>
 
-#include "twinstall/package.h"
-#include "twinstall/verifier.h"
+#include "otautil/package.h"
+#include "otautil/verifier.h"
 #include "twinstall/wipe_data.h"
 #include "otautil/error_code.h"
 #include "otautil/paths.h"
@@ -602,7 +602,7 @@ static int really_install_package(const std::string& path, bool* wipe_cache __un
   }
 
   auto package = Package::CreateMemoryPackage(
-      path);
+      path, nullptr);
   if (!package) {
     log_buffer->push_back(android::base::StringPrintf("error: %d", kMapFileFailure));
     return INSTALL_CORRUPT;

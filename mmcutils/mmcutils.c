@@ -527,7 +527,6 @@ mmc_raw_dump (const MmcPartition *partition, const char *out_file) {
 int
 mmc_raw_read (const MmcPartition *partition, char *data, int data_size) {
     FILE *in;
-    unsigned sz = 0;
     int ret = -1;
     char *in_file = partition->device_index;
 
@@ -536,7 +535,6 @@ mmc_raw_read (const MmcPartition *partition, char *data, int data_size) {
         goto ERROR3;
 
     fseek(in, 0L, SEEK_END);
-    sz = ftell(in);
     fseek(in, 0L, SEEK_SET);
 
     fread(data, data_size, 1, in);

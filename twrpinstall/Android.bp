@@ -69,13 +69,10 @@ cc_library_static {
 
     srcs: [
         "adb_install.cpp",
-        "asn1_decoder.cpp",
         "install.cpp",
         "installcommand.cpp",
-        "package.cpp",
         "tw_atomic.cpp",
         "twinstall.cpp",
-        "verifier.cpp",
     ],
     shared_libs: [
         "librecovery_ui",
