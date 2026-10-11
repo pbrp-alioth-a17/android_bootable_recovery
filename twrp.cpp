@@ -247,11 +247,10 @@ static void process_recovery_mode(twrpAdbBuFifo* adb_bu_fifo, bool skip_decrypti
 			if (st == 3)
 				gui_msg(Msg(msg::kWarning,"pb_encrypt_cn=Multiple Encryption Details Cached"));
 		}
-		else
-			strcpy(encrypt_status, "unencrypted");
+		else if (encrypt_status[0] == '\0')
+			strcpy(encrypt_status, "unknown");
+		// Failed storage detection must not override the boot encryption state.
 	}
-	else if (strncmp(encrypt_status, "encrypted", 9) == 0 && TWFunc::check_encrypt_status() == 0)
-		strcpy(encrypt_status, "unencrypted");
 	gui_msg(Msg(msg::kProcess,"pb_encrypt_st=Encryption Status : {1}")(encrypt_status));
 
 	property_get("ro.product.brand", encrypt_status, "");

@@ -2220,7 +2220,6 @@ void TWPartitionManager::Check_Users_Decryption_Status() {
 
 int TWPartitionManager::Decrypt_Device(string Password, int user_id) {
 #ifdef TW_INCLUDE_CRYPTO
-	char crypto_blkdev[PROPERTY_VALUE_MAX];
 	std::vector<TWPartition*>::iterator iter;
 
 	// Mount any partitions that need to be mounted for decrypt
@@ -2294,45 +2293,16 @@ int TWPartitionManager::Decrypt_Device(string Password, int user_id) {
 		return 0;
 	}
 
-	int pwret = -1;
-	pid_t pid = fork();
-	if (pid < 0) {
-		LOGERR("fork failed\n");
-		return -1;
-	} else if (pid == 0) {
-		// Child process
-		char cPassword[255];
-		strcpy(cPassword, Password.c_str());
-		exit(0);
-	} else {
-		// Parent
-		int status;
-		if (TWFunc::Wait_For_Child_Timeout(pid, &status, "Decrypt", 50))
-			pwret = -1;
-		else
-			pwret = WEXITSTATUS(status) ? -1 : 0;
-	}
-
-	// Unmount any partitions that were needed for decrypt
+	// The legacy FDE implementation was removed. Do not report success or fork
+	// a child that only exits without decrypting a block device.
 	for (iter = Partitions.begin(); iter != Partitions.end(); iter++) {
 		if ((*iter)->Mount_To_Decrypt) {
 			(*iter)->UnMount(false);
 		}
 	}
 	property_set("twrp.mount_to_decrypt", "0");
-
-	if (pwret != 0) {
-		gui_err("fail_decrypt=Failed to decrypt data.");
-		return -1;
-	}
-
-	property_get("ro.crypto.fs_crypto_blkdev", crypto_blkdev, "error");
-	if (strcmp(crypto_blkdev, "error") == 0) {
-		LOGERR("Error retrieving decrypted data block device.\n");
-	} else {
-		Post_Decrypt(crypto_blkdev);
-	}
-	return 0;
+	gui_err("fail_decrypt=Failed to decrypt data.");
+	return -1;
 #else
 	gui_err("no_crypto_support=No crypto support was compiled into this build.");
 	return -1;

@@ -1255,6 +1255,7 @@ void TWPartition::Setup_Data_Media() {
 			Make_Dir("/sdcard", false);
 			Symlink_Mount_Point = "/sdcard";
 		}
+		const bool was_mounted = Is_Mounted();
 		#ifdef TW_PREPARE_DATA_MEDIA_EARLY
 		if (Mount(false) && TWFunc::Path_Exists(Mount_Point + "/media/0")) {
 		#else
@@ -1264,7 +1265,7 @@ void TWPartition::Setup_Data_Media() {
 			Storage_Path = Mount_Point + "/media/0";
 			Symlink_Path = Storage_Path;
 			DataManager::SetValue(TW_INTERNAL_PATH, Mount_Point + "/media/0");
-			UnMount(true);
+			if (!was_mounted) UnMount(true);
 		}
 		DataManager::SetValue("tw_has_internal", 1);
 		DataManager::SetValue("tw_has_data_media", 1);
@@ -2228,6 +2229,10 @@ void TWPartition::Check_FS_Type() {
 		return;
 
 	pr = blkid_new_probe_from_filename(Actual_Block_Device.c_str());
+	if (!pr) {
+		LOGINFO("Unable to open filesystem probe for %s: %s\n", Actual_Block_Device.c_str(), strerror(errno));
+		return;
+	}
 	if (blkid_do_fullprobe(pr)) {
 		blkid_free_probe(pr);
 		LOGINFO("Can't probe device %s\n", Actual_Block_Device.c_str());
