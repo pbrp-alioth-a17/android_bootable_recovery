@@ -2944,6 +2944,8 @@ bool TWPartitionManager::Enable_MTP(void) {
 	/* To enable MTP debug, use the twrp command line feature:
 	 * twrp set tw_mtp_debug 1
 	 */
+	// Reset before forking; the child publishes readiness after descriptors.
+	property_set("sys.usb.ffs.mtp.ready", "0");
 	twrpMtp* mtp = new twrpMtp(DataManager::GetIntValue("tw_mtp_debug"));
 	mtppid = mtp->forkserver(mtppipe);
 	if (mtppid) {
@@ -2982,7 +2984,6 @@ void TWPartitionManager::Add_All_MTP_Storage(void) {
 
 bool TWPartitionManager::Disable_MTP(void) {
 	char old_value[PROPERTY_VALUE_MAX];
-	property_set("sys.usb.ffs.mtp.ready", "0");
 	property_get("sys.usb.config", old_value, "");
 	if (strcmp(old_value, "adb") != 0) {
 		char vendor[PROPERTY_VALUE_MAX];
@@ -3001,13 +3002,15 @@ bool TWPartitionManager::Disable_MTP(void) {
 		LOGINFO("Disabling MTP\n");
 		int status;
 		kill(mtppid, SIGKILL);
+		// Reap this server only, never another child in the process group.
+		TEMP_FAILURE_RETRY(waitpid(mtppid, &status, 0));
 		mtppid = 0;
-		// We don't care about the exit value, but this prevents a zombie process
-		waitpid(mtppid, &status, 0);
 		close(mtp_write_fd);
 		mtp_write_fd = -1;
 	}
 #endif
+	// No descriptor writer can race this reset after the server is reaped.
+	property_set("sys.usb.ffs.mtp.ready", "0");
 	property_set("sys.usb.config", "adb");
 #ifdef TW_HAS_MTP
 	DataManager::SetValue("tw_mtp_enabled", 0);
