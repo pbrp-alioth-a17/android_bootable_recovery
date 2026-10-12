@@ -65,11 +65,9 @@ ifeq ($(TW_CUSTOM_THEME),)
                     $(error $(PB_UNSUPPORTED_RESOLUTION_ERR))
                 endif
             else ifeq ($(shell test $(GUI_WIDTH) -lt $(GUI_HEIGHT); echo $$?),0)
-                ifeq ($(shell test $(GUI_WIDTH) -ge 720; echo $$?),0)
-                    TW_THEME := portrait_hdpi
-                else
-                    TW_THEME := portrait_mdpi
-                endif
+                # The bundled portrait layout scales from its declared resolution.
+                # There is no separate portrait_mdpi resource directory.
+                TW_THEME := portrait_hdpi
             else ifeq ($(shell test $(GUI_WIDTH) -eq $(GUI_HEIGHT); echo $$?),0)
                 # watch_hdpi does not yet exist
                 TW_THEME := watch_mdpi
