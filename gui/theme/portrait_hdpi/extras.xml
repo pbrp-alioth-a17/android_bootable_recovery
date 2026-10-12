@@ -307,7 +307,7 @@
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_settings"/>
 				<placement x="75" y="135"/>
 			</image>
@@ -405,145 +405,112 @@
 		</page>
 		<page name="about"><action><condition var1="pb_material_resources" var2="0"/><action function="page">about_original</action></action><action><condition var1="pb_material_resources" var2="1"/><action function="page">about_material</action></action></page>
 <page name="about_original">
-			<template name="page_without_logo"/>
+			<template name="page_without_logo" />
 			<image>
-<condition var1="pb_material_resources" var2="0"/>
-				<image resource="main_button_black3"/>
-				<placement x="%indent%" y="%upper_header%"/>
+<condition var1="pb_material_resources" var2="0" />
+				<image resource="main_button_black3" />
+				<placement x="%indent%" y="%upper_header%" />
 			</image>
 			<image>
-				<image resource="main_button_specials_info"/>
-				<placement x="90" y="135"/>
+				<image resource="main_button_specials_info" />
+				<placement x="90" y="135" />
 			</image>
 			<text style="text_pb">
-				<placement x="%col1_x_header%" y="%row3_header_y%"/>
+				<placement x="%col1_x_header%" y="%row3_header_y%" />
 				<text>{@about_pbrp=About PBRP}</text>
 			</text>
 			<text style="text_install_subheader">
-				<placement x="%col1_x_header%" y="%row4_header_y%"/>
+				<placement x="%col1_x_header%" y="%row4_header_y%" />
 				<text>{@pbrpspecial_btn=PBRP Special}</text>
 			</text>
 			<image>
-				<image resource="power_logo"/>
-				<placement x="90" y="%row1a_y%"/>
+				<image resource="power_logo" />
+				<placement x="90" y="%row1a_y%" />
 			</image>
 			<text>
-				<font resource="font_pb_tools" color="%sub_header_color%"/>
-				<placement x="350" y="%row8_y%"/>
+				<font resource="font_pb_tools" color="%sub_header_color%" />
+				<placement x="350" y="%row8_y%" />
 				<text>{@device_info=Device Information}</text>
 			</text>
-<text style="text_sub_header"><placement x="180" y="750"/><text>{@recovery_platform_details=Android %property.ro.build.version.release% • SDK %property.ro.build.version.sdk%}</text></text>
-			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="180" y="%row9a_y%"/>
-				<text>{@device_name=Device Name}</text>
-			</text>
-			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="180" y="%row10a_y%"/>
-				<text>{@device_codename=Device Codename}</text>
-			</text>
-			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="180" y="%row11a_y%"/>
-				<text>{@pb_version=PitchBlack Version}</text>
-			</text>
-			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="180" y="%row12a_y%"/>
-				<text>{@build_date=Build Date}</text>
-			</text>
-			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<condition var1="pb_info" var2="OFFICIAL"/>
-				<placement x="180" y="%row13a_y%"/>
+<text>
+				<font resource="font_sub_header" color="%sub_header_color%" />
+				<condition var1="pb_info" var2="OFFICIAL" />
+				<placement x="180" y="1115" />
 				<text>{@device_maintainer1=Device Maintainer}</text>
 			</text>
 			<text>
-				<font resource="font_pb_tools" color="%sub_header_color%"/>
-				<placement x="350" y="%row15_y%"/>
+				<font resource="font_pb_tools" color="%sub_header_color%" />
+				<placement x="350" y="%row15_y%" />
 				<text>{@core_contributors=Core Contributors}</text>
 			</text>
 			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="%row16a_y%" placement="5"/>
+				<font resource="font_sub_header" color="%sub_header_color%" />
+				<placement x="%center_x%" y="%row16a_y%" placement="5" />
 				<text>Mohd Faraz (@androiabledroid)</text>
 			</text>
 			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="1298" placement="5"/>
+				<font resource="font_sub_header" color="%sub_header_color%" />
+				<placement x="%center_x%" y="1298" placement="5" />
 				<text>Reza Adi Pangestu (@Reza_Adi_Pangestu)</text>
 			</text>
 			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="1348" placement="5"/>
+				<font resource="font_sub_header" color="%sub_header_color%" />
+				<placement x="%center_x%" y="1348" placement="5" />
 				<text>Manjot Singh Sidhu (@manjotsidhu)</text>
 			</text>
 			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="1398" placement="5"/>
+				<font resource="font_sub_header" color="%sub_header_color%" />
+				<placement x="%center_x%" y="1398" placement="5" />
 				<text>Rokib Hasan Sagar (@fr3akyphantom)</text>
 			</text>
 			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="1448" placement="5"/>
+				<font resource="font_sub_header" color="%sub_header_color%" />
+				<placement x="%center_x%" y="1448" placement="5" />
 				<text>Jubayer Ahmad Shovon (@shovon668)</text>		   
 			</text>
 			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="1498" placement="5"/>
+				<font resource="font_sub_header" color="%sub_header_color%" />
+				<placement x="%center_x%" y="1498" placement="5" />
 				<text>ImranPopz (@imranpopz)</text>
 			</text>
 			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="1548" placement="5"/>
+				<font resource="font_sub_header" color="%sub_header_color%" />
+				<placement x="%center_x%" y="1548" placement="5" />
 				<text>Alex Besida (@AlexBesida)</text>
 			</text>
 			<text>
-				<font resource="font_sub_header" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="1598" placement="5"/>
+				<font resource="font_sub_header" color="%sub_header_color%" />
+				<placement x="%center_x%" y="1598" placement="5" />
 				<text>MD RAZA (@RazaDroid)</text>
 			</text>
 			<action>
-				<touch key="home"/>
+				<touch key="home" />
 				<action function="page">main</action>
 			</action>
 			<action>
-				<touch key="back"/>
+				<touch key="back" />
 				<action function="page">main</action>
 			</action>
-			</page>
+			<text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="180" y="770" w="330" /><text>{@recovery_android_version=Android version}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="770" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="770" w="430" /><text>%property.ro.build.version.release%</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="180" y="828" w="330" /><text>{@recovery_sdk_version=SDK level}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="828" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="828" w="430" /><text>%property.ro.build.version.sdk%</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="180" y="886" w="330" /><text>{@recovery_device_name=Device name}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="886" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="886" w="430" /><text>%property.ro.product.model%</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="180" y="944" w="330" /><text>{@recovery_device_codename=Device codename}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="944" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="944" w="430" /><text>%property.ro.product.device%</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="180" y="1002" w="330" /><text>{@recovery_pbrp_version=PitchBlack version}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="1002" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="1002" w="430" /><text>%tw_version%</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="180" y="1060" w="330" /><text>{@recovery_build_date=Build date}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="1060" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="1060" w="430" /><text>%pb_build%</text></text></page>
 <page name="about_material">
-<template name="page"/>
-<text style="text_l"><placement x="%col1_x_header%" y="%row3_header_y%"/><text>{@about_pbrp=About PBRP}</text></text>
-<text style="text_sub_header"><placement x="%col1_x_header%" y="%row4_header_y%"/><text>{@device_info=Device Information}</text></text>
-<image><image resource="about_pbrp_logo"/><placement x="88" y="290"/></image>
-<text style="text_l"><placement x="260" y="330"/><text>PitchBlack Recovery Project</text></text>
-<text style="text_sub_header"><placement x="88" y="480"/><text>{@recovery_device_name=Device name}</text></text>
-<text style="text_pb"><placement x="88" y="528"/><text>%property.ro.product.model%</text></text>
-<text style="text_sub_header"><placement x="88" y="590"/><text>{@recovery_device_codename=Device codename}</text></text>
-<text style="text_pb"><placement x="88" y="638"/><text>%property.ro.product.device%</text></text>
-<text style="text_sub_header"><placement x="88" y="700"/><text>{@recovery_pbrp_version=PitchBlack version}</text></text>
-<text style="text_pb"><placement x="88" y="748"/><text>%tw_version%</text></text>
-<text style="text_sub_header"><placement x="88" y="810"/><text>{@recovery_android_version=Android version}</text></text>
-<text style="text_pb"><placement x="88" y="858"/><text>%property.ro.build.version.release%</text></text>
-<text style="text_sub_header"><placement x="88" y="920"/><text>{@recovery_sdk_version=SDK level}</text></text>
-<text style="text_pb"><placement x="88" y="968"/><text>%property.ro.build.version.sdk%</text></text>
-<text style="text_sub_header"><placement x="88" y="1030"/><text>{@recovery_build_date=Build date}</text></text>
-<text><font resource="font_s" color="%text_color%"/><placement x="88" y="1078"/><text>%property.ro.build.date%</text></text>
-<text style="text_pb"><placement x="88" y="1190"/><text>{@core_contributors=Core Contributors}</text></text>
-<text style="text_sub_header"><placement x="88" y="1270"/><text>Mohd Faraz (@androiabledroid)</text></text>
-<text style="text_sub_header"><placement x="88" y="1318"/><text>Reza Adi Pangestu (@Reza_Adi_Pangestu)</text></text>
-<text style="text_sub_header"><placement x="88" y="1366"/><text>Manjot Singh Sidhu (@manjotsidhu)</text></text>
-<text style="text_sub_header"><placement x="88" y="1414"/><text>Rokib Hasan Sagar (@fr3akyphantom)</text></text>
-<text style="text_sub_header"><placement x="88" y="1462"/><text>Jubayer Ahmad Shovon (@shovon668)</text></text>
-<text style="text_sub_header"><placement x="88" y="1510"/><text>ImranPopz (@imranpopz)</text></text>
-<text style="text_sub_header"><placement x="88" y="1558"/><text>Alex Besida (@AlexBesida)</text></text>
-<text style="text_sub_header"><placement x="88" y="1606"/><text>MD RAZA (@RazaDroid)</text></text>
-<text style="text_sub_header"><condition var1="pb_info" var2="OFFICIAL"/><placement x="88" y="1660"/><text>{@device_maintainer1=Device Maintainer}</text></text>
-<action><touch key="home"/><action function="page">main</action></action>
-<action><touch key="back"/><action function="page">main</action></action>
-</page>
+<template name="page" />
+<text style="text_l"><placement x="%col1_x_header%" y="%row3_header_y%" /><text>{@about_pbrp=About PBRP}</text></text>
+<text style="text_sub_header"><placement x="%col1_x_header%" y="%row4_header_y%" /><text>{@device_info=Device Information}</text></text>
+<image><image resource="about_pbrp_logo" /><placement x="88" y="290" /></image>
+<text style="text_l"><placement x="260" y="330" /><text>PitchBlack Recovery Project</text></text>
+<text style="text_pb"><placement x="88" y="900" /><text>{@core_contributors=Core Contributors}</text></text>
+<text style="text_sub_header"><placement x="88" y="980" /><text>Mohd Faraz (@androiabledroid)</text></text>
+<text style="text_sub_header"><placement x="88" y="1028" /><text>Reza Adi Pangestu (@Reza_Adi_Pangestu)</text></text>
+<text style="text_sub_header"><placement x="88" y="1076" /><text>Manjot Singh Sidhu (@manjotsidhu)</text></text>
+<text style="text_sub_header"><placement x="88" y="1124" /><text>Rokib Hasan Sagar (@fr3akyphantom)</text></text>
+<text style="text_sub_header"><placement x="88" y="1172" /><text>Jubayer Ahmad Shovon (@shovon668)</text></text>
+<text style="text_sub_header"><placement x="88" y="1220" /><text>ImranPopz (@imranpopz)</text></text>
+<text style="text_sub_header"><placement x="88" y="1268" /><text>Alex Besida (@AlexBesida)</text></text>
+<text style="text_sub_header"><placement x="88" y="1316" /><text>MD RAZA (@RazaDroid)</text></text>
+<text style="text_sub_header"><condition var1="pb_info" var2="OFFICIAL" /><placement x="88" y="1370" /><text>{@device_maintainer1=Device Maintainer}</text></text>
+<action><touch key="home" /><action function="page">main</action></action>
+<action><touch key="back" /><action function="page">main</action></action>
+<text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="88" y="480" w="330" /><text>{@recovery_android_version=Android version}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="480" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="480" w="430" /><text>%property.ro.build.version.release%</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="88" y="538" w="330" /><text>{@recovery_sdk_version=SDK level}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="538" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="538" w="430" /><text>%property.ro.build.version.sdk%</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="88" y="596" w="330" /><text>{@recovery_device_name=Device name}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="596" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="596" w="430" /><text>%property.ro.product.model%</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="88" y="654" w="330" /><text>{@recovery_device_codename=Device codename}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="654" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="654" w="430" /><text>%property.ro.product.device%</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="88" y="712" w="330" /><text>{@recovery_pbrp_version=PitchBlack version}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="712" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="712" w="430" /><text>%tw_version%</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="88" y="770" w="330" /><text>{@recovery_build_date=Build date}</text></text><text><font resource="font_sub_header" color="%sub_header_color%" /><placement x="520" y="770" w="20" /><text>:</text></text><text><font resource="font_sub_header" color="%text_color%" /><placement x="560" y="770" w="430" /><text>%pb_build%</text></text></page>
 		<page name="customizations">
 			<template name="page"/>
 			<image>

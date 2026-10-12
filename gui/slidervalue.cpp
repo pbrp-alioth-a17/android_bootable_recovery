@@ -71,6 +71,7 @@ GUISliderValue::GUISliderValue(xml_node<>* node) : GUIObject(node)
 	mHandleHoverImage = NULL;
 	mDragging = false;
 	mMaterial = DataManager::GetIntValue("pb_material_resources") == 1;
+	mSurface = false;
 
 	mLabel = NULL;
 	ConvertStrToColor("white", &mTextColor);
@@ -83,6 +84,7 @@ GUISliderValue::GUISliderValue(xml_node<>* node) : GUIObject(node)
 		return;
 	}
 
+	mSurface = mMaterial && FindNode(node, "surface");
 	mLabel = new GUIText(node);
 	if (mLabel->Render() < 0)
 	{
@@ -181,7 +183,7 @@ GUISliderValue::GUISliderValue(xml_node<>* node) : GUIObject(node)
         mSliderW = scale_theme_min(12);
         mSliderH = scale_theme_min(88);
         mLinePadding = std::max(mLinePadding, scale_theme_min(16));
-    }
+	}
 
 	if (mFont && mFont->GetResource())
 		mFontHeight = mFont->GetHeight();
@@ -252,7 +254,7 @@ int GUISliderValue::SetRenderPos(int x, int y, int w, int h)
         if (mMaterial) {
             const int valueWidth = mShowCurr ? std::max(measureText(mMinStr), measureText(mMaxStr)) + scale_theme_min(32) : 0;
             mLabel->SetMaxWidth(std::max(1, mRenderW - valueWidth));
-        }
+	    }
 		mLabel->SetRenderPos(textX, mRenderY);
 
 		y += lh;
@@ -296,6 +298,15 @@ int GUISliderValue::Render(void)
 		return 0;
 	}
 
+	if (mSurface) {
+		const int horizontalPadding = scale_theme_min(40);
+		const int verticalPadding = scale_theme_min(24);
+		gr_color(43, 41, 48, 255);
+		gui_fill_rounded(mRenderX - horizontalPadding, mRenderY - verticalPadding,
+		                 mRenderW + 2 * horizontalPadding, mRenderH + 2 * verticalPadding,
+		                 scale_theme_min(50));
+	}
+
 	if (mLabel)
 	{
 		int w, h;
@@ -313,13 +324,13 @@ int GUISliderValue::Render(void)
 	if (mMaterial) {
         const int handleX = mLineX + static_cast<int>(mValuePct * (mLineW - mSliderW) / 100);
         gr_color(73, 69, 79, 255);
-        gui_fill_rounded(mLineX, mLineY, mLineW, mLineH, mLineH / 2);
+		gui_fill_rounded(mLineX, mLineY, mLineW, mLineH, mLineH / 2);
         gr_color(208, 188, 255, 255);
         const int activeWidth = handleX - mLineX + mSliderW / 2;
-        gui_fill_rounded(mLineX, mLineY, activeWidth, mLineH, mLineH / 2);
-        gui_fill_rounded(handleX, mLineY + (mLineH - mSliderH) / 2,
+		gui_fill_rounded(mLineX, mLineY, activeWidth, mLineH, mLineH / 2);
+		gui_fill_rounded(handleX, mLineY + (mLineH - mSliderH) / 2,
                          mSliderW, mSliderH, mSliderW / 2);
-    } else {
+	} else {
 	// line
 	if (mBackgroundImage && mBackgroundImage->GetResource())
 	{

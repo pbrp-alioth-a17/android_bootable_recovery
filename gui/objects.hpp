@@ -470,7 +470,7 @@ protected:
 class GUIScrollList : public GUIObject, public RenderObject, public ActionObject
 {
 public:
-	GUIScrollList(xml_node<>* node);
+	GUIScrollList(xml_node<>* node, bool material_rows = true);
 	virtual ~GUIScrollList();
 
 public:
@@ -1068,6 +1068,8 @@ protected:
 	int cursorX;     // actual x axis location of the cursor
 	int lastX;
 	int mCursorLocation;
+	int mFieldPadding;
+	bool mMaterial;
 	int mBackgroundX, mBackgroundY, mBackgroundW, mBackgroundH;
 	int mFontY;
 	int textWidth;
@@ -1175,6 +1177,7 @@ protected:
 	int mLineW;
 	bool mDragging;
 	bool mMaterial;
+	bool mSurface;
 	ImageResource *mBackgroundImage;
 	ImageResource *mHandleImage;
 	ImageResource *mHandleHoverImage;

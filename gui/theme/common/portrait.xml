@@ -84,7 +84,7 @@
 
 		<style name="input">
 			<background color="%background_color%"/>
-			<cursor color="%accent_color%" hasfocus="1" width="%input_line_width%"/>
+			<cursor color="%input_cursor_color%" hasfocus="1" width="%input_line_width%"/>
 			<font resource="font_m" color="%text_color%"/>
 		</style>
 
@@ -238,7 +238,7 @@
 		<style name="fab">
 			<highlight color="%highlight_color%"/>
 			<placement x="800" y="1300"/>
-			<font resource="font_m" color="%button_text_color%"/>
+			<font resource="font_m" color="%text_button_color%"/>
 		</style>
 
 		<style name="tab">
@@ -1085,7 +1085,7 @@
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="flash"/>
 				<placement x="75" y="135"/>
 			</image>
@@ -1255,7 +1255,7 @@
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="pb"/>
 				<placement x="%pb_x%" y="%row3_header_y%"/>
 			</image>
@@ -1416,7 +1416,7 @@
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="logo"/>
 				<placement x="%action_complete_logo_x%" y="%row3_header_y%"/>
 			</image>
@@ -1822,7 +1822,7 @@
 			</text>
 
 			<input>
-				<placement x="%indent%" y="%row12_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%indent%" y="%row12_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_confirm_formatdata%</text>
 				<data name="tw_confirm_formatdata"/>
 				<restrict minlen="3" maxlen="3" allow="yes"/>
@@ -2277,19 +2277,20 @@
 				<text>{@storage_hdr=Storage: %tw_storage_display_name% (%tw_storage_free_size% MB)}</text>
 			</text>
 
-			<text style="text_pb">
-				<placement x="90" y="%row2a_y%"/>
+			<image><condition var1="pb_material_resources" var2="1"/><image resource="settings_name_row"/><placement x="48" y="320"/></image>
+<text style="text_pb">
+				<placement x="90" y="%row2a_y%" materialx="88" materialy="345"/>
 				<text>{@name=Name:}</text>
 			</text>
 
 			<text style="text_sub_header">
-				<placement x="%text_pb_x%" y="%row3a_y%"/>
+				<placement x="%text_pb_x%" y="%row3a_y%" materialx="88" materialy="400" materialw="904"/>
 				<text>%tw_backup_name%</text>
 			</text>
 
 			<button>
 				<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
-				<placement x="indent" y="%row3_y%" w="%content_width%" h="%navbar_height%"/>
+				<placement x="indent" y="%row3_y%" w="%content_width%" h="%navbar_height%" materialx="48" materialy="320" materialw="984" materialh="170"/>
 				<fill color="%transparent%"/>
 				<actions>
 					<action function="set">tw_fileexists=0</action>
@@ -2538,7 +2539,7 @@
 			</text>
 
 			<input>
-				<placement x="%indent%" y="%row4_input_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%indent%" y="%row4_input_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_backup_name%</text>
 				<data name="tw_backup_name"/>
 				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
@@ -2635,7 +2636,7 @@
 			</text>
 
 			<input>
-				<placement x="%indent%" y="%row7_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%indent%" y="%row7_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_backup_encrypt_display%</text>
 				<data name="tw_backup_password" mask="*" maskvariable="tw_backup_encrypt_display"/>
 				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
@@ -2707,7 +2708,7 @@
 			</text>
 
 			<input>
-				<placement x="%indent%" y="%row7_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%indent%" y="%row7_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_backup_encrypt_display2%</text>
 				<data name="tw_backup_password2" mask="*" maskvariable="tw_backup_encrypt_display2"/>
 				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
@@ -3026,7 +3027,7 @@
 			</text>
 
 			<input>
-				<placement x="%indent%" y="%row3_input_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%indent%" y="%row3_input_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_restore_display%</text>
 				<data name="tw_restore_password" mask="*" maskvariable="tw_restore_display"/>
 				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
@@ -3259,7 +3260,7 @@
 			</text>
 
 			<input>
-				<placement x="%renamebackup_input_x%" y="%row3_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%renamebackup_input_x%" y="%row3_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<font resource="font_sub_header" color="%sub_header_color%"/>
 				<text>%tw_backup_rename%</text>
 				<data name="tw_backup_rename"/>
@@ -4534,36 +4535,36 @@
 			</text>
 
 			<text style="text_m_accent">
-				<placement x="%text_pb_x%" y="%row15a_y%"/>
+				<placement x="%text_pb_x%" y="%row15a_y%" materialy="1160"/>
 				<text>{@sel_tz_offset=Select Offset (usually 0): %tw_time_zone_guioffset%}</text>
 			</text>
 
 			<button style="button_quarter_width">
-				<placement x="%indent%" y="%row16a_y%"/>
+				<placement x="%indent%" y="%row16a_y%" materialy="1240" materialx="48"/>
 				<text>{@tz_offset_none=None}</text>
 				<action function="set">tw_time_zone_guioffset=0</action>
 			</button>
 
 			<button style="button_quarter_width">
-				<placement x="%btn4_col2_x%" y="%row16a_y%"/>
+				<placement x="%btn4_col2_x%" y="%row16a_y%" materialy="1240" materialx="296"/>
 				<text>{@tz_offset_15=15}</text>
 				<action function="set">tw_time_zone_guioffset=15</action>
 			</button>
 
 			<button style="button_quarter_width">
-				<placement x="%btn4_col3_x%" y="%row16a_y%"/>
+				<placement x="%btn4_col3_x%" y="%row16a_y%" materialy="1240" materialx="544"/>
 				<text>{@tz_offset_30=30}</text>
 				<action function="set">tw_time_zone_guioffset=30</action>
 			</button>
 
 			<button style="button_quarter_width">
-				<placement x="%btn4_col4_x%" y="%row16a_y%"/>
+				<placement x="%btn4_col4_x%" y="%row16a_y%" materialy="1240" materialx="792"/>
 				<text>{@tz_offset_45=45}</text>
 				<action function="set">tw_time_zone_guioffset=45</action>
 			</button>
 
 			<checkbox>
-				<placement x="%text_pb_x%" y="%row18a_y%"/>
+				<placement x="%text_pb_x%" y="%row18a_y%" materialy="1400"/>
 				<font resource="font_m" color="%text_color%"/>
 				<text>{@use_dst_chk=Use daylight savings time (DST)}</text>
 				<data variable="tw_time_zone_guidst"/>
@@ -4572,13 +4573,13 @@
 
 			<text color="%text_color%">
 				<font resource="font_m"/>
-				<placement x="%text_pb_x%" y="%row20_y%"/>
+				<placement x="%text_pb_x%" y="%row20_y%" materialy="1510"/>
 				<text>{@curr_tz=Current Time Zone: %tw_time_zone%}</text>
 			</text>
 
 			<button style="main_button_half_height_new">
 				<highlight color="%highlight_color%"/>
-				<placement x="%center_x%" y="%row20a_y%"/>
+				<placement x="%center_x%" y="%row20a_y%" materialy="1620"/>
 				<font resource="font_slider" color="%text_main_button_color%"/>
 				<text>{@set_tz_btn=Set Time Zone}</text>
 				<image resource="main_button_half_height_new"/>
@@ -4636,17 +4637,17 @@
 				<action function="set">tw_screen_timeout_secs=0</action>
 			</button>
 
-			<slidervalue>
+			<slidervalue><surface/>
 				<condition var1="tw_screen_timeout_secs" op="!=" var2="0"/>
 				<condition var1="tw_no_screen_timeout" op="!=" var2="1"/>
-				<placement x="%slidervalue_x%" y="%row6_y%" w="900"/>
+				<placement x="%slidervalue_x%" y="%row6_y%" w="900" materialx="88" materialy="570" materialw="904"/>
 				<text>{@screen_to_slider=Screen timeout in seconds:}</text>
 				<data variable="tw_screen_timeout_secs" min="15" max="3600"/>
 			</slidervalue>
 
-			<slidervalue>
+			<slidervalue><surface/>
 				<condition var1="tw_has_brightnesss_file" var2="1"/>
-				<placement x="%slidervalue_x%" y="%row11_y%" w="900"/>
+				<placement x="%slidervalue_x%" y="%row11_y%" w="900" materialx="88" materialy="735" materialw="904"/>
 				<text>{@screen_bright_slider=Brightness: %tw_brightness_pct%%}</text>
 				<data variable="tw_brightness_pct" min="1" max="100" showcurr="0"/>
 				<actions>
@@ -4657,9 +4658,9 @@
 				</actions>
 			</slidervalue>
 
-			<slidervalue>
+			<slidervalue><surface/>
 				<condition var1="pb_torch_brightness_slider" op="!=" var2="0"/>
-				<placement x="%slidervalue_x%" y="%row16_y%" w="900"/>
+				<placement x="%slidervalue_x%" y="%row16_y%" w="900" materialx="88" materialy="900" materialw="904"/>
 				<text>{@recovery_flashlight_intensity=Flashlight intensity}</text>
 				<data variable="pb_bright_value" min="1" max="255"/>
 			</slidervalue>
@@ -4701,23 +4702,23 @@
 				<text>{@vibration_disabled=Vibration Disabled for Device}</text>
 			</text>
 
-			<slidervalue>
+			<slidervalue><surface/>
 				<condition var1="tw_disable_haptics" var2="0"/>
-				<placement x="%slidervalue_x%" y="%row4_y%" w="900"/>
+				<placement x="%slidervalue_x%" y="%row4_y%" w="900" materialx="88" materialy="490" materialw="904"/>
 				<text>{@button_vibration=Button Vibration:}</text>
 				<data variable="tw_button_vibrate" min="0" max="300"/>
 			</slidervalue>
 
-			<slidervalue>
+			<slidervalue><surface/>
 				<condition var1="tw_disable_haptics" var2="0"/>
-				<placement x="%slidervalue_x%" y="%row9_y%" w="900"/>
+				<placement x="%slidervalue_x%" y="%row9_y%" w="900" materialx="88" materialy="655" materialw="904"/>
 				<text>{@kb_vibration=Keyboard Vibration:}</text>
 				<data variable="tw_keyboard_vibrate" min="0" max="300"/>
 			</slidervalue>
 
-			<slidervalue>
+			<slidervalue><surface/>
 				<condition var1="tw_disable_haptics" var2="0"/>
-				<placement x="%slidervalue_x%" y="%row14_y%" w="900"/>
+				<placement x="%slidervalue_x%" y="%row14_y%" w="900" materialx="88" materialy="820" materialw="904"/>
 				<text>{@act_vibration=Action Vibration:}</text>
 				<data variable="tw_action_vibrate" min="0" max="500"/>
 			</slidervalue>
@@ -5289,7 +5290,7 @@
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="pb"/>
 				<placement x="%pb_x%" y="%row3_header_y%"/>
 			</image>
@@ -5990,7 +5991,7 @@
 			</text>
 
 			<input>
-				<placement x="%text_pb_x%" y="%row2_input_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%text_pb_x%" y="%row2_input_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_filemanager_rename%</text>
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="1" maxlen="128"/>
@@ -6056,7 +6057,7 @@
 			</text>
 
 			<input>
-				<placement x="%text_pb_x%" y="%row2_input_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%text_pb_x%" y="%row2_input_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_filemanager_rename%</text>
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="1" maxlen="128"/>
@@ -6122,7 +6123,7 @@
 			</text>
 
 			<input>
-				<placement x="%text_pb_x%" y="%row2_input_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%text_pb_x%" y="%row2_input_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_filemanager_rename%</text>
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="3" maxlen="4" allow="0123456789"/>
@@ -6333,7 +6334,7 @@
 			</text>
 
 			<input>
-				<placement x="%text_pb_x%" y="%row2_input_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%text_pb_x%" y="%row2_input_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_filename1%</text>
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="1" maxlen="128"/>
@@ -6399,7 +6400,7 @@
 			</text>
 
 			<input>
-				<placement x="%text_pb_x%" y="%row2_input_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%text_pb_x%" y="%row2_input_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_filename1%</text>
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="1" maxlen="128"/>
@@ -6471,7 +6472,7 @@
 			</text>
 
 			<input>
-				<placement x="%indent%" y="%row3_input_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%indent%" y="%row3_input_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_crypto_display%</text>
 				<data name="tw_crypto_password" mask="*" maskvariable="tw_crypto_display"/>
 				<restrict minlen="1" maxlen="254"/>
@@ -6609,7 +6610,7 @@
 			</text>
 
 			<input>
-				<placement x="%indent%" y="%row3_input_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="%indent%" y="%row3_input_y%" w="%content_width%" h="%input_height%" materialx="88" materialw="904"/>
 				<text>%tw_crypto_display%</text>
 				<data name="tw_crypto_password" mask="*" maskvariable="tw_crypto_display"/>
 				<restrict minlen="1" maxlen="254"/>
@@ -7170,7 +7171,7 @@
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="pb"/>
 				<placement x="%pb_x%" y="%row3_header_y%"/>
 			</image>
@@ -7287,5 +7288,7 @@
 				</actions>
 			</action>
 		</page>
+
+
 	</pages>
 </recovery>

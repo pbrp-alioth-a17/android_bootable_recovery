@@ -215,7 +215,7 @@ void GUIConsole::Clear_For_Retranslation()
 	pthread_mutex_unlock(&console_lock);
 }
 
-GUIConsole::GUIConsole(xml_node<>* node) : GUIScrollList(node)
+GUIConsole::GUIConsole(xml_node<>* node) : GUIScrollList(node, false)
 {
 	xml_node<>* child;
 
@@ -407,6 +407,12 @@ void GUIConsole::RenderItem(size_t itemindex, int yPos, bool selected __unused)
 	} else {
 		COLOR FontColor;
 		std::string color = rConsoleColor[itemindex];
+		if (DataManager::GetIntValue("pb_material_resources") == 1) {
+			if (color == "red") color = DataManager::GetStrValue("error");
+			else if (color == "green") color = DataManager::GetStrValue("text_success_color");
+			else if (color == "yellow") color = DataManager::GetStrValue("warning");
+			else if (color == "blue") color = DataManager::GetStrValue("process");
+		}
 		ConvertStrToColor(color, &FontColor);
 		FontColor.alpha = 255;
 		gr_color(FontColor.red, FontColor.green, FontColor.blue, FontColor.alpha);

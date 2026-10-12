@@ -33,6 +33,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include <algorithm>
 #include <string>
 
 extern "C" {
@@ -92,6 +93,9 @@ GUIText::GUIText(xml_node<>* node)
 			}
 		}
 	}
+
+	if (mRenderW > 0 && scaleWidth)
+		maxWidth = maxWidth > 0 ? std::min(maxWidth, static_cast<unsigned>(mRenderW)) : static_cast<unsigned>(mRenderW);
 
 	// Simple way to check for static state
 	mLastValue = gui_parse_text(mText);

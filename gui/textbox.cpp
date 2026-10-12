@@ -28,7 +28,7 @@ extern "C" {
 #include "rapidxml.hpp"
 #include "objects.hpp"
 
-GUITextBox::GUITextBox(xml_node<>* node) : GUIScrollList(node)
+GUITextBox::GUITextBox(xml_node<>* node) : GUIScrollList(node, false)
 {
 	xml_node<>* child;
 

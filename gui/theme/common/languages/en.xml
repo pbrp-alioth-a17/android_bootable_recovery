@@ -9,7 +9,6 @@
 		<string name="recovery_pbrp_version">PBRP version</string>
 		<string name="recovery_build_date">Build date</string>
 		<string name="recovery_flashlight_intensity">Flashlight intensity</string>
-		<string name="recovery_platform_details">Android %property.ro.build.version.release% • SDK %property.ro.build.version.sdk%</string>
 		<string name="recovery_android_version">Android version</string>
 		<string name="recovery_sdk_version">SDK level</string>
 		<string name="flashlight">Flashlight</string>

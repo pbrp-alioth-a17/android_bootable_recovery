@@ -32,7 +32,7 @@ extern "C" {
 const float SCROLLING_SPEED_DECREMENT = 0.9; // friction
 const int SCROLLING_FLOOR = 2; // minimum pixels for scrolling to stop
 
-GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
+GUIScrollList::GUIScrollList(xml_node<>* node, bool material_rows) : GUIObject(node)
 {
 	xml_node<>* child;
 
@@ -40,7 +40,7 @@ GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
 	maxIconWidth = maxIconHeight =  mHeaderIconHeight = mHeaderIconWidth = 0;
 	mHeaderSeparatorH = mHeaderH = actualItemHeight = 0;
 	mHeaderIsStatic = false;
-	mMaterial = DataManager::GetIntValue("pb_material_resources") == 1;
+	mMaterial = material_rows && DataManager::GetIntValue("pb_material_resources") == 1;
 	mBackground = mHeaderIcon = NULL;
 	mFont = mDescFont = NULL;
 	mFastScrollW = mFastScrollLineW = mFastScrollRectW = mFastScrollRectH = 0;

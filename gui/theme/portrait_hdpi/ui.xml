@@ -14,6 +14,7 @@
 		<xmlfile name="extras.xml"/>
 	</include>
 	<resources>
+<image name="settings_name_row" filename="material_settings_name_row"/>
 <image name="settings_notice" filename="material_settings_notice"/>
 <image name="about_pbrp_logo" filename="logo" retainaspect="1"/>
 <image name="slider_base" filename="slider_used" materialfilename="material_slider_base"/>
@@ -82,7 +83,7 @@
 		<image name="folderup" filename="folderup" materialfilename="material_folderup" retainaspect="1" />
 		<image name="home" filename="home" materialfilename="material_home"/>
 		<image name="back" filename="back" materialfilename="material_back"/>
-		<image name="console" filename="console" retainaspect="1"/>
+		<image name="console" filename="console" materialfilename="material_console" retainaspect="1"/>
 		<image name="console_button" filename="console_button" materialfilename="material_console_button"/>
 		<image name="kb_hide" filename="kb_hide" retainaspect="1" materialfilename="material_kb_hide"/>
 		<image name="kb_show" filename="kb_show" retainaspect="1" materialfilename="material_kb_show"/>
@@ -431,6 +432,7 @@
 		<variable name="front_color" value="#010100"/>
 		<variable name="accent_color" value="#7F000000"/>
 	    <variable name="accent_color2" value="#555555"/>
+		<variable name="input_cursor_color" value="%accent_color%"/>
 		<variable name="accent_color_semitransparent" value="#0090CA30"/>
 		<variable name="text_color" value="#FFFFFF"/>
 		<variable name="sub_header_color" value="#A3A3A3" />
@@ -452,6 +454,7 @@
 		<variable name="fileselector_linecolor" value="#000000"/>
 		<variable name="fileselector_linecolor2" value="#FFFFFF"/>
 		<variable name="fileselector_highlight_color" value="#555555"/>
+		<variable name="fileselector_highlight_font_color" value="#FFFFFF"/>
 		<variable name="fileselector_separatorheight" value="2"/>
 		<variable name="fileselector_spacing" value="0"/>
 		<variable name="fileselector_install_height" value="1410"/>

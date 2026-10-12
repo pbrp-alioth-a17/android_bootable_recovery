@@ -781,7 +781,7 @@ void terminal_pty_read()
 }
 
 
-GUITerminal::GUITerminal(xml_node<>* node) : GUIScrollList(node)
+GUITerminal::GUITerminal(xml_node<>* node) : GUIScrollList(node, false)
 {
 	allowSelection = false; // terminal doesn't support list item selections
 	lastCondition = false;

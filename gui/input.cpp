@@ -35,6 +35,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include <algorithm>
 #include <string>
 
 extern "C" {
@@ -45,6 +46,7 @@ extern "C" {
 
 #include "rapidxml.hpp"
 #include "objects.hpp"
+#include "rounded.hpp"
 #include "../data.hpp"
 
 #define TW_INPUT_NO_UPDATE -1000 // Magic value for HandleTextLocation when no change in scrolling has occurred
@@ -55,6 +57,8 @@ GUIInput::GUIInput(xml_node<>* node)
 	xml_attribute<>* attr;
 	xml_node<>* child;
 
+	mMaterial = DataManager::GetIntValue("pb_material_resources") == 1;
+	mFieldPadding = 0;
 	mInputText = NULL;
 	mAction = NULL;
 	mBackground = NULL;
@@ -154,7 +158,10 @@ GUIInput::GUIInput(xml_node<>* node)
 
 	// Load the placement
 	LoadPlacement(FindNode(node, "placement"), &mRenderX, &mRenderY, &mRenderW, &mRenderH);
-	SetActionPos(mRenderX, mRenderY, mRenderW, mRenderH);
+	if (mMaterial && !mBackground)
+		mFieldPadding = std::max(0, std::min(scale_theme_min(40),
+		    std::min(mRenderX - scale_theme_min(48), gr_fb_width() - mRenderX - mRenderW - scale_theme_min(48))));
+	SetActionPos(mRenderX - mFieldPadding, mRenderY, mRenderW + 2 * mFieldPadding, mRenderH);
 
 	if (mInputText && mFontHeight && mFontHeight < (unsigned)mRenderH) {
 		mFontY = ((mRenderH - mFontHeight) / 2) + mRenderY;
@@ -302,8 +309,14 @@ int GUIInput::Render(void)
 	}
 
 	// First step, fill background
-	gr_color(mBackgroundColor.red, mBackgroundColor.green, mBackgroundColor.blue, 255);
-	gr_fill(mRenderX, mRenderY, mRenderW, mRenderH);
+	if (mMaterial && !mBackground) {
+		gr_color(43, 41, 48, 255);
+		gui_fill_rounded(mRenderX - mFieldPadding, mRenderY,
+		                 mRenderW + 2 * mFieldPadding, mRenderH, scale_theme_min(36));
+	} else {
+		gr_color(mBackgroundColor.red, mBackgroundColor.green, mBackgroundColor.blue, 255);
+		gr_fill(mRenderX, mRenderY, mRenderW, mRenderH);
+	}
 
 	// Next, render the background resource (if it exists)
 	if (mBackground && mBackground->GetResource())
@@ -351,8 +364,8 @@ int GUIInput::Update(void)
 
 int GUIInput::GetSelection(int x, int y)
 {
-	if (x < mRenderX || x - mRenderX > mRenderW || y < mRenderY || y - mRenderY > mRenderH) return -1;
-	return (x - mRenderX);
+	if (x < mRenderX - mFieldPadding || x - mRenderX > mRenderW + mFieldPadding || y < mRenderY || y - mRenderY > mRenderH) return -1;
+	return std::max(0, std::min(x - mRenderX, mRenderW));
 }
 
 int GUIInput::NotifyTouch(TOUCH_STATE state, int x, int y)

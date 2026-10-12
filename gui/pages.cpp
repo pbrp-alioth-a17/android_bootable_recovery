@@ -1081,7 +1081,7 @@ int PageSet::LoadVariables(xml_node<>* vars)
 			xml_node<>* marker = vars->first_node("variable");
 			if (marker && marker->first_attribute("name") &&
 			    strcmp(marker->first_attribute("name")->value(), "pb_bundled_palette") == 0 &&
-			    DataManager::GetIntValue("pb_ui_style") == 1) {
+			    DataManager::GetIntValue("pb_material_resources") == 1) {
 				static const std::map<std::string, std::string> material_colors = {
 					{"background_color", "#141218"},
                     {"fileselector_spacing", "40"},
@@ -1094,11 +1094,18 @@ int PageSet::LoadVariables(xml_node<>* vars)
 					{"front_color", "#211F26"},
 					{"accent_color", "#49454F"},
 					{"accent_color2", "#D0BCFF"},
+                    {"input_cursor_color", "#D0BCFF"},
 					{"accent_color_semitransparent", "#D0BCFF30"},
 					{"text_color", "#E6E0E9"},
 					{"sub_header_color", "#CAC4D0"},
 					{"text_main_button_color", "#E6E0E9"},
-					{"text_button_color", "#E6E0E9"},
+					{"text_button_color", "#381E72"},
+                    {"text_success_color", "#A8D5BA"},
+                    {"text_fail_color", "#F2B8B5"},
+                    {"text_fail_selected", "#F2B8B5"},
+                    {"warning", "#E8C07D"},
+                    {"error", "#F2B8B5"},
+                    {"process", "#B4C8E8"},
 					{"highlight_color", "#D0BCFF30"},
 					{"highlight_color_subbutton", "#D0BCFF30"},
 					{"caps_highlight_color", "#D0BCFF30"},
