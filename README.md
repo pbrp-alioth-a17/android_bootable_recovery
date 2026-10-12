@@ -63,7 +63,7 @@ port. A17's full target spelling (`pb_alioth-cp2a-user`) also works. Register
 products in the device's `AndroidProducts.mk`; use its actual release config.
 Do not assume that every device uses Alioth's product, kernel or Boot layout.
 
-The vendor setup loads these additional commands without changing `lunch` or
+The recovery layer in `vendor/lineage` loads these additional commands without changing `lunch` or
 `m`, modifying platform source files, selecting another compiler, or accessing
 a phone:
 
@@ -92,3 +92,23 @@ Other ports supply their own packaging script and arguments; `recoverypackage`
 accepts an explicit repository-relative Python script and forwards arguments.
 It does not reuse Alioth's validation or partition assumptions for another
 product. None of these helpers uploads, boots or flashes an image.
+
+## PBRP layer on vendor/lineage
+
+Recovery products inherit `vendor/lineage/config/recovery.mk`, not the Lineage
+ROM common product. Use `vendor/lineage/config/BoardConfigRecovery.mk` for the
+shared recovery board integration, or its scoped Soong/policy includes when a
+device already configures the Lineage kernel rules. Recovery tools, versioning,
+PBRP flag namespaces and recovery-only policy remain separate from ROM defaults.
+The A17 kernel/header infrastructure and standard Lineage tools are reused.
+
+`vendor/lineage/pb_build.sh` is a manifest link to the local A17 wrapper:
+
+```bash
+vendor/lineage/pb_build.sh pb_alioth cp2a user bootimage -j4
+```
+
+It selects an explicit product/release/variant and image target. It does not set
+credentials, synchronize a different checkout, upload, reboot or flash. The
+manifest also keeps the TWRP common-product link pointing to the recovery layer.
+The obsolete `vendor/pb` project is no longer part of the build tree.
