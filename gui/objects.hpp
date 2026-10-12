@@ -351,6 +351,7 @@ protected:
 	int dd(std::string arg);
 	int partitionsd(std::string arg);
 	int cmd(std::string arg);
+	int zipfolder(std::string arg);
 	int terminalcommand(std::string arg);
 	int killterminal(std::string arg);
 	int checkbackupname(std::string arg);

@@ -6291,7 +6291,7 @@
 					<condition var1="tw_include_text3" var2="1"/>
 					<condition var1="pb_filemanager_unzip" var2="2"/>
 				</conditions>
-				<action function="cmd">%tw_filemanager_command% zip -r %tw_file_location2%/%pb_zip_new_name% *</action>
+				<action function="zipfolder"/>
 			</action>
 
 			<action>

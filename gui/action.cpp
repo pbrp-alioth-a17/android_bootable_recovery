@@ -228,6 +228,7 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(dd);
 		ADD_ACTION(partitionsd);
 		ADD_ACTION(cmd);
+		ADD_ACTION(zipfolder);
 		ADD_ACTION(terminalcommand);
 		ADD_ACTION(decrypt);
 		ADD_ACTION(adbsideload);
@@ -1656,6 +1657,25 @@ int GUIAction::cmd(std::string arg)
 
 	operation_end(op_status);
 	return 0;
+}
+
+int GUIAction::zipfolder(std::string arg __unused)
+{
+	const std::string source = DataManager::GetStrValue("tw_file_location1");
+	const std::string destination = DataManager::GetStrValue("tw_file_location2");
+	const std::string name = DataManager::GetStrValue("pb_zip_new_name");
+	if (source.empty() || source.front() != '/' || destination.empty() ||
+	    destination.front() != '/' || name.empty() || name.find('/') != std::string::npos)
+		return cmd("false");
+	auto quote = [](const std::string& value) {
+		std::string result = "'";
+		for (char c : value)
+			result += c == '\'' ? "'\\''" : std::string(1, c);
+		return result + "'";
+	};
+	// Archive the directory itself: a shell '*' would omit hidden files.
+	return cmd("cd " + quote(source) + " && /system/bin/zip -r " +
+	           quote(destination + "/" + name) + " -- .");
 }
 
 int GUIAction::terminalcommand(std::string arg)

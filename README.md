@@ -111,4 +111,4 @@ vendor/lineage/pb_build.sh pb_alioth cp2a user bootimage -j4
 It selects an explicit product/release/variant and image target. It does not set
 credentials, synchronize a different checkout, upload, reboot or flash. The
 manifest also keeps the TWRP common-product link pointing to the recovery layer.
-The obsolete `vendor/pb` project is no longer part of the build tree.
+The obsolete duplicate vendor project is no longer part of the build tree.
