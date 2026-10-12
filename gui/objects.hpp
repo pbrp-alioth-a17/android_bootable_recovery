@@ -562,6 +562,7 @@ protected:
 	COLOR mSeparatorColor; // color of the separator that is between items
 
 	// Scrollbar
+	bool mMaterial;
 	int mFastScrollW; // width of the fastscroll area
 	int mFastScrollLineW; // width of the line for fastscroll rendering
 	int mFastScrollRectW; // width of the rectangle for fastscroll
@@ -1173,6 +1174,7 @@ protected:
 	bool mChangeOnDrag;
 	int mLineW;
 	bool mDragging;
+	bool mMaterial;
 	ImageResource *mBackgroundImage;
 	ImageResource *mHandleImage;
 	ImageResource *mHandleHoverImage;

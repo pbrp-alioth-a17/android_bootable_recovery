@@ -41,6 +41,7 @@ extern "C" {
 
 #include "rapidxml.hpp"
 #include "objects.hpp"
+#include "rounded.hpp"
 
 GUIButton::GUIButton(xml_node<>* node)
 	: GUIObject(node)
@@ -153,7 +154,10 @@ int GUIButton::Render(void)
 	}
 	if (renderHighlight && hasHighlightColor) {
 		gr_color(mHighlightColor.red, mHighlightColor.green, mHighlightColor.blue, mHighlightColor.alpha);
-		gr_fill(mRenderX, mRenderY, mRenderW, mRenderH);
+		        if (DataManager::GetIntValue("pb_material_resources") == 1)
+            gui_fill_rounded(mRenderX, mRenderY, mRenderW, mRenderH, scale_theme_min(50));
+        else
+            gr_fill(mRenderX, mRenderY, mRenderW, mRenderH);
 	}
 	mRendered = true;
 	return ret;

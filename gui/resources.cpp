@@ -175,7 +175,7 @@ void FontResource::LoadFont(xml_node<>* node, ZipArchiveHandle pZip)
 		    strcmp(node->first_attribute("type")->value(), "fontoverride") == 0 &&
 		    file == "pb.ttf") {
 			file = GetName() == "fixed" ? "DroidSansMono.ttf" :
-			       GetName() == "font_s" ? "Roboto_Regular.ttf" : "Roboto_Medium.ttf";
+			       "Roboto_Regular.ttf";
 		}
 
 		int dpi = 300;

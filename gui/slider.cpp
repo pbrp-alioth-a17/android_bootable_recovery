@@ -66,7 +66,8 @@ GUISlider::GUISlider(xml_node<>* node) : GUIObject(node)
 	child = FindNode(node, "resource");
 	if (child)
 	{
-		sSlider = LoadAttrImage(child, "base");
+		sSlider = LoadAttrImage(child, DataManager::GetIntValue("pb_material_resources") == 1 &&
+                                  child->first_attribute("materialbase") ? "materialbase" : "base");
 		sSliderUsed = LoadAttrImage(child, "used");
 		sTouch = LoadAttrImage(child, "touch");
 	}
@@ -109,6 +110,10 @@ GUISlider::GUISlider(xml_node<>* node) : GUIObject(node)
 		sTouchH = sTouch->GetHeight(); // Height of the "touch image" that follows the touch (arrow)
 	}
 
+	if (sSliderLabel && DataManager::GetIntValue("pb_material_resources") == 1) {
+		sSliderLabel->SetMaxWidth(std::max(1, mRenderW - 2 * sTouchW));
+	}
+
 	//LOGINFO("mRenderW: %i mTouchW: %i\n", mRenderW, mTouchW);
 	mActionX = mRenderX;
 	mActionY = mRenderY;
@@ -143,7 +148,8 @@ int GUISlider::Render(void)
 	if (sSliderUsed && sSliderUsed->GetResource() && sCurTouchX > mRenderX)
 		gr_blit(sSliderUsed->GetResource(), 0, 0, sCurTouchX - mRenderX, mRenderH, mRenderX, mRenderY);
 
-	if (sSliderLabel) {
+	if (sSliderLabel && (DataManager::GetIntValue("pb_material_resources") != 1 ||
+                         sCurTouchX == mRenderX)) {
 		ret = sSliderLabel->Render();
 	}
 

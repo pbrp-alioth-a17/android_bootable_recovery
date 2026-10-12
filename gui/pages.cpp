@@ -208,9 +208,11 @@ COLOR LoadAttrColor(xml_node<>* element, const char* attrname, bool* found_color
 	// Keep their contrast consistent with the active bundled Material palette.
 	if (DataManager::GetIntValue("pb_material_resources") == 1) {
 		static const std::map<std::string, std::string> neutral_colors = {
-			{"#434243", "#CAC4D0"}, {"#353434", "#381E72"},
+			{"#434243", "#CAC4D0"}, {"#353434", "#E6E0E9"},
 			{"#FFFFFF", "#E6E0E9"}, {"#8C8C8C", "#49454F"},
 			{"#1A1A1A80", "#D0BCFF30"},
+            {"#111111", "#211F26"}, {"#7F000000", "#2B2930"},
+            {"#EEEEEE", "#E6E0E9"}, {"#5b5b5bff", "#CAC4D0"},
 		};
 		auto color = neutral_colors.find(value);
 		if (color != neutral_colors.end()) value = color->second;
@@ -262,9 +264,9 @@ bool LoadPlacement(xml_node<>* node, int* x, int* y, int* w /* = NULL */, int* h
 
 	xml_node<>* child = node;
 	while (child) {
-		GUIObject* plc = new GUIObject(child);
-		if (plc->isConditionValid()) {
-			if (plc->UpdateAllConditions())
+		GUIObject plc(child);
+		if (plc.isConditionValid()) {
+			if (plc.UpdateAllConditions())
 				break;
 		}
 		else
@@ -289,6 +291,12 @@ bool LoadPlacement(xml_node<>* node, int* x, int* y, int* w /* = NULL */, int* h
 	if (placement && child->first_attribute("placement"))
 		*placement = (Placement) LoadAttrInt(child, "placement");
 
+    if (DataManager::GetIntValue("pb_material_resources") == 1) {
+        if (child->first_attribute("materialx")) *x = LoadAttrIntScaleX(child, "materialx") + tw_x_offset;
+        if (child->first_attribute("materialy")) *y = LoadAttrIntScaleY(child, "materialy") + tw_y_offset;
+        if (w && child->first_attribute("materialw")) *w = LoadAttrIntScaleX(child, "materialw");
+        if (h && child->first_attribute("materialh")) *h = LoadAttrIntScaleY(child, "materialh");
+    }
 	return true;
 }
 
@@ -1076,6 +1084,11 @@ int PageSet::LoadVariables(xml_node<>* vars)
 			    DataManager::GetIntValue("pb_ui_style") == 1) {
 				static const std::map<std::string, std::string> material_colors = {
 					{"background_color", "#141218"},
+                    {"fileselector_spacing", "40"},
+                    {"fastscroll_w", "12"},
+                    {"fastscroll_linew", "2"},
+                    {"fastscroll_rectw", "8"},
+                    {"fastscroll_recth", "80"},
 					{"background_color2", "#211F26"},
 					{"theme_color", "#211F26"},
 					{"front_color", "#211F26"},

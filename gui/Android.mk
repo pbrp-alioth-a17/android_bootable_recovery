@@ -34,9 +34,11 @@ define PB_UNSUPPORTED_RESOLUTION_ERR
 endef
 
 TWRP_RES := $(LOCAL_PATH)/theme/common/fonts
-TWRP_RES += $(LOCAL_PATH)/theme/common/lang_en/languages
 ifeq ($(PB_ENGLISH),)
-TWRP_RES += $(LOCAL_PATH)/theme/common/lang_full/languages
+TWRP_RES += $(LOCAL_PATH)/theme/common/languages
+TWRP_LANGUAGE_INSTALL := :
+else
+TWRP_LANGUAGE_INSTALL := mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/twres/languages; rm -f $(TARGET_RECOVERY_ROOT_OUT)/twres/languages/*.xml; cp -f $(LOCAL_PATH)/theme/common/languages/en.xml $(TARGET_RECOVERY_ROOT_OUT)/twres/languages/en.xml
 endif
 
 ifeq ($(TW_CUSTOM_THEME),)
@@ -105,6 +107,7 @@ LOCAL_ADDITIONAL_DEPENDENCIES := $(TWRP_THEME_INPUTS) $(LOCAL_PATH)/../variables
 LOCAL_POST_INSTALL_CMD := \
     mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/twres; \
     cp -fr $(TWRP_RES) $(TARGET_RECOVERY_ROOT_OUT)/twres; \
+    $(TWRP_LANGUAGE_INSTALL); \
     cp -fr $(TWRP_THEME_LOC)/* $(TARGET_RECOVERY_ROOT_OUT)/twres; \
     sed -i 's/{themeversion}/$(TWRP_THEME_VERSION)/g' $(TARGET_RECOVERY_ROOT_OUT)/twres/ui.xml $(TARGET_RECOVERY_ROOT_OUT)/twres/splash.xml
 include $(BUILD_PHONY_PACKAGE)

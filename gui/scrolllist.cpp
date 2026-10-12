@@ -26,6 +26,7 @@ extern "C" {
 
 #include "rapidxml.hpp"
 #include "objects.hpp"
+#include "rounded.hpp"
 #include "../data.hpp"
 
 const float SCROLLING_SPEED_DECREMENT = 0.9; // friction
@@ -39,6 +40,7 @@ GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
 	maxIconWidth = maxIconHeight =  mHeaderIconHeight = mHeaderIconWidth = 0;
 	mHeaderSeparatorH = mHeaderH = actualItemHeight = 0;
 	mHeaderIsStatic = false;
+	mMaterial = DataManager::GetIntValue("pb_material_resources") == 1;
 	mBackground = mHeaderIcon = NULL;
 	mFont = mDescFont = NULL;
 	mFastScrollW = mFastScrollLineW = mFastScrollRectW = mFastScrollRectH = 0;
@@ -78,6 +80,12 @@ GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
 
 	// Load the placement
 	LoadPlacement(FindNode(node, "placement"), &mRenderX, &mRenderY, &mRenderW, &mRenderH);
+    if (mMaterial && mRenderW >= gr_fb_width() * 2 / 3 &&
+        !(FindNode(node, "placement") && FindNode(node, "placement")->first_attribute("materialw"))) {
+        mRenderX = scale_theme_min(48);
+        mRenderW = gr_fb_width() - 2 * mRenderX;
+    }
+
 	SetActionPos(mRenderX, mRenderY, mRenderW, mRenderH);
 
 	// Load the font, and possibly override the color
@@ -88,6 +96,7 @@ GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
 		mFontColor = LoadAttrColor(child, "color");
 		mFontHighlightColor = LoadAttrColor(child, "highlightcolor", mFontColor);
 		mItemSpacing = LoadAttrIntScaleY(child, "spacing");
+		if (mMaterial) mItemSpacing = scale_theme_min(48);
 	}
 
 	//Load The Description per list
@@ -97,6 +106,7 @@ GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
 		mDescFontColor = LoadAttrColor(child, "color");
 		mDescFontHeight = mDescFont->GetHeight();
 		mDescSpacing = LoadAttrIntScaleY(child, "spacing");
+        if (mMaterial) mDescSpacing = ((mFont ? mFont->GetHeight() : 0) + mDescFontHeight) / 2 + scale_theme_min(16);
 	}
 
 	// Load the separator if it exists
@@ -106,6 +116,8 @@ GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
 		mSeparatorColor = LoadAttrColor(child, "color");
 		mSeparatorH = LoadAttrIntScaleY(child, "height");
 	}
+
+	if (mMaterial) mSeparatorH = 0;
 
 	// Fast scroll
 	child = FindNode(node, "fastscroll");
@@ -150,6 +162,10 @@ GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
 			mHeaderH = actualItemHeight;
 	}
 
+    if (mMaterial && mHeaderText.empty() && !mHeaderIcon) {
+        mHeaderH = 0;
+        mHeaderSeparatorH = 0;
+    }
 	if (actualItemHeight / 3 > 6)
 		touchDebounce = actualItemHeight / 3;
 }
@@ -248,12 +264,18 @@ int GUIScrollList::Render(void)
 		if (itemindex >= listSize)
 			break;
 
+        if (mMaterial) {
+            gr_color(43, 41, 48, 255);
+            gui_fill_rounded(mRenderX, yPos, listW, actualItemHeight - scale_theme_min(4),
+                             scale_theme_min(50), itemindex == 0, itemindex + 1 == listSize);
+        }
 		RenderItem(itemindex, yPos, itemindex == selectedItem);
 
 		// Add the separator
-		gr_color(mSeparatorColor.red, mSeparatorColor.green, mSeparatorColor.blue, mSeparatorColor.alpha);
+		gr_color(mSeparatorColor.red, mSeparatorColor.green, mSeparatorColor.blue, mMaterial ? 0 : mSeparatorColor.alpha);
 		int sepY = yPos + actualItemHeight - mSeparatorH;
-		gr_fill(mRenderX + maxIconWidth + 10, sepY , listW, mSeparatorH);
+		gr_fill(mRenderX + maxIconWidth + 10, sepY,
+                std::max(0, listW - maxIconWidth - 10), mSeparatorH);
 
 		// Move the yPos
 		yPos += actualItemHeight;
@@ -334,7 +356,11 @@ void GUIScrollList::RenderStdItem(int yPos, bool selected, ImageResource* icon, 
 	if (hasHighlightColor && selected) {
 		// Highlight the item background of the selected item
 		gr_color(mHighlightColor.red, mHighlightColor.green, mHighlightColor.blue, mHighlightColor.alpha);
-		gr_fill(mRenderX, yPos, mRenderW, actualItemHeight);
+		        if (mMaterial)
+            gui_fill_rounded(mRenderX, yPos, mRenderW - (hasScroll ? mFastScrollW : 0),
+                             actualItemHeight - scale_theme_min(4), scale_theme_min(50));
+        else
+            gr_fill(mRenderX, yPos, mRenderW, actualItemHeight);
 	}
 
 	if (selected) {
@@ -353,17 +379,19 @@ void GUIScrollList::RenderStdItem(int yPos, bool selected, ImageResource* icon, 
 		int iconH = icon->GetHeight();
 		int iconW = icon->GetWidth();
 		int iconY = yPos + (iconAndTextH - iconH) / 2;
-		int iconX = mRenderX + (maxIconWidth - iconW) / 2;
+		int iconX = mRenderX + (maxIconWidth - iconW) / 2 + (mMaterial ? scale_theme_min(40) : 0);
 		gr_blit(icon->GetResource(), 0, 0, iconW, iconH, iconX, iconY);
 	}
 
 	// render label text
 	if ((mFont && mFont->GetResource()) || (nFont && nFont->GetResource())) {
-		int textX = mRenderX + maxIconWidth + 10;
+		int textX = mRenderX + maxIconWidth + 10 + (mMaterial ? scale_theme_min(40) : 0);
+        const int textWidth = std::max(1, mRenderX + mRenderW - textX -
+                                      (hasScroll ? mFastScrollW : 0) - scale_theme_min(16));
 		int textY = yPos + (iconAndTextH / 2);
 		if (textDesc[0] != '\0')
 			textY -= (icon &&  icon->GetResource()) ? icon->GetHeight() / 4 : 0;
-		gr_textEx_scaleW(textX, textY, text, nFont != NULL ? nFont->GetResource() : mFont->GetResource(), mRenderW, TEXT_ONLY_RIGHT, 0);
+		gr_textEx_scaleW(textX, textY, text, nFont != NULL ? nFont->GetResource() : mFont->GetResource(), textWidth, TEXT_ONLY_RIGHT, 0);
 		//render label text description
 		if (mDescFont && mDescFont->GetResource()) {
 			textY += mDescSpacing;
@@ -371,7 +399,7 @@ void GUIScrollList::RenderStdItem(int yPos, bool selected, ImageResource* icon, 
 				gr_color(mFontHighlightColor.red, mFontHighlightColor.green, mFontHighlightColor.blue, mFontHighlightColor.alpha);
 			else
 				gr_color(mDescFontColor.red, mDescFontColor.green, mDescFontColor.blue, mDescFontColor.alpha);
-			gr_textEx_scaleW(textX, textY, textDesc, mDescFont->GetResource(), mRenderW, TEXT_ONLY_RIGHT, 0);
+			gr_textEx_scaleW(textX, textY, textDesc, mDescFont->GetResource(), textWidth, TEXT_ONLY_RIGHT, 0);
 		}
 	}
 }

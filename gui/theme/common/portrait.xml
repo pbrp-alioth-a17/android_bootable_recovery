@@ -2,13 +2,6 @@
 <?xml version="1.0"?>
 <recovery>
 	<styles>
-<style name="settings_preferences">
-<background color="#00000000"/>
-<font resource="settings_title" spacing="52" color="%text_color%"/>
-<highlight color="%fileselector_highlight_color%"/>
-<separator color="%background_color%" height="4"/>
-<fastscroll linecolor="%fileselector_linecolor2%" rectcolor="%accent_color2%" w="12" linew="2" rectw="8" recth="80"/>
-</style>
 		<style name="text_exl">
 			<font resource="font_exl" color="%text_color%"/>
 		</style>
@@ -352,7 +345,7 @@
 		<style name="slider">
 			<placement x="%center_x%" y="%row22_y%"/>
 			<font resource="font_roboto" color="#353434"/>
-			<resource base="slider_used" used="slider_used" touch="slider_touch"/>
+			<resource base="slider_used" materialbase="slider_base" used="slider_used" touch="slider_touch"/>
 		</style>
 
 		<style name="slidervalue">
@@ -629,7 +622,7 @@
 			</text>
 
 			<partitionlist style="storage_list">
-				<placement x="%s_list_x%" y="%row12_y%" w="content_overlay_width" h="%partitionlist_storage_height%"/>
+				<placement x="%s_list_x%" y="%row12_y%" w="content_overlay_width" h="%partitionlist_storage_height%" materialx="150" materialy="980" materialw="780" materialh="260"/>
 				<data name="tw_storage_path"/>
 				<listtype name="storage"/>
 			</partitionlist>
@@ -639,7 +632,7 @@
 			<template name="sort_options_new"/>
 
 			<partitionlist style="storage_list">
-				<placement x="%s_list_x%" y="%filter_new_s_list_y%" w="content_overlay_width" h="%partitionlist_storage_height%"/>
+				<placement x="%s_list_x%" y="%filter_new_s_list_y%" w="content_overlay_width" h="%partitionlist_storage_height%" materialx="150" materialy="820" materialw="780" materialh="260"/>
 				<data name="tw_storage_path"/>
 				<listtype name="storage"/>
 			</partitionlist>
@@ -658,12 +651,13 @@
 			<template name="page_without_logo"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
-				<image resource="flash"/>
+				<condition var1="pb_material_resources" var2="0"/><image resource="flash"/>
 				<placement x="%flash_x%" y="%flash_y%"/>
 			</image>
 
@@ -759,12 +753,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
-				<image resource="flash"/>
+				<condition var1="pb_material_resources" var2="0"/><image resource="flash"/>
 				<placement x="%flash_x%" y="%flash_y%"/>
 			</image>
 
@@ -895,12 +890,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
-				<image resource="flash"/>
+				<condition var1="pb_material_resources" var2="0"/><image resource="flash"/>
 				<placement x="%flash_x%" y="%flash_y%"/>
 			</image>
 
@@ -1084,6 +1080,7 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
@@ -1253,6 +1250,7 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
@@ -1413,6 +1411,7 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
@@ -1553,11 +1552,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_wipe"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -1579,26 +1580,27 @@
 				<placement x="%wipe_selected_tab_x%" y="%row3_input_y%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="1"/><image resource="settings_notice"/><placement x="48" y="540"/></image>
+<image>
 				<image resource="alert-circle"/>
-				<placement x="%alert_circle_x%" y="%row6_y%"/>
+				<placement x="%alert_circle_x%" y="%row6_y%" materialx="328" materialy="420"/>
 			</image>
 
 			<text>
 				<font resource="font_pb_tools" color="%text_main_button_color%"/>
-				<placement x="%center_x%" y="%row13a_y%" placement="5"/>
+				<placement x="%center_x%" y="%row13a_y%" materialy="690" placement="5"/>
 				<text>{@factory_reset1=Wipes Data, Cache, and Dalvik Cache}</text>
 			</text>
 
 			<text>
 				<font resource="font_pb_tools" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="%row14a_y%" placement="5"/>
+				<placement x="%center_x%" y="%row14a_y%" materialy="750" placement="5"/>
 				<text>{@factory_reset5=(not including users/lockscreen)}</text>
 			</text>
 
 			<text>
 				<font resource="font_pb_tools" color="%sub_header_color%"/>
-				<placement x="%center_x%" y="%row15a_y%" placement="5"/>
+				<placement x="%center_x%" y="%row15a_y%" materialy="810" placement="5"/>
 				<text>{@factory_reset2=(not including internal storage)}</text>
 			</text>
 
@@ -1665,11 +1667,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_wipe"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -1752,11 +1756,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_wipe"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -1882,11 +1888,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_wipe"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -2248,11 +2256,13 @@
 			</action>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_backup"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -2288,7 +2298,7 @@
 			</button>
 
 			<partitionlist>
-				<placement x="%partitionlist_x%" y="%row5a_y%" w="%content_width%" h="708"/>
+				<placement x="%partitionlist_x%" y="%row5a_y%" w="%content_width%" h="708" materialy="580" materialh="620"/>
 				<data name="tw_backup_list"/>
 				<listtype name="backup"/>
 			</partitionlist>
@@ -2359,39 +2369,40 @@
 				<text>{@storage_hdr=Storage: %tw_storage_display_name% (%tw_storage_free_size% MB)}</text>
 			</text>
 
-			<checkbox>
-				<placement x="%indent%" y="%row3a_y%"/>
+			<image><condition var1="pb_material_resources" var2="1"/><image resource="settings_notice"/><placement x="48" y="420"/></image>
+<checkbox>
+				<placement x="%indent%" y="%row3a_y%" materialx="88" materialy="450"/>
 				<text>{@enable_backup_comp_chk=Enable compression}</text>
 				<data variable="tw_use_compression"/>
 			</checkbox>
 
 			<checkbox>
-				<placement x="%indent%" y="%row4a_y%"/>
+				<placement x="%indent%" y="%row4a_y%" materialx="88" materialy="525"/>
 				<text>{@skip_digest_backup_chk=Skip Digest generation during backup}</text>
 				<data variable="tw_skip_digest_generate"/>
 			</checkbox>
 
 			<checkbox>
-				<placement x="%indent%" y="%row5a_y%"/>
+				<placement x="%indent%" y="%row5a_y%" materialx="88" materialy="600"/>
 				<text>{@check_digest_after_backup=Check Digest After Backup}</text>
 				<data variable="tw_check_digest_after_backup"/>
 			</checkbox>
 
 			<checkbox>
-				<placement x="%indent%" y="%row6a_y%"/>
+				<placement x="%indent%" y="%row6a_y%" materialx="88" materialy="675"/>
 				<text>{@disable_backup_space_chk=Disable free space check before backup}</text>
 				<data variable="tw_disable_free_space"/>
 			</checkbox>
 
 			<text style="text_m">
 				<condition var1="tw_has_boot_slots" var2="1"/>
-				<placement x="%center_x%" y="%row18_y%" placement="5"/>
+				<placement x="%center_x%" y="%row18_y%" materialy="850" placement="5"/>
 				<text>{@current_boot_slot=Current Slot: %tw_active_slot%}</text>
 			</text>
 
 			<button style="main_button">
 				<condition var1="tw_has_boot_slots" var2="1"/>
-				<placement x="%indent%" y="%row19_y%"/>
+				<placement x="%indent%" y="%row19_y%" materialy="930"/>
 				<text>{@boot_slot_a=Slot A}</text>
 				<actions>
 					<action function="set">tw_back=backup_options</action>
@@ -2407,7 +2418,7 @@
 
 			<button style="main_button">
 				<condition var1="tw_has_boot_slots" var2="1"/>
-				<placement x="%center_x%" y="%row19_y%"/>
+				<placement x="%center_x%" y="%row19_y%" materialy="930"/>
 				<text>{@boot_slot_b=Slot B}</text>
 				<actions>
 					<action function="set">tw_back=backup_options</action>
@@ -2499,11 +2510,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_backup"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -2590,11 +2603,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_backup"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -2833,11 +2848,13 @@
 			</action>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_restore"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -2982,11 +2999,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_restore"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -3116,11 +3135,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_restore"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -3211,11 +3232,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_restore"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -3290,11 +3313,13 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_restore"/>
 				<placement x="%main_button_x%" y="%main_button_y%"/>
 			</image>
@@ -3342,11 +3367,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_mount"/>
 				<placement x="%main_button_mount_x%" y="%main_button_y%"/>
 			</image>
@@ -3455,11 +3481,12 @@
 			<template name="page_without_console_navbar"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_mount"/>
 				<placement x="%main_button_mount_x%" y="%main_button_y%"/>
 			</image>
@@ -3780,7 +3807,7 @@
 			</action>
 		</page>
 
-		<page name="reboot">
+		<page name="reboot"><action><condition var1="pb_material_resources" var2="0"/><action function="page">reboot_original</action></action><action><condition var1="pb_material_resources" var2="1"/><action function="page">reboot_material</action></action></page><page name="reboot_original">
 			<template name="page_without_logo"/>
 
 			<image>
@@ -4024,7 +4051,181 @@
 				<touch key="back"/>
 				<action function="page">%pb_current_page%</action>
 			</action>
-		</page>
+		</page><page name="reboot_material"><template name="page" /><text style="text_l"><placement x="%col1_x_header%" y="%row3_header_y%" /><text>{@reboot_hdr=Reboot}</text></text><listbox style="advanced_listbox"><placement x="48" y="300" w="984" h="780" materialx="48" materialw="984" /><listitem name="{@reboot_system_btn=System}"><condition var1="tw_reboot_system" var2="1" />
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="page">reboot_system_routine</action>
+				</actions>
+			<icon icon="settings_icon_7" /></listitem><listitem name="{@rb_poweroff_btn=Power Off}"><condition var1="tw_reboot_poweroff" var2="1" />
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=poweroff</action>
+					<action function="set">tw_reboot_param=poweroff</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
+					<action function="set">tw_text2={@no_ospo=sure you wish to power off?}</action>
+					<action function="set">tw_action_text1={@turning_off=Turning Off...}</action>
+					<action function="set">tw_complete_text1={@turning_off=Turning Off...}</action>
+					<action function="set">tw_slider_text={@swipe_power_off=Swipe to Power Off}</action>
+					<action function="page">rebootcheck</action>
+				</actions>
+			<icon icon="reboot_system_icon" /></listitem><listitem name="{@rb_recovery_btn1=Recovery}"><condition var1="tw_reboot_recovery" var2="1" />
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=recovery</action>
+					<action function="set">tw_reboot_param=recovery</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
+					<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
+					<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
+					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
+					<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
+					<action function="page">rebootcheck</action>
+				</actions>
+			<icon icon="settings_icon_6" /></listitem><listitem name="{@rb_bootloader_btn1=Bootloader}"><condition var1="tw_reboot_bootloader" var2="1" />
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=bootloader</action>
+					<action function="set">tw_reboot_param=bootloader</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
+					<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
+					<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
+					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
+					<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
+					<action function="page">rebootcheck</action>
+				</actions>
+			<icon icon="settings_icon_9" /></listitem><listitem name="{@rb_download_btn=Download}"><condition var1="tw_download_mode" var2="1" />
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=download</action>
+					<action function="set">tw_reboot_param=download</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
+					<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
+					<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
+					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
+					<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
+					<action function="page">rebootcheck</action>
+				</actions>
+			<icon icon="settings_icon_0" /></listitem><listitem name="{@rb_edl_btn=Edl}"><condition var1="tw_edl_mode" var2="1" />
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=edl</action>
+					<action function="set">tw_reboot_param=edl</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
+					<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
+					<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
+					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
+					<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
+					<action function="page">rebootcheck</action>
+				</actions>
+			<icon icon="settings_icon_6" /></listitem><listitem name="{@fastboot_button=Fastboot}"><condition var1="tw_fastboot_mode" var2="1" />
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=fastboot</action>
+					<action function="set">tw_reboot_param=fastboot</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
+					<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
+					<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
+					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
+					<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
+					<action function="page">rebootcheck</action>
+				</actions>
+			<icon icon="settings_icon_9" /></listitem></listbox><button style="main_button_highlight">
+				<conditions>
+					<condition var1="tw_has_boot_slots" var2="1" />
+					<condition var1="tw_active_slot" var2="A" />
+				</conditions>
+				<placement x="%reboot_main_button_highlight_x_130%" y="%row19_y%" materialy="1130" />
+				<text>{@boot_slot_a=Slot A}</text>
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=setbootslot</action>
+					<action function="set">tw_action_param=A</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_action_text1={@changing_boot_slot=Changing Boot Slot}</action>
+					<action function="set">tw_action_text2=</action>
+					<action function="set">tw_complete_text1={@changing_boot_slot_complete=Change Boot Slot Complete}</action>
+					<action function="page">action_page</action>
+				</actions>
+			</button>
+
+			<button style="main_button_highlight">
+				<conditions>
+					<condition var1="tw_has_boot_slots" var2="1" />
+					<condition var1="tw_active_slot" var2="B" />
+				</conditions>
+				<placement x="%reboot_main_button_highlight_x_680%" y="%row19_y%" materialy="1130" />
+				<text>{@boot_slot_b=Slot B}</text>
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=setbootslot</action>
+					<action function="set">tw_action_param=B</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_action_text1={@changing_boot_slot=Changing Boot Slot}</action>
+					<action function="set">tw_action_text2=</action>
+					<action function="set">tw_complete_text1={@changing_boot_slot_complete=Change Boot Slot Complete}</action>
+					<action function="page">action_page</action>
+				</actions>
+			</button>
+
+			<button style="main_button">
+				<conditions>
+					<condition var1="tw_has_boot_slots" var2="1" />
+					<condition var1="tw_active_slot" op="!=" var2="A" />
+				</conditions>
+				<placement x="%reboot_main_button_highlight_x_130%" y="%row19_y%" materialy="1130" />
+				<text>{@boot_slot_a=Slot A}</text>
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=setbootslot</action>
+					<action function="set">tw_action_param=A</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_action_text1={@changing_boot_slot=Changing Boot Slot}</action>
+					<action function="set">tw_action_text2=</action>
+					<action function="set">tw_complete_text1={@changing_boot_slot_complete=Change Boot Slot Complete}</action>
+					<action function="page">action_page</action>
+				</actions>
+			</button>
+
+			<button style="main_button">
+				<conditions>
+					<condition var1="tw_has_boot_slots" var2="1" />
+					<condition var1="tw_active_slot" op="!=" var2="B" />
+				</conditions>
+				<placement x="%reboot_main_button_highlight_x_680%" y="%row19_y%" materialy="1130" />
+				<text>{@boot_slot_b=Slot B}</text>
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=setbootslot</action>
+					<action function="set">tw_action_param=B</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_action_text1={@changing_boot_slot=Changing Boot Slot}</action>
+					<action function="set">tw_action_text2=</action>
+					<action function="set">tw_complete_text1={@changing_boot_slot_complete=Change Boot Slot Complete}</action>
+					<action function="page">action_page</action>
+				</actions>
+			</button>
+
+			<action>
+				<touch key="home" />
+				<action function="page">main</action>
+			</action>
+
+			<action>
+				<touch key="back" />
+				<action function="page">%pb_current_page%</action>
+			</action>
+		<text style="text_m"><condition var1="tw_has_boot_slots" var2="1" /><placement x="88" y="1050" /><text>{@active_boot_slot=Active boot slot}</text></text></page>
 
 		<page name="rebootapp">
 			<template name="page"/>
@@ -4196,8 +4397,8 @@
 				<placement x="%settings_selected_bar_x%" y="%row3_y%"/>
 			</image>
 
-			<listbox style="scrolllist"><condition var1="pb_material_resources" var2="0"/>
-				<placement x="%settings_scrolllist_x%" y="%row4a_y%" w="%content_width%" h="1140"/>
+			<listbox style="scrolllist">
+				<placement x="%settings_scrolllist_x%" y="%row4a_y%" w="%content_width%" h="1140" materialx="48" materialy="480" materialw="984" materialh="1000"/>
 				<icon selected="checkbox_true" unselected="checkbox_false"/>
 				<listitem name="{@zip_sig_chk=Zip signature verification}">
 					<data variable="tw_signed_zip_verify"/>
@@ -4255,66 +4456,7 @@
 					<data variable="tw_auto_reflashtwrp"/>
 				</listitem>
 			</listbox>
-<image><condition var1="pb_material_resources" var2="1"/><image resource="settings_preferences_card"/><placement x="48" y="480"/></image>
-<listbox style="settings_preferences"><condition var1="pb_material_resources" var2="1"/>
-				<placement x="88" y="500" w="904" h="960"/>
-				<icon selected="checkbox_true" unselected="checkbox_false"/>
-				<listitem name="{@zip_sig_chk=Zip signature verification}">
-					<data variable="tw_signed_zip_verify"/>
-				</listitem>
-				<listitem name="{@zip_err_compatibility=Bypass Treble Compatibility}">
-					<data variable="pb_error_treble"/>
-				</listitem>
-				<listitem name="{@install_reboot_chk=Reboot after installation is complete}">
-					<data variable="tw_install_reboot"/>
-				</listitem>
-				<listitem name="{@mount_system_as_root=Mount System As Root}">
-					<data variable="pb_mount_system_as_root"/>
-					<action function="change_root"/>
-				</listitem>
-				<listitem name="{@use_rmrf_chk=Use rm -rf instead of formatting}">
-					<data variable="tw_rm_rf"/>
-				</listitem>
-				<listitem name="{@disable_backup_space_chk=Disable free space check before backup}">
-					<data variable="tw_disable_free_space"/>
-				</listitem>
-				<listitem name="{@skip_digest_backup_chk=Skip Digest generation during backup}">
-					<data variable="tw_skip_digest_generate"/>
-				</listitem>
-				<listitem name="{@restore_enable_digest_chk=Enable Digest verification of backup files}">
-					<data variable="tw_skip_digest_check"/>
-				</listitem>
-				<listitem name="{@use24clock_chk=Use 24-hour clock}">
-					<data variable="tw_military_time"/>
-				</listitem>
-				<listitem name="{@rev_navbar_chk=Reversed navbar layout}">
-					<data variable="tw_samsung_navbar"/>
-				</listitem>
-				<listitem name="{@simact_chk=Simulate actions for theme testing}">
-					<data variable="tw_simulate_actions"/>
-				</listitem>
-				<listitem name="{@simfail_chk=Simulate failure for actions}">
-					<condition var1="tw_simulate_actions" var2="1"/>
-					<data variable="tw_simulate_fail"/>
-				</listitem>
-				<listitem name="{@sha2_chk=Use SHA2 for hashing}">
-					<condition var1="tw_no_sha2" var2="0"/>
-					<data variable="tw_use_sha2"/>
-				</listitem>
-				<listitem name="{@show_free_sdmb=Show Free SD Mb}">
-					<data variable="tw_sd_free"/>
-				</listitem>
-				<listitem name="{@use_aromafm=Use Aroma File Manager}">
-					<data variable="aromafm"/>
-				</listitem>
-				<listitem name="{@auto_reflashtwrp_chk=Automatically Reflash TWRP after flashing a ROM}">
-					<conditions>
-						<condition var1="tw_has_boot_slots" var2="1"/>
-						<condition var1="tw_is_vendor_boot_header_v3" var2="0"/>
-					</conditions>
-					<data variable="tw_auto_reflashtwrp"/>
-				</listitem>
-			</listbox>
+
 
 			<button style="main_button_half_height_new">
 				<placement x="%center_x%" y="%row20a_y%"/>
@@ -4506,7 +4648,7 @@
 				<condition var1="tw_has_brightnesss_file" var2="1"/>
 				<placement x="%slidervalue_x%" y="%row11_y%" w="900"/>
 				<text>{@screen_bright_slider=Brightness: %tw_brightness_pct%%}</text>
-				<data variable="tw_brightness_pct" min="1" max="100"/>
+				<data variable="tw_brightness_pct" min="1" max="100" showcurr="0"/>
 				<actions>
 					<action function="set">tw_brightness=%tw_brightness_max%</action>
 					<action function="compute">tw_brightness*%tw_brightness_pct%</action>
@@ -4518,7 +4660,7 @@
 			<slidervalue>
 				<condition var1="pb_torch_brightness_slider" op="!=" var2="0"/>
 				<placement x="%slidervalue_x%" y="%row16_y%" w="900"/>
-				<text>{@sel_br_val=Flashlight Brightness Value: %pb_bright_value%%}</text>
+				<text>{@recovery_flashlight_intensity=Flashlight intensity}</text>
 				<data variable="pb_bright_value" min="1" max="255"/>
 			</slidervalue>
 
@@ -4617,13 +4759,13 @@
 			</text>
 
 			<listbox>
-				<placement x="%text_pb_x%" y="%row5_y%" w="%content_width%" h="1040"/>
+				<placement x="%text_pb_x%" y="%row5_y%" w="%content_width%" h="1040" materialy="500" materialh="990"/>
 				<icon selected="radio_true" unselected="radio_false" />
 				<data name="tw_language" />
 			</listbox>
 
 			<button style="main_button_half_height_new">
-				<placement x="%center_x%" y="%row20a_y%"/>
+				<placement x="%center_x%" y="%row20a_y%" materialy="1580"/>
 				<text>{@set_language_btn=Set Language}</text>
 				<action function="setlanguage"></action>
 			</button>
@@ -4643,11 +4785,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_log"/>
 				<placement x="%copylog_main_button_log_x%" y="%row3_header_y%"/>
 			</image>
@@ -4697,11 +4840,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_advanced"/>
 				<placement x="%upper_header%" y="135"/>
 			</image>
@@ -4882,11 +5026,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_partitionsd"/>
 				<placement x="%partsdcardsel_main_button_partitionsd_x%" y="%row3_header_y%"/>
 			</image>
@@ -5139,6 +5284,7 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
@@ -5309,11 +5455,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_explorer"/>
 				<placement x="%main_button_explorer_x%" y="%row3_header_y%"/>
 			</image>
@@ -5384,11 +5531,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_explorer"/>
 				<placement x="%main_button_explorer_x%" y="%row3_header_y%"/>
 			</image>
@@ -5600,11 +5748,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_explorer"/>
 				<placement x="%main_button_explorer_x%" y="%row3_header_y%"/>
 			</image>
@@ -5659,11 +5808,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_explorer"/>
 				<placement x="%main_button_explorer_x%" y="%row3_header_y%"/>
 			</image>
@@ -5734,11 +5884,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_explorer"/>
 				<placement x="%main_button_explorer_x%" y="%row3_header_y%"/>
 			</image>
@@ -5813,11 +5964,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_explorer"/>
 				<placement x="%main_button_explorer_x%" y="%row3_header_y%"/>
 			</image>
@@ -5878,11 +6030,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_explorer"/>
 				<placement x="%main_button_explorer_x%" y="%row3_header_y%"/>
 			</image>
@@ -5943,11 +6096,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_explorer"/>
 				<placement x="%main_button_explorer_x%" y="%row3_header_y%"/>
 			</image>
@@ -6007,11 +6161,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_explorer"/>
 				<placement x="%main_button_explorer_x%" y="%row3_header_y%"/>
 			</image>
@@ -6152,11 +6307,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_explorer"/>
 				<placement x="%main_button_explorer_x%" y="%row3_header_y%"/>
 			</image>
@@ -6217,11 +6373,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_explorer"/>
 				<placement x="%main_button_explorer_x%" y="%row3_header_y%"/>
 			</image>
@@ -6754,11 +6911,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_adb"/>
 				<placement x="%indent%" y="%row3_header_y%"/>
 			</image>
@@ -6815,11 +6973,12 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>
 
-			<image>
+			<image><condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_fixcontexts"/>
 				<placement x="%indent%" y="%row3_header_y%"/>
 			</image>
@@ -7006,6 +7165,7 @@
 			<template name="page"/>
 
 			<image>
+<condition var1="pb_material_resources" var2="0"/>
 				<image resource="main_button_black3"/>
 				<placement x="%indent%" y="%upper_header%"/>
 			</image>

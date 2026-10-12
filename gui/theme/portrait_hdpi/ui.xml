@@ -3,7 +3,7 @@
 <recovery>
 	<details>
 		<resolution width="1080" height="1920"/>
-		<author>TeamWin & PBRP</author>
+		<author>TeamWin &amp; PBRP</author>
 		<title>PitchBlack Recovery Profeject</title>
 		<description>Copyright 2018-2020 PitchBlackRecoveryProject</description>
 		<preview>preview.png</preview>
@@ -14,7 +14,9 @@
 		<xmlfile name="extras.xml"/>
 	</include>
 	<resources>
-<image name="settings_preferences_card" filename="material_settings_preferences_card"/>
+<image name="settings_notice" filename="material_settings_notice"/>
+<image name="about_pbrp_logo" filename="logo" retainaspect="1"/>
+<image name="slider_base" filename="slider_used" materialfilename="material_slider_base"/>
 <image name="settings_footer" filename="material_settings_footer"/>
 <font name="settings_title" filename="Roboto_Regular.ttf" size="40"/>
 <font name="settings_headline" filename="Roboto_Regular.ttf" size="58"/>
@@ -32,18 +34,18 @@
 <image name="settings_icon_8" filename="material_settings_icon_8"/>
 <image name="settings_icon_9" filename="material_settings_icon_9"/>
 <image name="settings_icon_10" filename="material_settings_icon_10"/>
-	    <font name="font_exl" filename="pb.ttf" size="59" materialfilename="Roboto_Medium.ttf" materialsize="44"/>
-		<font name="font_l" filename="pb.ttf" size="45" materialfilename="Roboto_Medium.ttf" materialsize="44"/>
+	    <font name="font_exl" filename="pb.ttf" size="59" materialfilename="Roboto_Regular.ttf" materialsize="52"/>
+		<font name="font_l" filename="pb.ttf" size="45" materialfilename="Roboto_Regular.ttf" materialsize="48"/>
 		<font name="cons" filename="DroidSansMono.ttf" size="30"/>
-		<font name="font_about" filename="pb.ttf" size="37" materialfilename="Roboto_Medium.ttf" materialsize="37"/>
-		<font name="font_install_subheader" filename="pb.ttf" size="36" materialfilename="Roboto_Medium.ttf" materialsize="36"/>
-		<font name="font_install_option" filename="pb.ttf" size="40" materialfilename="Roboto_Medium.ttf" materialsize="40"/>
-		<font name="font_m" filename="Roboto_Medium.ttf" size="34"/>
-		<font name="font_card" filename="Roboto_Regular.ttf" size="38"/>
-		<font name="font_sub_header" filename="Roboto_Regular.ttf" size="35"/>
-		<font name="font_slider" filename="pb.ttf" size="40" materialfilename="Roboto_Medium.ttf" materialsize="40"/>
-		<font name="font_roboto_m" filename="Roboto_Medium.ttf" size="39"/>
-		<font name="font_roboto" filename="Roboto_Medium.ttf" size="45"/>
+		<font name="font_about" filename="pb.ttf" size="37" materialfilename="Roboto_Regular.ttf" materialsize="36"/>
+		<font name="font_install_subheader" filename="pb.ttf" size="36" materialfilename="Roboto_Regular.ttf" materialsize="35"/>
+		<font name="font_install_option" filename="pb.ttf" size="40" materialfilename="Roboto_Regular.ttf" materialsize="36"/>
+		<font name="font_m" filename="Roboto_Medium.ttf" size="34" materialfilename="Roboto_Regular.ttf" materialsize="36"/>
+		<font name="font_card" filename="Roboto_Regular.ttf" size="38" materialfilename="Roboto_Regular.ttf" materialsize="40"/>
+		<font name="font_sub_header" filename="Roboto_Regular.ttf" size="35" materialfilename="Roboto_Regular.ttf" materialsize="35"/>
+		<font name="font_slider" filename="pb.ttf" size="40" materialfilename="Roboto_Regular.ttf" materialsize="40"/>
+		<font name="font_roboto_m" filename="Roboto_Medium.ttf" size="39" materialfilename="Roboto_Regular.ttf" materialsize="36"/>
+		<font name="font_roboto" filename="Roboto_Medium.ttf" size="45" materialfilename="Roboto_Regular.ttf" materialsize="40"/>
 		<font name="font_n" filename="pb.ttf" size="20" materialfilename="Roboto_Regular.ttf" materialsize="20"/>
 		<font name="font_o" filename="pb.ttf" size="30" materialfilename="Roboto_Regular.ttf" materialsize="30"/>
 		<font name="chin" filename="DroidSansFallback.ttf" size="30"/>
@@ -51,16 +53,16 @@
 		<font name="ko" filename="RoboNoto-Medium.ttf" size="30"/>
 		<font name="eng" filename="pb.ttf" size="30" materialfilename="Roboto_Regular.ttf" materialsize="30"/>
 		<font name="font_s" filename="pb.ttf" size="32" materialfilename="Roboto_Regular.ttf" materialsize="32"/>
-		<font name="font_xl" filename="pb.ttf" size="75" materialfilename="Roboto_Medium.ttf" materialsize="75"/>
-		<font name="font_xxl" filename="pb.ttf" size="100" materialfilename="Roboto_Medium.ttf" materialsize="100"/>
+		<font name="font_xl" filename="pb.ttf" size="75" materialfilename="Roboto_Regular.ttf" materialsize="64"/>
+		<font name="font_xxl" filename="pb.ttf" size="100" materialfilename="Roboto_Regular.ttf" materialsize="72"/>
 		<font name="fixed" filename="pb.ttf" size="35" materialfilename="DroidSansMono.ttf" materialsize="35"/>
-		<font name="font_pb" filename="pb.ttf" size="48" materialfilename="Roboto_Medium.ttf" materialsize="40"/>
-		<font name="font_pb_small" filename="pb.ttf" size="50" materialfilename="Roboto_Medium.ttf" materialsize="40"/>
-		<font name="font_pb_tools" filename="pb.ttf" size="45" materialfilename="Roboto_Medium.ttf" materialsize="40"/>
-		<font name="keylabel" filename="pb.ttf" size="60" materialfilename="Roboto_Medium.ttf" materialsize="60"/>
-		<font name="keylabel-small" filename="pb.ttf" size="42" materialfilename="Roboto_Medium.ttf" materialsize="42"/>
-		<font name="keylabel-longpress" filename="pb.ttf" size="28" materialfilename="Roboto_Medium.ttf" materialsize="28"/>
-		<image name="logo" filename="logo" retainaspect="1"/>
+		<font name="font_pb" filename="pb.ttf" size="48" materialfilename="Roboto_Regular.ttf" materialsize="40"/>
+		<font name="font_pb_small" filename="pb.ttf" size="50" materialfilename="Roboto_Regular.ttf" materialsize="40"/>
+		<font name="font_pb_tools" filename="pb.ttf" size="45" materialfilename="Roboto_Regular.ttf" materialsize="40"/>
+		<font name="keylabel" filename="pb.ttf" size="60" materialfilename="Roboto_Regular.ttf" materialsize="60"/>
+		<font name="keylabel-small" filename="pb.ttf" size="42" materialfilename="Roboto_Regular.ttf" materialsize="42"/>
+		<font name="keylabel-longpress" filename="pb.ttf" size="28" materialfilename="Roboto_Regular.ttf" materialsize="28"/>
+		<image name="logo" filename="logo" materialfilename="material_header_back" retainaspect="1"/>
 		<image name="splashlogo" filename="splashlogo" retainaspect="1"/>
 		<image name="splashteamwin" filename="splashteamwin" retainaspect="1"/>
 		<image name="main_button" filename="main_button" materialfilename="material_main_button" retainaspect="1"/>
@@ -69,7 +71,7 @@
 		<image name="main_button_half_height_new" filename="main_button_half_height_new" materialfilename="material_main_button_half_height_new" retainaspect="1"/>
 		<image name="main_button_half_height_full" filename="main_button_half_height_full" materialfilename="material_main_button_half_height_full" retainaspect="1"/>
 		<image name="main_button_half_height_full_width_pb" filename="main_button_half_height_full_width_pb" materialfilename="material_main_button_half_height_full_width_pb" retainaspect="1"/>
-		<image name="fab_selectfolder" filename="fab_selectfolder" retainaspect="1"/>
+		<image name="fab_selectfolder" filename="fab_selectfolder" retainaspect="1" materialfilename="material_fab_selectfolder"/>
 		<image name="sort_card" filename="sort_card" materialfilename="material_sort_card" retainaspect="1"/>
 		<image name="pattern_button_card" filename="pattern_button_card" materialfilename="material_pattern_button_card" retainaspect="1"/>
 		<image name="settings_card" filename="settings_card" materialfilename="material_settings_card" retainaspect="1"/>
@@ -82,18 +84,18 @@
 		<image name="back" filename="back" materialfilename="material_back"/>
 		<image name="console" filename="console" retainaspect="1"/>
 		<image name="console_button" filename="console_button" materialfilename="material_console_button"/>
-		<image name="kb_hide" filename="kb_hide" retainaspect="1"/>
-		<image name="kb_show" filename="kb_show" retainaspect="1"/>
+		<image name="kb_hide" filename="kb_hide" retainaspect="1" materialfilename="material_kb_hide"/>
+		<image name="kb_show" filename="kb_show" retainaspect="1" materialfilename="material_kb_show"/>
 		<image name="checkbox_false" filename="checkbox_false" materialfilename="material_checkbox_false" retainaspect="1"/>
 		<image name="checkbox_true" filename="checkbox_true" materialfilename="material_checkbox_true" retainaspect="1"/>
 		<image name="radio_false" filename="radio_false" materialfilename="material_radio_false" retainaspect="1"/>
 		<image name="radio_true" filename="radio_true" materialfilename="material_radio_true" retainaspect="1"/>
-		<image name="sort_asc" filename="sort_asc" retainaspect="1"/>
-		<image name="sort_desc" filename="sort_desc" retainaspect="1"/>
+		<image name="sort_asc" filename="sort_asc" retainaspect="1" materialfilename="material_sort_asc"/>
+		<image name="sort_desc" filename="sort_desc" retainaspect="1" materialfilename="material_sort_desc"/>
 		<image name="sort_empty" filename="sort_empty" retainaspect="1"/>
 		<animation name="progress" filename="indeterminate" retainaspect="1"/>
 		<image name="progress_empty" filename="progress_empty" materialfilename="material_progress_empty" retainaspect="1"/>
-		<image name="lock_screen_gfx" filename="lock_screen_gfx"/>
+		<image name="lock_screen_gfx" filename="lock_screen_gfx" materialfilename="material_lock_screen_gfx"/>
 		<image name="progress_full" filename="progress_fill" materialfilename="material_progress_fill" retainaspect="1"/>
 		<image name="slider_used" filename="slider_used" materialfilename="material_slider_used" retainaspect="1"/>
 		<image name="slider_touch" filename="slider_touch" materialfilename="material_slider_touch" retainaspect="1"/>
@@ -103,27 +105,27 @@
 		<image name="tab_timezone" filename="tab_timezone" materialfilename="material_tab_timezone" retainaspect="1"/>
 		<image name="tab_display" filename="tab_display" materialfilename="material_tab_display" retainaspect="1"/>
 		<image name="tab_vibration" filename="tab_vibration" materialfilename="material_tab_vibration" retainaspect="1"/>
-		<image name="filter_dialog" filename="filter_dialog" retainaspect="1"/>
+		<image name="filter_dialog" filename="filter_dialog" retainaspect="1" materialfilename="material_filter_dialog"/>
 		<image name="tab_language" filename="tab_language" materialfilename="material_tab_language" retainaspect="1"/>
-		<image name="backspace" filename="backspace" retainaspect="1"/>
-		<image name="enter" filename="enter" retainaspect="1"/>
-		<image name="shift" filename="shift" retainaspect="1"/>
-		<image name="shift_fill" filename="shift_fill" retainaspect="1"/>
-		<image name="space" filename="space" retainaspect="1"/>
-		<image name="kb_arrow_left" filename="kb_arrow_left" retainaspect="1"/>
-		<image name="kb_arrow_right" filename="kb_arrow_right" retainaspect="1"/>
+		<image name="backspace" filename="backspace" retainaspect="1" materialfilename="material_backspace"/>
+		<image name="enter" filename="enter" retainaspect="1" materialfilename="material_enter"/>
+		<image name="shift" filename="shift" retainaspect="1" materialfilename="material_shift"/>
+		<image name="shift_fill" filename="shift_fill" retainaspect="1" materialfilename="material_shift_fill"/>
+		<image name="space" filename="space" retainaspect="1" materialfilename="material_space"/>
+		<image name="kb_arrow_left" filename="kb_arrow_left" retainaspect="1" materialfilename="material_kb_arrow_left"/>
+		<image name="kb_arrow_right" filename="kb_arrow_right" retainaspect="1" materialfilename="material_kb_arrow_right"/>
 		<image name="filter" filename="install_filter_FAB" materialfilename="material_install_filter_FAB" retainaspect="1"/>
-		<image name="kb_arrow_up" filename="kb_arrow_up" retainaspect="1"/>
-		<image name="kb_arrow_down" filename="kb_arrow_down" retainaspect="1"/>
+		<image name="kb_arrow_up" filename="kb_arrow_up" retainaspect="1" materialfilename="material_kb_arrow_up"/>
+		<image name="kb_arrow_down" filename="kb_arrow_down" retainaspect="1" materialfilename="material_kb_arrow_down"/>
 		<image name="main_button_black" filename="main_button_black" materialfilename="material_main_button_black"/>
 		<image name="main_button_black2" filename="main_button_black2" materialfilename="material_main_button_black2"/>
 		<image name="main_button_black3" filename="main_button_black3" materialfilename="material_main_button_black3"/>
 		<image name="main_button_black3_new" filename="main_button_black3_new" materialfilename="material_main_button_black3_new" retainaspect="1"/>
-		<image name="main_button_themes_features" filename="main_button_themes_features" retainaspect="1"/>
+		<image name="main_button_themes_features" filename="main_button_themes_features" retainaspect="1" materialfilename="material_main_button_themes_features"/>
 		<image name="main_button_specials_info" filename="main_button_specials_info" materialfilename="material_main_button_specials_info" retainaspect="1"/>
 		<image name="scrolling_notice" filename="scrolling_notice" retainaspect="1"/>
 		<image name="main_button_specials_icon" filename="main_button_specials_icon" materialfilename="material_main_button_specials_icon" retainaspect="1"/>
-		<image name="main_button_specials_icon_clear" filename="main_button_specials_icon_clear" retainaspect="1"/>
+		<image name="main_button_specials_icon_clear" filename="main_button_specials_icon_clear" retainaspect="1" materialfilename="material_main_button_specials_icon_clear"/>
 		<image name="main_button_install" filename="main_button_install" materialfilename="material_main_button_install" retainaspect="1"/>
 		<image name="main_button_install_alt" filename="main_button_install_alt" materialfilename="material_main_button_install_alt" retainaspect="1"/>
 		<image name="main_button_install_page" filename="main_button_install_page" materialfilename="material_main_button_install_page" retainaspect="1"/>
@@ -134,11 +136,11 @@
 		<image name="main_button_mount" filename="main_button_mount" materialfilename="material_main_button_mount" retainaspect="1"/>
 		<image name="main_button_settings" filename="main_button_settings" materialfilename="material_main_button_settings" retainaspect="1"/>
 		<image name="main_button_advanced" filename="main_button_advanced" materialfilename="material_main_button_advanced" retainaspect="1"/>
-		<image name="main_button_additional" filename="main_button_additional" retainaspect="1"/>
+		<image name="main_button_additional" filename="main_button_additional" retainaspect="1" materialfilename="material_main_button_additional"/>
 		<image name="main_button_reboot" filename="main_button_reboot" materialfilename="material_main_button_reboot" retainaspect="1"/>
 		<image name="main_button_log" filename="main_button_log" materialfilename="material_main_button_log" retainaspect="1"/>
 		<image name="main_button_fixcontexts" filename="main_button_fixcontexts" materialfilename="material_main_button_fixcontexts" retainaspect="1"/>
-		<image name="main_button_partitionsd" filename="main_button_partitionsd" retainaspect="1"/>
+		<image name="main_button_partitionsd" filename="main_button_partitionsd" retainaspect="1" materialfilename="material_main_button_partitionsd"/>
 		<image name="main_button_adb" filename="main_button_adb" materialfilename="material_main_button_adb" retainaspect="1"/>
 		<image name="main_button_unmap" filename="main_button_unmap" materialfilename="material_main_button_unmap" retainaspect="1"/>
 		<image name="main_button_snapshot" filename="main_button_snapshot" materialfilename="material_main_button_snapshot" retainaspect="1"/>
@@ -147,8 +149,8 @@
 		<image name="main_button_back" filename="main_button_back" materialfilename="material_main_button_back" retainaspect="1"/>
 		<image name="main_button_back2" filename="main_button_back2" materialfilename="material_main_button_back2" retainaspect="1"/>
 		<image name="main_button_themes" filename="main_button_themes" materialfilename="material_main_button_themes" retainaspect="1"/>
-		<image name="button_torch_on" filename="button_torch_on" retainaspect="1"/>
-		<image name="button_torch_off" filename="button_torch_off" retainaspect="1"/>
+		<image name="button_torch_on" filename="button_torch_on" retainaspect="1" materialfilename="material_button_torch_on"/>
+		<image name="button_torch_off" filename="button_torch_off" retainaspect="1" materialfilename="material_button_torch_off"/>
 		<image name="main_button_pbrp_about" filename="main_button_pbrp_about" materialfilename="material_main_button_pbrp_about" retainaspect="1"/>
 		<image name="main_button_pbrp_custom" filename="main_button_pbrp_custom" materialfilename="material_main_button_pbrp_custom" retainaspect="1"/>
 		<image name="main_button_pbrp_tools" filename="main_button_pbrp_tools" materialfilename="material_main_button_pbrp_tools" retainaspect="1"/>
@@ -158,29 +160,29 @@
 		<image name="flash" filename="flash" materialfilename="material_flash" retainaspect="1" />
 		<image name="brush" filename="brush" materialfilename="material_brush" retainaspect="1" />
 		<image name="reboot_icon" filename="reboot_icon" materialfilename="material_reboot_icon" retainaspect="1" />
-		<image name="screenshot_icon" filename="screenshot_icon" retainaspect="1" />
+		<image name="screenshot_icon" filename="screenshot_icon" retainaspect="1"  materialfilename="material_screenshot_icon"/>
 		<image name="selected_tab" filename="selected_tab" materialfilename="material_selected_tab" retainaspect="1" />
 		<image name="alert-circle" filename="alert-circle" materialfilename="material_alert-circle" retainaspect="1"/>
-		<image name="backup_options" filename="backup_options"/>
-		<image name="selected_bar" filename="selection_bar" retainaspect="1" />
+		<image name="backup_options" filename="backup_options" materialfilename="material_backup_options"/>
+		<image name="selected_bar" filename="selection_bar" materialfilename="material_selection_bar" retainaspect="1" />
 		<image name="usb_mounted" filename="usb_mounted" materialfilename="material_usb_mounted" retainaspect="1" />
 		<image name="ellipse" filename="ellipse" retainaspect="1" />
 		<image name="i_icon" filename="i_icon" materialfilename="material_i_icon" retainaspect="1" />
-		<image name="power_logo" filename="power_logo" materialfilename="material_power_logo" retainaspect="1" />
+		<image name="power_logo" filename="power_logo" retainaspect="1" />
 		<image name="customizations_icon" filename="customizations_icon" materialfilename="material_customizations_icon" retainaspect="1" />
 		<image name="reboot_system_icon" filename="reboot_system_icon" materialfilename="material_reboot_system_icon" retainaspect="1" />
 		<image name="more_icon" filename="more_icon" materialfilename="material_more_icon" retainaspect="1" />
 		<image name="main_button_tools" filename="main_button_tools" materialfilename="material_main_button_tools" retainaspect="1" />
 		<image name="trash" filename="trash" materialfilename="material_trash" retainaspect="1" />
-		<image name="camera2" filename="camera2" retainaspect="1" />
-		<image name="codename_changer" filename="codename_changer" retainaspect="1" />
-		<image name="dm_verity" filename="dm_verity" retainaspect="1" />
-		<image name="fingerprint" filename="fingerprint" retainaspect="1" />
+		<image name="camera2" filename="camera2" retainaspect="1"  materialfilename="material_camera2"/>
+		<image name="codename_changer" filename="codename_changer" retainaspect="1"  materialfilename="material_codename_changer"/>
+		<image name="dm_verity" filename="dm_verity" retainaspect="1"  materialfilename="material_dm_verity"/>
+		<image name="fingerprint" filename="fingerprint" retainaspect="1"  materialfilename="material_fingerprint"/>
 		<image name="magisk" filename="magisk" retainaspect="1" />
 		<image name="mtp" filename="mtp" materialfilename="material_mtp" retainaspect="1" />
-		<image name="overlays" filename="overlays" retainaspect="1" />
-		<image name="pin_pass_remover" filename="pin_pass_remover" retainaspect="1" />
-		<image name="unroot" filename="unroot" retainaspect="1" />
+		<image name="overlays" filename="overlays" retainaspect="1"  materialfilename="material_overlays"/>
+		<image name="pin_pass_remover" filename="pin_pass_remover" retainaspect="1"  materialfilename="material_pin_pass_remover"/>
+		<image name="unroot" filename="unroot" retainaspect="1"  materialfilename="material_unroot"/>
 		<image name="pb" filename="pb" retainaspect="1" />
 	</resources>
 
@@ -596,10 +598,16 @@
 				<placement x="45" y="%row3_header_y%"/>
 			</image>
 			<button>
-				<condition var1="tw_busy" var2="0"/>
+				<conditions><condition var1="tw_busy" var2="0"/><condition var1="pb_material_resources" var2="0"/></conditions>
 				<placement x="45" y="%row3_header_y%"/>
 				<image resource="logo"/>
 				<action function="key">home</action>
+			</button>
+<button>
+				<conditions><condition var1="tw_busy" var2="0"/><condition var1="pb_material_resources" var2="1"/></conditions>
+				<placement x="45" y="%row3_header_y%"/>
+				<image resource="logo"/>
+				<action function="key">back</action>
 			</button>
 			<fill color="%text_fail_color%">
 				<condition var1="tw_simulate_actions" var2="1"/>
@@ -711,10 +719,16 @@
 				<placement x="45" y="%row3_header_y%"/>
 			</image>
 			<button>
-				<condition var1="tw_busy" var2="0"/>
+				<conditions><condition var1="tw_busy" var2="0"/><condition var1="pb_material_resources" var2="0"/></conditions>
 				<placement x="45" y="%row3_header_y%"/>
 				<image resource="logo"/>
 				<action function="key">home</action>
+			</button>
+<button>
+				<conditions><condition var1="tw_busy" var2="0"/><condition var1="pb_material_resources" var2="1"/></conditions>
+				<placement x="45" y="%row3_header_y%"/>
+				<image resource="logo"/>
+				<action function="key">back</action>
 			</button>
 			<fill color="#00000000">
 				<condition var1="tw_simulate_actions" var2="0"/>
@@ -828,10 +842,16 @@
 				<placement x="45" y="%row3_header_y%"/>
 			</image>
 			<button>
-				<condition var1="tw_busy" var2="0"/>
+				<conditions><condition var1="tw_busy" var2="0"/><condition var1="pb_material_resources" var2="0"/></conditions>
 				<placement x="45" y="%row3_header_y%"/>
 				<image resource="logo"/>
 				<action function="key">home</action>
+			</button>
+<button>
+				<conditions><condition var1="tw_busy" var2="0"/><condition var1="pb_material_resources" var2="1"/></conditions>
+				<placement x="45" y="%row3_header_y%"/>
+				<image resource="logo"/>
+				<action function="key">back</action>
 			</button>
 			<fill color="#00000000">
 				<condition var1="tw_simulate_actions" var2="0"/>
@@ -901,6 +921,8 @@
 		        </action>
 		</template>
 		<template name="page_without_logo">
+<button><conditions><condition var1="pb_material_resources" var2="1"/><condition var1="tw_busy" var2="0"/></conditions><placement x="45" y="%row3_header_y%"/><image resource="logo"/><action function="key">back</action></button>
+
 			<background color="%background_color%"/>
 			<fill color="%text_fail_color%">
 				<condition var1="tw_simulate_actions" var2="1"/>
@@ -1230,7 +1252,7 @@
 			<button>
 				<highlight color="%highlight_color%"/>
 				<condition var1="tw_gui_sort_order" op="=" var2="1"/>
-				<placement x="140" y="%y_sort%"/>
+				<placement x="140" y="%y_sort%" materialy="790"/>
 				<font resource="font_m" color="%text_main_button_color%"/>
 				<text>{@sort_by_name_only=Name}</text>
 				<image resource="sort_asc"/>
@@ -1239,7 +1261,7 @@
 			<button>
 				<highlight color="%highlight_color%"/>
 				<condition var1="tw_gui_sort_order" op="=" var2="-1"/>
-				<placement x="140" y="%y_sort%"/>
+				<placement x="140" y="%y_sort%" materialy="790"/>
 				<font resource="font_m" color="%text_main_button_color%"/>
 				<text>{@sort_by_name_only=Name}</text>
 				<image resource="sort_desc"/>
@@ -1251,7 +1273,7 @@
 					<condition var1="tw_gui_sort_order" op="!=" var2="1"/>
 					<condition var1="tw_gui_sort_order" op="!=" var2="-1"/>
 				</conditions>
-				<placement x="140" y="%y_sort%"/>
+				<placement x="140" y="%y_sort%" materialy="790"/>
 				<font resource="font_m" color="%text_main_button_color%"/>
 				<text>{@sort_by_name_only=Name}</text>
 				<image resource="sort_empty"/>
@@ -1260,7 +1282,7 @@
 			<button>
 				<highlight color="%highlight_color%"/>
 				<condition var1="tw_gui_sort_order" op="=" var2="2"/>
-				<placement x="%btn3_col2_x_te%" y="%y_sort%"/>
+				<placement x="%btn3_col2_x_te%" y="%y_sort%" materialy="790"/>
 				<font resource="font_m" color="%text_main_button_color%"/>
 				<text>{@sort_by_date_only=Date}</text>
 				<image resource="sort_asc"/>
@@ -1269,7 +1291,7 @@
 			<button>
 				<highlight color="%highlight_color%"/>
 				<condition var1="tw_gui_sort_order" op="=" var2="-2"/>
-				<placement x="%btn3_col2_x_te%" y="%y_sort%"/>
+				<placement x="%btn3_col2_x_te%" y="%y_sort%" materialy="790"/>
 				<font resource="font_m" color="%text_main_button_color%"/>
 				<text>{@sort_by_date_only=Date}</text>
 				<image resource="sort_desc"/>
@@ -1281,7 +1303,7 @@
 					<condition var1="tw_gui_sort_order" op="!=" var2="2"/>
 					<condition var1="tw_gui_sort_order" op="!=" var2="-2"/>
 				</conditions>
-				<placement x="%btn3_col2_x_te%" y="%y_sort%"/>
+				<placement x="%btn3_col2_x_te%" y="%y_sort%" materialy="790"/>
 				<font resource="font_m" color="%text_main_button_color%"/>
 				<text>{@sort_by_date_only=Date}</text>
 				<image resource="sort_empty"/>
@@ -1290,7 +1312,7 @@
 			<button>
 				<highlight color="%highlight_color%"/>
 				<condition var1="tw_gui_sort_order" op="=" var2="3"/>
-				<placement x="%btn3_col3_x_te%" y="%y_sort%"/>
+				<placement x="%btn3_col3_x_te%" y="%y_sort%" materialy="790"/>
 				<font resource="font_m" color="%text_main_button_color%"/>
 				<text>{@sort_by_size_only=Size}</text>
 				<image resource="sort_asc"/>
@@ -1299,7 +1321,7 @@
 			<button>
 				<highlight color="%highlight_color%"/>
 				<condition var1="tw_gui_sort_order" op="=" var2="-3"/>
-				<placement x="%btn3_col3_x_te%" y="%y_sort%"/>
+				<placement x="%btn3_col3_x_te%" y="%y_sort%" materialy="790"/>
 				<font resource="font_m" color="%text_main_button_color%"/>
 				<text>{@sort_by_size_only=Size}</text>
 				<image resource="sort_desc"/>
@@ -1311,7 +1333,7 @@
 					<condition var1="tw_gui_sort_order" op="!=" var2="3"/>
 					<condition var1="tw_gui_sort_order" op="!=" var2="-3"/>
 				</conditions>
-				<placement x="%btn3_col3_x_te%" y="%y_sort%"/>
+				<placement x="%btn3_col3_x_te%" y="%y_sort%" materialy="790"/>
 				<font resource="font_m" color="%text_main_button_color%"/>
 				<text>{@sort_by_size_only=Size}</text>
 				<image resource="sort_empty"/>

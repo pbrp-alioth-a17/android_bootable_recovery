@@ -43,6 +43,8 @@ extern "C" {
 
 #include "rapidxml.hpp"
 #include "objects.hpp"
+#include "../data.hpp"
+#include "rounded.hpp"
 
 GUISliderValue::GUISliderValue(xml_node<>* node) : GUIObject(node)
 {
@@ -68,6 +70,7 @@ GUISliderValue::GUISliderValue(xml_node<>* node) : GUIObject(node)
 	mHandleImage = NULL;
 	mHandleHoverImage = NULL;
 	mDragging = false;
+	mMaterial = DataManager::GetIntValue("pb_material_resources") == 1;
 
 	mLabel = NULL;
 	ConvertStrToColor("white", &mTextColor);
@@ -173,6 +176,13 @@ GUISliderValue::GUISliderValue(xml_node<>* node) : GUIObject(node)
 		mSliderH = LoadAttrIntScaleY(child, "sliderh", mSliderH);
 	}
 
+	if (mMaterial) {
+        mLineH = scale_theme_min(40);
+        mSliderW = scale_theme_min(12);
+        mSliderH = scale_theme_min(88);
+        mLinePadding = std::max(mLinePadding, scale_theme_min(16));
+    }
+
 	if (mFont && mFont->GetResource())
 		mFontHeight = mFont->GetHeight();
 	else
@@ -230,15 +240,19 @@ int GUISliderValue::SetRenderPos(int x, int y, int w, int h)
 	}
 
 	mRenderH = mSliderH;
-	if (mShowCurr)
+	if (mShowCurr && !mMaterial)
 		mRenderH += mFontHeight;
 
 	if (mLabel)
 	{
 		int lw, lh;
 		mLabel->GetCurrentBounds(lw, lh);
-		int textX = mRenderX + (mRenderW/2 - lw/2);
+		int textX = mMaterial ? mRenderX : mRenderX + (mRenderW/2 - lw/2);
 
+        if (mMaterial) {
+            const int valueWidth = mShowCurr ? std::max(measureText(mMinStr), measureText(mMaxStr)) + scale_theme_min(32) : 0;
+            mLabel->SetMaxWidth(std::max(1, mRenderW - valueWidth));
+        }
 		mLabel->SetRenderPos(textX, mRenderY);
 
 		y += lh;
@@ -288,7 +302,7 @@ int GUISliderValue::Render(void)
 		mLabel->GetCurrentBounds(w, h);
 		if (w != mLabelW) {
 			mLabelW = w;
-			int textX = mRenderX + (mRenderW/2 - mLabelW/2);
+			int textX = mMaterial ? mRenderX : mRenderX + (mRenderW/2 - mLabelW/2);
 			mLabel->SetRenderPos(textX, mRenderY);
 		}
 		int res = mLabel->Render();
@@ -296,6 +310,16 @@ int GUISliderValue::Render(void)
 			return res;
 	}
 
+	if (mMaterial) {
+        const int handleX = mLineX + static_cast<int>(mValuePct * (mLineW - mSliderW) / 100);
+        gr_color(73, 69, 79, 255);
+        gui_fill_rounded(mLineX, mLineY, mLineW, mLineH, mLineH / 2);
+        gr_color(208, 188, 255, 255);
+        const int activeWidth = handleX - mLineX + mSliderW / 2;
+        gui_fill_rounded(mLineX, mLineY, activeWidth, mLineH, mLineH / 2);
+        gui_fill_rounded(handleX, mLineY + (mLineH - mSliderH) / 2,
+                         mSliderW, mSliderH, mSliderW / 2);
+    } else {
 	// line
 	if (mBackgroundImage && mBackgroundImage->GetResource())
 	{
@@ -323,6 +347,8 @@ int GUISliderValue::Render(void)
 		gr_fill(sliderX, mSliderY, mSliderW, mSliderH);
 	}
 
+	}
+
 	void *fontResource = NULL;
 	if (mFont) fontResource = mFont->GetResource();
 	gr_color(mTextColor.red, mTextColor.green, mTextColor.blue, mTextColor.alpha);
@@ -337,7 +363,9 @@ int GUISliderValue::Render(void)
 	{
 		sprintf(mValueStr, "%d", mValue);
 		int textW = measureText(mValueStr);
-		gr_textEx_scaleW(mRenderX + (mRenderW/2 - textW/2), mSliderY+mSliderH, mValueStr, fontResource, mRenderW, TOP_LEFT, 0);
+		        const int valueX = mMaterial ? mRenderX + mRenderW - textW : mRenderX + (mRenderW / 2 - textW / 2);
+        const int valueY = mMaterial ? mRenderY : mSliderY + mSliderH;
+        gr_textEx_scaleW(valueX, valueY, mValueStr, fontResource, mRenderW, TOP_LEFT, 0);
 	}
 
 	mRendered = true;
@@ -364,18 +392,19 @@ int GUISliderValue::valueFromPct(float pct)
 
 float GUISliderValue::pctFromValue(int value)
 {
-	return float((value - mMin) * 100) / abs(mMax - mMin);
+	return mMax == mMin ? 0.0f : float((value - mMin) * 100) / abs(mMax - mMin);
 }
 
 int GUISliderValue::NotifyTouch(TOUCH_STATE state, int x, int y)
 {
-	if (!isConditionTrue())
+	if (!isConditionTrue() || mLineW <= mSliderW || mMax <= mMin)
 		return -1;
 
 	switch (state)
 	{
 	case TOUCH_START:
-		if (x >= mLineX && x <= mLineX + mLineW &&
+		if (mLineW > mSliderW && mMax > mMin &&
+		    x >= mLineX && x <= mLineX + mLineW &&
 			y >= mRenderY && y <= mRenderY + mRenderH)
 		{
 			mDragging = true;
