@@ -45,3 +45,50 @@ The six-resolution theme selection and sanitizer-backed serialized credential
 checks are host validation only. Build and boot each device port, then verify
 its actual credential types, decrypted filenames, file access, MTP, display and
 touch behavior before declaring that port supported.
+
+## Standard A17 build workflow
+
+Use the recovery checkout for source, dependencies and outputs:
+
+```bash
+source build/envsetup.sh
+list_products
+list_releases pb_alioth
+lunch pb_alioth cp2a user
+m -j4 bootimage
+```
+
+Replace the product, release and variant with those declared by the target
+port. A17's full target spelling (`pb_alioth-cp2a-user`) also works. Register
+products in the device's `AndroidProducts.mk`; use its actual release config.
+Do not assume that every device uses Alioth's product, kernel or Boot layout.
+
+The vendor setup loads these additional commands without changing `lunch` or
+`m`, modifying platform source files, selecting another compiler, or accessing
+a phone:
+
+```bash
+breakfast pb_alioth cp2a user       # same lunch selection
+recoverybuild bootimage -j4        # wrapper around m -j4 bootimage
+recoveryout                        # selected product output directory
+```
+
+Choose `bootimage`, `recoveryimage` or `vendorbootimage` according to the device
+port's partition layout. The helper requires an explicit image target and does
+not infer it from a codename. A generated image is not automatically a flashable
+release: run the device's packaging and validation workflow.
+
+For Alioth, the existing metadata-aware packager and installer validator remain
+required. From the checkout root, for example:
+
+```bash
+recoverypackage device/xiaomi/alioth/tools/package-recovery.py \
+  --metadata-boot /path/to/matched-boot.img --security-patch 2026-10
+recoverypackage device/xiaomi/alioth/tools/package-installer.py
+```
+
+Use verified ROM metadata, not the sample patch value, for an actual release.
+Other ports supply their own packaging script and arguments; `recoverypackage`
+accepts an explicit repository-relative Python script and forwards arguments.
+It does not reuse Alioth's validation or partition assumptions for another
+product. None of these helpers uploads, boots or flashes an image.
