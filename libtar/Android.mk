@@ -53,7 +53,6 @@ ifeq ($(TW_INCLUDE_CRYPTO_FBE), true)
         libkeymaster4support \
         libkeymaster4_1support \
         libf2fs_sparseblock \
-        libkeyutils \
         liblog \
         libhwbinder \
         libbootloader_message \
