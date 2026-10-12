@@ -136,13 +136,19 @@ int main(int argc, char **argv) {
 		sprintf(command, "%s %s", command, argv[index]);
 	}
 
-	write_fd = open(ORS_INPUT_FILE, O_WRONLY);
-	if (write_fd < 0) {
-		printf("TWRP does not appear to be running. Waiting for TWRP to start . . .\n");
-		printf("Press CTRL + C to quit.\n");
-		while (write_fd < 0)
-			write_fd = open(ORS_INPUT_FILE, O_WRONLY);
-	}
+    // The GUI recreates its command FIFO after each request. A blocking open
+    // can become stranded on the old inode while the listener opens the new one.
+    write_fd = -1;
+    for (int attempt = 0; attempt < 200; ++attempt) {
+        write_fd = open(ORS_INPUT_FILE, O_WRONLY | O_NONBLOCK);
+        if (write_fd >= 0) break;
+        if (errno != ENOENT && errno != ENXIO && errno != EINTR) break;
+        usleep(50000);
+    }
+    if (write_fd < 0) {
+        fprintf(stderr, "TWRP command listener is unavailable: %s\n", strerror(errno));
+        return 1;
+    }
 	if (write(write_fd, command, sizeof(command)) != sizeof(command)) {
 		printf("Error sending command.\n");
 		close(write_fd);
