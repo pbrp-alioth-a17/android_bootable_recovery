@@ -14,6 +14,7 @@
 		<xmlfile name="extras.xml"/>
 	</include>
 	<resources>
+<image name="language_dialog" filename="language_dialog" materialfilename="material_language_dialog" retainaspect="1"/>
 <image name="settings_name_row" filename="material_settings_name_row"/>
 <image name="settings_notice" filename="material_settings_notice"/>
 <image name="about_pbrp_logo" filename="logo" retainaspect="1"/>

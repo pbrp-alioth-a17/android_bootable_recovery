@@ -4365,7 +4365,7 @@
 			<button style="main_button_half_height_new">
 				<placement x="%center_x%" y="%row18a_y%"/>
 				<text>{@sel_lang_btn=Select Language}</text>
-				<action function="overlay">select_language</action>
+				<actions><action function="set">tw_language_prev=%tw_language%</action><action function="overlay">select_language</action></actions>
 			</button>
 
 			<slider>
@@ -5193,7 +5193,6 @@
 
 			<slider>
 				<text>{@swipe_part_sd=Swipe to Partition}</text>
-				<action function="page">partsdcardaction</action>
 				<actions>
 					<action function="set">tw_back=partsdcard</action>
 					<action function="set">tw_action=partitionsd</action>
@@ -6503,7 +6502,7 @@
 			<button style="main_button_half_height_new">
 				<placement x="%center_x%" y="%row10_y%"/>
 				<text>{@sel_lang_btn=Select Language}</text>
-				<action function="overlay">select_language</action>
+				<actions><action function="set">tw_language_prev=%tw_language%</action><action function="overlay">select_language</action></actions>
 			</button>
 
 			<template name="keyboardtemplate"/>
@@ -6580,7 +6579,7 @@
 				<placement x="%center_x%" y="%row21a_y%"/>
 				<image resource="main_button_tools"/>
 				<text>{@sel_lang_btn=Select Language}</text>
-				<action function="overlay">select_language</action>
+				<actions><action function="set">tw_language_prev=%tw_language%</action><action function="overlay">select_language</action></actions>
 			</button>
 		</page>
 
@@ -6641,7 +6640,7 @@
 			<button style="main_button_half_height">
 				<placement x="%center_x%" y="%row10_y%"/>
 				<text>{@sel_lang_btn=Select Language}</text>
-				<action function="overlay">select_language</action>
+				<actions><action function="set">tw_language_prev=%tw_language%</action><action function="overlay">select_language</action></actions>
 			</button>
 
 			<template name="keyboardnum"/>
@@ -7288,7 +7287,15 @@
 				</actions>
 			</action>
 		</page>
-
+<page name="select_language">
+<background color="%semi_transparent%"/>
+<image><image resource="language_dialog"/><placement x="80" y="360"/></image>
+<text style="text_l"><placement x="150" y="420" w="780"/><text>{@select_language=Select Language:}</text></text>
+<listbox><placement x="150" y="500" w="780" h="720" materialx="150" materialw="780"/><icon selected="radio_true" unselected="radio_false"/><data name="tw_language"/></listbox>
+<button><image resource="settings_footer"/><font resource="font_m" color="%text_color%"/><highlight color="%highlight_color%"/><placement x="150" y="1280"/><text>{@cancel_btn=Cancel}</text><actions><action function="set">tw_language=%tw_language_prev%</action><action function="overlay"/></actions></button>
+<button><image resource="settings_footer"/><font resource="font_m" color="%text_color%"/><highlight color="%highlight_color%"/><placement x="620" y="1280"/><text>{@set_language_btn=Set Language}</text><actions><action function="overlay"/><action function="setlanguage"/></actions></button>
+<action><touch key="back"/><actions><action function="set">tw_language=%tw_language_prev%</action><action function="overlay"/></actions></action>
+</page>
 
 	</pages>
 </recovery>
